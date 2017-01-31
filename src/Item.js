@@ -8,7 +8,7 @@ class Item extends Component {
 
   render(){
     return (
-      <p>{this.props.text}</p>
+      <li>{this.props.text}</li>
     );
   }
 };

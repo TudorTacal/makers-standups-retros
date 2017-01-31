@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import Item from './Item';
 
 class ItemList extends Component {
-
 	render() {
+		let items = this.props.data.map((item, index) => {
+			return (
+				<Item key={index}>
+					{	item.text }
+				</Item>
+			)
+		})
 
 		return (
 			<ul>
-				<li><Item text={this.props.text}/></li>
+				{items}
 			</ul>
 		);
 	}

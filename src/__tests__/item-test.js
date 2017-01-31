@@ -13,6 +13,6 @@ it("renders a paragraph with item text", function(){
   const renderer = ReactTestUtils.createRenderer();
   renderer.render(<Item text="this is our first item"/>);
   const result = renderer.getRenderOutput();
-  expect(result.type).toBe("p");
+  expect(result.type).toBe("li");
   expect(result.props.children).toEqual("this is our first item");
 });
