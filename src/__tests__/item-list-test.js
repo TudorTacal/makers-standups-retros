@@ -11,9 +11,7 @@ it('renders without crashing', () => {
 
 it("renders an unordered list of items", function(){
   const items = [{text: "this is an item"}];
-	// const renderer = ReactTestUtils.createRenderer();
   const testDoc = ReactTestUtils.renderIntoDocument(<ItemList data={items}/>);
-	// renderer.render(<ItemList text="this is an item list item"/>);
 	const result = ReactTestUtils.scryRenderedDOMComponentsWithTag(testDoc, "li");
 	expect(result.length).toBe(1)
   console.log(result);
