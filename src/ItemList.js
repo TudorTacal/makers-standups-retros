@@ -5,7 +5,8 @@ class ItemList extends Component {
 	render() {
 		let items = this.props.data.map((item, index) => {
 			return (
-				<Item key={index}>
+
+				<Item text={item.text} key={index}>
 					{	item.text }
 				</Item>
 			)
