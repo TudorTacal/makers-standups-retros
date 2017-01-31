@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Item from './Item';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <Item text="this is our first item" />,
   document.getElementById('root')
 );
