@@ -10,10 +10,8 @@ it('renders without crashing', () => {
 });
 
 it("renders an unordered list of items", function(){
-  const items = [{text: "this is an item"}];
-  const testDoc = ReactTestUtils.renderIntoDocument(<ItemList data={items}/>);
-	const result = ReactTestUtils.scryRenderedDOMComponentsWithTag(testDoc, "li");
-	expect(result.length).toBe(1)
-  console.log(result);
-  expect()
+  // const items = [{text: "this is an item"}];
+  const testDoc = ReactTestUtils.renderIntoDocument(<ItemList />);
+  const result = ReactTestUtils.scryRenderedDOMComponentsWithTag(testDoc, "li");
+  expect(result.length).toBe(2)
 });

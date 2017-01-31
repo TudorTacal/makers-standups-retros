@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ItemList from './ItemList'
+import Column from './Column'
 import './index.css';
 
-let items = [{text: "I am the first item"}, {text: "I am the second item"}];
-
 ReactDOM.render(
-  <ItemList data={items} />,
+  <Column title="Stuff" />,
   document.getElementById('root')
 );
