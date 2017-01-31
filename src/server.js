@@ -1,17 +1,50 @@
-var express = require('express');
+import path from 'path';
+import {Server} from 'http';
+import Express from 'express'
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import {match, RouterContext} from 'react-router';
+import routes from './routes'
 
-var app = express();
+const app = new Express();
+const server = new Server(app);
 
-app.engine('jsx', require('express-react-views').createEngine());
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+console.log(path)
 
-app.set('views', './views');
-app.set('view engine', 'jsx');
+app.use(Express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req,res) {
-  res.status(200).send('ok')
-  res.render('landingPage', { title: 'Standups and Retros' });
-})
+app.get('*', (req, res) => {
+  match(
+    {routes, location: req.url},
+    (err, redirectLocation, renderProps) => {
 
-var server = app.listen(3001, function () {
+      if (err) {
+        return res.status(500).send(err.message);
+      }
+
+      if(redirectLocation) {
+        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      }
+
+      let markup;
+      if (renderProps) {
+        markup = renderToString(<RouterContext {...renderProps}/>);
+      } else {
+         markup = "Whatever";
+         res.status(404);
+      }
+      return res.render('index', {markup});
+    }
+  );
 });
-module.exports = server;
+
+const port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV || 'production';
+server.listen(port, err => {
+  if (err) {
+    return console.error(err);
+  }
+  console.info(`Server running on http://localhost:${port} [${env}]`);
+})
