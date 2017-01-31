@@ -10,6 +10,12 @@ it('renders without crashing', () => {
 
 it('renders with a title', function() {
   const testDoc = ReactTestUtils.renderIntoDocument(<Column title="I am a column" />);
-  const result = ReactTestUtils.scryRenderedDOMComponentsWithTag(testDoc, "h1");
-  expect(result.children).toEqual("I am a column");
+  const result = ReactTestUtils.findRenderedDOMComponentWithTag(testDoc, "h1");
+  expect(result.innerHTML).toEqual("I am a column");
+});
+
+it('renders with a content div', function() {
+  const testDoc = ReactTestUtils.renderIntoDocument(<Column title="I am a column" />);
+  const result = ReactTestUtils.findRenderedDOMComponentWithClass(testDoc, "column-content")
+  expect(ReactTestUtils.isDOMComponent(result)).toBe(true);
 });
