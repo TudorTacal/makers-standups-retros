@@ -51,6 +51,7 @@ div.whiteBoard div {
 }
 
 div.whiteBoard {
+	margin: auto;
 	text-align: center;
 	display: table;
 }
