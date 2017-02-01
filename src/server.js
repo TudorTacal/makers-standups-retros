@@ -3,7 +3,7 @@ import {Server} from 'http';
 import Express from 'express'
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import Layout from './components/Layout'
+import HomePage from './components/HomePage'
 
 const app = new Express();
 const server = new Server(app);
@@ -15,7 +15,7 @@ console.log(path)
 app.use(Express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  let markup = renderToString(<Layout />)
+  let markup = renderToString(<HomePage />)
   res.render('index', {markup});
 });
 
