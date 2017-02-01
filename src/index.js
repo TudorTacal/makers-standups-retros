@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRoutes from './components/AppRoutes';
+import Layout from './components/Layout'
 
-window.onload = () => {
-  ReactDOM.render(<AppRoutes/>,
-  document.getElementById('root'))
-};
+ReactDOM.render(
+  <Layout />,
+  document.getElementById('root')
+);
