@@ -3,8 +3,7 @@ import {Server} from 'http';
 import Express from 'express'
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import {match, RouterContext} from 'react-router';
-import routes from './routes'
+import Layout from './components/Layout'
 
 const app = new Express();
 const server = new Server(app);
@@ -15,29 +14,9 @@ console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'public')));
 
-app.get('*', (req, res) => {
-  match(
-    {routes, location: req.url},
-    (err, redirectLocation, renderProps) => {
-
-      if (err) {
-        return res.status(500).send(err.message);
-      }
-
-      if(redirectLocation) {
-        return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      }
-
-      let markup;
-      if (renderProps) {
-        markup = renderToString(<RouterContext {...renderProps}/>);
-      } else {
-         markup = "Whatever";
-         res.status(404);
-      }
-      return res.render('index', {markup});
-    }
-  );
+app.get('/', (req, res) => {
+  let markup = renderToString(<Layout />)
+  res.render('index', {markup});
 });
 
 const port = process.env.PORT || 3000;
