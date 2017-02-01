@@ -1,14 +1,12 @@
 import React from 'react';
-import Column from '../Column';
+import InputForm from '../InputForm';
 
 class Layout extends React.Component {
   render() {
     return (
       <div>
         <h1>Standups & Retros</h1>
-        <Column title="Learnt"/>
-        <Column title="Learning"/>
-        <Column title="Blocked"/>
+        <InputForm />
       </div>
 
 
