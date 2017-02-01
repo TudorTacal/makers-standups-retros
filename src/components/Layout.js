@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Layout extends Component {
   render() {
-    return <h1>Standups & Retros</h1>; 
+    return <a href="/"><img className="homePageLogo" src="/images/logo.png" /></a>; 
   }
 }
 
