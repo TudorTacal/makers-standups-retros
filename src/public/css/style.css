@@ -30,6 +30,7 @@ a.homepageButton {
 	width: 130px;
 	height: 40px;
 	text-decoration: none;
+	margin: 10px;
 }
 
 a.homepageButton:hover {
@@ -63,4 +64,10 @@ div.column-content {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+}
+
+/*Retro Page*/
+
+div.retroPageContent {
+	text-align: center;
 }
