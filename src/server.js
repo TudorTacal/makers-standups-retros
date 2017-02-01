@@ -4,7 +4,7 @@ import Express from 'express'
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import HomePage from './components/HomePage'
-import Board from './Board'
+import StandupPage from './components/StandupPage'
 
 const app = new Express();
 const server = new Server(app);
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/standup', (req, res) => {
-  let markup = renderToString(<Board/>)
+  let markup = renderToString(<StandupPage/>)
   res.render('index', {markup})
 })
 

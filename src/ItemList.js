@@ -16,7 +16,7 @@ class ItemList extends Component {
 			)
 		})
 		return (
-			<ul>
+			<ul className="list">
 				{ items }
 			</ul>
 		);

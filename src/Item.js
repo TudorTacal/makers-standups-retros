@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Item extends Component {
   render(){
     return (
-      <li>{this.props.text}</li>
+      <li className="item">{this.props.text}</li>
     );
   }
 };
