@@ -3,9 +3,6 @@ import ItemList from './ItemList';
 
 class Column extends Component {
 
-
-
-
 	render() {
 		return (
 			<div className="column">
@@ -14,7 +11,7 @@ class Column extends Component {
 					<ItemList />
 				</div>
 			</div>
-		)
+		);
 	}
 }
 

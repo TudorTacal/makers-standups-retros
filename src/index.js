@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import InputForm from './InputForm'
+import Layout from './components/Layout'
 
 ReactDOM.render(
-  <InputForm />,
+  <Layout />,
   document.getElementById('root')
 );
