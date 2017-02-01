@@ -15,7 +15,6 @@ class ItemList extends Component {
 				</Item>
 			)
 		})
-
 		return (
 			<ul>
 				{ items }
