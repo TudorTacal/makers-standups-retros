@@ -4,13 +4,16 @@ import Board from '../Board';
 
 class StandupPage extends Component {
   render () {
+
+    let titles = ["I learned", "I want to learn", "I am blocked"]
+
     return (
       <div className="standupPageContent">
         <div className="logo">
           <Layout />
         </div>
         <div className="standupBoard">
-          <Board />
+          <Board titles={ titles } />
         </div>
       </div>
     )

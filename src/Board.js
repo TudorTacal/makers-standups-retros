@@ -3,11 +3,15 @@ import Column from './Column'
 
 class Board extends Component {
   render(){
+    let columns = this.props.titles.map((text, index) => {
+    	return (
+    		<Column title={text} key={index} />
+    	)
+    })
+
     return (
       <div className="whiteBoard">
-				<Column title="I learned" />
-				<Column title="I want to learn"/>
-				<Column title="I am blocked"/>
+      	{ columns }
       </div>
     )
   };
