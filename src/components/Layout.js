@@ -1,15 +1,9 @@
-import React from 'react';
-import Column from '../Column';
+import React, { Component } from 'react';
 
-class Layout extends React.Component {
+class Layout extends Component {
   render() {
-    return (
-      <div>
-        <h1>Standups & Retros</h1>
-        <Column />
-        <Column />
-      </div>
-    )
+    return <a href="/"><img className="homePageLogo" src="/images/logo.png" /></a>; 
   }
 }
+
 export default Layout;

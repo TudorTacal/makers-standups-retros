@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './components/Layout'
+import StandupPage from './components/StandupPage';
+
 
 ReactDOM.render(
-  <Layout />,
+  <StandupPage />,
   document.getElementById('root')
 );
