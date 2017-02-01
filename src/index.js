@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import InputForm from './InputForm'
 
-// window.onload = () => {
-//   ReactDOM.render(<AppRoutes/>,
-//   document.getElementById('root'))
-// };
+ReactDOM.render(
+  <InputForm />,
+  document.getElementById('root')
+);

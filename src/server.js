@@ -2,7 +2,8 @@ import path from 'path';
 import {Server} from 'http';
 import Express from 'express'
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+// import { renderToString } from 'react-dom/server';
+import ReactDOMServer from 'react-dom/server';
 import Layout from './components/Layout'
 
 const app = new Express();
@@ -15,7 +16,7 @@ console.log(path)
 app.use(Express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  let markup = renderToString(<Layout />)
+  let markup = ReactDOMServer.renderToString(<Layout />)
   res.render('index', {markup});
 });
 
