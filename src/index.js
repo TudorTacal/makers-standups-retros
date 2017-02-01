@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Board from './Board'
-import './index.css';
+import AppRoutes from './components/AppRoutes';
 
-ReactDOM.render(
-  <Board />,
-  document.getElementById('root')
-);
+window.onload = () => {
+  ReactDOM.render(<AppRoutes/>,
+  document.getElementById('root'))
+};
