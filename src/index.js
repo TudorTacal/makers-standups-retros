@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Standup from './components/StandupPage';
+import StandupPage from './components/StandupPage';
 
 
 ReactDOM.render(

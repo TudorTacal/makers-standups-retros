@@ -6,6 +6,7 @@ class Item extends Component {
     this.state = {
       clicks: 0
     };
+    this.onPlusClick = this.onPlusClick.bind(this);
   }
   onPlusClick(event) {
     this.setState({
