@@ -54,27 +54,13 @@
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _HomePage = __webpack_require__(233);
+	var _Routes = __webpack_require__(233);
 
-	var _HomePage2 = _interopRequireDefault(_HomePage);
-
-	var _StandupPage = __webpack_require__(236);
-
-	var _StandupPage2 = _interopRequireDefault(_StandupPage);
-
-	var _RetroPage = __webpack_require__(241);
-
-	var _RetroPage2 = _interopRequireDefault(_RetroPage);
+	var _Routes2 = _interopRequireDefault(_Routes);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(0, _reactDom.render)(_react2.default.createElement(
-	  _reactRouter.Router,
-	  { history: _reactRouter.browserHistory },
-	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _HomePage2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/standup', component: _StandupPage2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/retro', component: _RetroPage2.default })
-	), document.getElementById('root'));
+	(0, _reactDom.render)(_react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory, routes: _Routes2.default }), document.getElementById('root'));
 
 /***/ },
 /* 1 */
@@ -26549,6 +26535,46 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(178);
+
+	var _HomePage = __webpack_require__(234);
+
+	var _HomePage2 = _interopRequireDefault(_HomePage);
+
+	var _StandupPage = __webpack_require__(237);
+
+	var _StandupPage2 = _interopRequireDefault(_StandupPage);
+
+	var _RetroPage = __webpack_require__(242);
+
+	var _RetroPage2 = _interopRequireDefault(_RetroPage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var routes = _react2.default.createElement(
+	  _reactRouter.Route,
+	  null,
+	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _HomePage2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/standup', component: _StandupPage2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/retro', component: _RetroPage2.default })
+	);
+
+	exports.default = routes;
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
@@ -26558,11 +26584,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Layout = __webpack_require__(234);
+	var _Layout = __webpack_require__(235);
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	var _Button = __webpack_require__(235);
+	var _Button = __webpack_require__(236);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -26610,7 +26636,7 @@
 	exports.default = HomePage;
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26659,7 +26685,7 @@
 	exports.default = Layout;
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26708,7 +26734,7 @@
 	exports.default = Button;
 
 /***/ },
-/* 236 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26723,11 +26749,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Layout = __webpack_require__(234);
+	var _Layout = __webpack_require__(235);
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	var _Board = __webpack_require__(237);
+	var _Board = __webpack_require__(238);
 
 	var _Board2 = _interopRequireDefault(_Board);
 
@@ -26777,7 +26803,7 @@
 	exports.default = StandupPage;
 
 /***/ },
-/* 237 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26792,7 +26818,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Column = __webpack_require__(238);
+	var _Column = __webpack_require__(239);
 
 	var _Column2 = _interopRequireDefault(_Column);
 
@@ -26836,7 +26862,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 238 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26851,7 +26877,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ItemList = __webpack_require__(239);
+	var _ItemList = __webpack_require__(240);
 
 	var _ItemList2 = _interopRequireDefault(_ItemList);
 
@@ -26898,7 +26924,7 @@
 	exports.default = Column;
 
 /***/ },
-/* 239 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26913,7 +26939,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Item = __webpack_require__(240);
+	var _Item = __webpack_require__(241);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -26986,7 +27012,7 @@
 	exports.default = ItemList;
 
 /***/ },
-/* 240 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27053,7 +27079,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 241 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27068,11 +27094,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Layout = __webpack_require__(234);
+	var _Layout = __webpack_require__(235);
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	var _Board = __webpack_require__(237);
+	var _Board = __webpack_require__(238);
 
 	var _Board2 = _interopRequireDefault(_Board);
 
