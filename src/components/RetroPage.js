@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './Layout';
-import Board from '../Board';
+import Board from './Board';
 
 class RetroPage extends Component {
   render () {
