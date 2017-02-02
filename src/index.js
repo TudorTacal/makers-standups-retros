@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { browserHistory, Router, Route, IndexRoute } from 'react-router'
-import StandupPage from './components/StandupPage';
+import HomePage from './components/HomePage';
 
 render(
-  <StandupPage/>,
+  <HomePage/>,
   document.getElementById('root')
 )
