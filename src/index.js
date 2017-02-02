@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { browserHistory, Router, Route, IndexRoute } from 'react-router'
 import StandupPage from './components/StandupPage';
 
-
-ReactDOM.render(
-  <StandupPage />,
+render(
+  <StandupPage/>,
   document.getElementById('root')
-);
+)

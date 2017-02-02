@@ -13,11 +13,11 @@ class Item extends Component {
       clicks: this.state.clicks + 1
     })
   }
-  render(){
+
+
+  render() {
     let image = <img src="/images/plus.png" onClick={this.onPlusClick} alt="Plus" height="20" width="20"/>
-    return (
-      <li className="item" >{this.props.text}{image}{this.state.clicks}</li>
-    );
+    return <li className="item" >{this.props.text}{image}{this.state.clicks}</li>
   }
 };
 

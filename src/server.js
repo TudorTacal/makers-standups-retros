@@ -15,21 +15,21 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 console.log(path)
 
-app.use(Express.static(path.join(__dirname, 'public')));
+app.use(Express.static(path.join(__dirname, 'static')));
 
 app.get('/', (req, res) => {
-  let markup = renderToString(<HomePage />)
-  res.render('index', {markup});
+  let markup = renderToString(<Homepage/>)
+  res.render('template', {markup});
 });
 
 app.get('/standup', (req, res) => {
   let markup = renderToString(<StandupPage/>)
-  res.render('index', {markup})
+  res.render('template', {markup})
 })
 
 app.get('/retro', (req, res) => {
   let markup = renderToString(<RetroPage/>)
-  res.render('index', {markup})
+  res.render('template', {markup})
 })
 
 const port = process.env.PORT || 3000;
@@ -41,4 +41,4 @@ server.listen(port, err => {
   console.info(`Server running on http://localhost:${port} [${env}]`);
 })
 
-//Saving this command for later use to start the server "nodemon --exec babel-node --presets 'react,es2015' src/server.js" 
+//Saving this command for later use to start the server "nodemon --exec babel-node --presets 'react,es2015' src/server.js"
