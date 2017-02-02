@@ -9,12 +9,14 @@ import StandupPage from './components/StandupPage'
 
 
 
+
 const app = new Express();
 const server = new Server(app);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 console.log(path)
+
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use('/standups', Express.static(path.join(__dirname, 'static')));
@@ -30,7 +32,9 @@ app.get('/standups', (req, res) => {
 })
 
 app.post('/standups', (req, res) => {
-
+  let standup = { id: 1};
+  res.json(standup);
+  console.log(standup);
 })
 
 app.get('/retro', (req, res) => {
