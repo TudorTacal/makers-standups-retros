@@ -26562,7 +26562,11 @@
 	  _reactRouter.Route,
 	  null,
 	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _HomePage2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/standup', component: _StandupPage2.default }),
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/standups', component: _StandupPage2.default },
+	    _react2.default.createElement(_reactRouter.Route, { path: '/standups/:id', component: _StandupPage2.default })
+	  ),
 	  _react2.default.createElement(_reactRouter.Route, { path: '/retro', component: _RetroPage2.default })
 	);
 

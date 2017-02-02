@@ -8,6 +8,7 @@ import RetroPage from './components/RetroPage'
 import StandupPage from './components/StandupPage'
 
 
+
 const app = new Express();
 const server = new Server(app);
 
@@ -16,19 +17,30 @@ app.set('views', path.join(__dirname, 'views'));
 console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
+app.use('/standups', Express.static(path.join(__dirname, 'static')));
 
 app.get('/', (req, res) => {
   let markup = renderToString(<HomePage/>)
   res.render('template', {markup});
 });
 
-app.get('/standup', (req, res) => {
+app.get('/standups', (req, res) => {
   let markup = renderToString(<StandupPage/>)
   res.render('template', {markup})
 })
 
+app.post('/standups', (req, res) => {
+
+})
+
 app.get('/retro', (req, res) => {
   let markup = renderToString(<RetroPage/>)
+  res.render('template', {markup})
+})
+
+app.get('/standups/:id', (req, res) => {
+  console.log(req.params.id)
+  let markup = renderToString(<StandupPage/>)
   res.render('template', {markup})
 })
 
