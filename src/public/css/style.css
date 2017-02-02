@@ -45,25 +45,35 @@ div.standupPageContent {
 }
 
 div.whiteBoard div {
-
 	display: inline-block;
 	text-align: left;
 	margin: auto;
 }
 
 div.whiteBoard {
+	margin: auto;
 	text-align: center;
+	display: table;
 }
+
 .column {
 	padding: 19px;
+	display: table-cell;
+  vertical-align: top;
 }
+
 div.column-content {
 	padding: 0;
 }
+
 .list {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+}
+
+.item img {
+	text-align: right;
 }
 
 /*Retro Page*/
