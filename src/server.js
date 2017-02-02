@@ -18,7 +18,7 @@ console.log(path)
 app.use(Express.static(path.join(__dirname, 'static')));
 
 app.get('/', (req, res) => {
-  let markup = renderToString(<Homepage/>)
+  let markup = renderToString(<HomePage/>)
   res.render('template', {markup});
 });
 
