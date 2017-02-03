@@ -26548,11 +26548,11 @@
 
 	var _HomePage2 = _interopRequireDefault(_HomePage);
 
-	var _StandupPage = __webpack_require__(262);
+	var _StandupPage = __webpack_require__(263);
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(267);
+	var _RetroPage = __webpack_require__(268);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -26712,6 +26712,10 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
+	var _randomizeID = __webpack_require__(262);
+
+	var _randomizeID2 = _interopRequireDefault(_randomizeID);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26737,8 +26741,8 @@
 			value: function handleClick(event) {
 				var url = this.props.route;
 				_axios2.default.post(url).then(function (res) {
-					var id = String(res.data.id);
-					window.location.href = window.location.href + url + '/' + id;
+					var id = String(res.data._id);
+					window.location.href = window.location.href + url + '/' + (0, _randomizeID2.default)(id).substring(-1, 7);
 				});
 				event.preventDefault();
 			}
@@ -28249,6 +28253,23 @@
 
 /***/ },
 /* 262 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var randomizeId = function randomizeId(id) {
+	  return id.split('').sort(function () {
+	    return 0.5 - Math.random();
+	  }).join('');
+	};
+
+	exports.default = randomizeId;
+
+/***/ },
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28267,7 +28288,7 @@
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	var _Board = __webpack_require__(263);
+	var _Board = __webpack_require__(264);
 
 	var _Board2 = _interopRequireDefault(_Board);
 
@@ -28317,7 +28338,7 @@
 	exports.default = StandupPage;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28332,7 +28353,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Column = __webpack_require__(264);
+	var _Column = __webpack_require__(265);
 
 	var _Column2 = _interopRequireDefault(_Column);
 
@@ -28376,7 +28397,7 @@
 	exports.default = Board;
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28391,7 +28412,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ItemList = __webpack_require__(265);
+	var _ItemList = __webpack_require__(266);
 
 	var _ItemList2 = _interopRequireDefault(_ItemList);
 
@@ -28438,7 +28459,7 @@
 	exports.default = Column;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28453,7 +28474,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Item = __webpack_require__(266);
+	var _Item = __webpack_require__(267);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -28526,7 +28547,7 @@
 	exports.default = ItemList;
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28593,7 +28614,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28612,7 +28633,7 @@
 
 	var _Layout2 = _interopRequireDefault(_Layout);
 
-	var _Board = __webpack_require__(263);
+	var _Board = __webpack_require__(264);
 
 	var _Board2 = _interopRequireDefault(_Board);
 

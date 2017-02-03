@@ -41,13 +41,16 @@ app.get('/standups', (req, res) => {
 })
 
 app.post('/standups', (req, res) => {
+  var element;
   var mongoStandup = new Standup();
   mongoStandup.board = 'I am the board';
   mongoStandup.save(function(err) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Standup successfully added!' })
+  if (err)
+    res.send(err);
   });
+  element
+  console.log(mongoStandup)
+  res.json(mongoStandup)
 })
 
 app.post('/retros', (req, res) => {
@@ -64,11 +67,6 @@ app.get('/retro', (req, res) => {
 app.get('/standups/:id', (req, res) => {
   let markup = renderToString(<StandupPage/>)
   res.render('template', {markup})
-  Standup.find(function(err, standups) {
-    if (err)
-      return res.send();
-    res.json(standups)
-  });
 })
 
 app.get('/retros/:id', (req,res) => {
