@@ -36,7 +36,7 @@ class ItemList extends Component {
 	render() {
 		let items = this.state.data.map((item, index) => {
 			return (
-				<Item id={item.text} text={item.text} key={index}>
+				<Item id={this.props.id + String(index)} text={item.text} key={index}>
 					{ item.text }
 				</Item>
 			)

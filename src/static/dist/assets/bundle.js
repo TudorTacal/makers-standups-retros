@@ -28527,10 +28527,12 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var _this3 = this;
+
 				var items = this.state.data.map(function (item, index) {
 					return _react2.default.createElement(
 						_Item2.default,
-						{ id: item.text, text: item.text, key: index },
+						{ id: _this3.props.id + String(index), text: item.text, key: index },
 						item.text
 					);
 				});
