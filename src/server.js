@@ -3,13 +3,14 @@ import { Server } from 'http';
 import Express from 'express'
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import HomePage from './components/HomePage'
-import RetroPage from './components/RetroPage'
-import StandupPage from './components/StandupPage'
+import HomePage from './components/HomePage';
+import RetroPage from './components/RetroPage';
+import StandupPage from './components/StandupPage';
+import socketIo from 'socket.io';
 
 const app = new Express();
 const server = new Server(app);
-const io = require('socket.io')(server);
+const io = socketIo(server);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -36,6 +37,9 @@ io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('disconnect', function(){
     console.log('user disconnected');
+  });
+  socket.on('comment event', function(data) {
+    socket.broadcast.to(data.column).emit('update list', data);
   });
 });
 
