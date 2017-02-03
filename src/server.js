@@ -16,7 +16,6 @@ const io = socketIo(server);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use('/standups', Express.static(path.join(__dirname, 'static')));
@@ -68,7 +67,6 @@ io.on('connection', function(socket){
     socket.broadcast.emit('update list', data);
   });
   socket.on('counter event', function(data) {
-    console.log(data);
     socket.broadcast.emit('update counter', data);
   });
 });

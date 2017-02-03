@@ -14,7 +14,6 @@ class Item extends Component {
   componentDidMount(){
     this.socket = io('/');
     this.socket.on('update counter', data => {
-      console.log(data);
       if(data.item === this.props.id ){
         this.updatePlusClick();
       };

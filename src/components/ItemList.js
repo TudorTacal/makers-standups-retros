@@ -11,7 +11,6 @@ class ItemList extends Component {
 	}
 
 	componentDidMount () {
-		console.log(this.props.id);
 		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
