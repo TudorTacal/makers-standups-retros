@@ -28518,7 +28518,7 @@
 				var items = this.state.data.map(function (item, index) {
 					return _react2.default.createElement(
 						_Item2.default,
-						{ text: item.text, key: index },
+						{ id: item.text, text: item.text, key: index },
 						item.text
 					);
 				});
@@ -28553,7 +28553,7 @@
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -28564,6 +28564,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _socket = __webpack_require__(267);
+
+	var _socket2 = _interopRequireDefault(_socket);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28584,24 +28588,44 @@
 	    _this.state = {
 	      clicks: 0
 	    };
-	    _this.onPlusClick = _this.onPlusClick.bind(_this);
+	    _this.updatePlusClick = _this.updatePlusClick.bind(_this);
+	    _this.notifyServer = _this.notifyServer.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Item, [{
-	    key: "onPlusClick",
-	    value: function onPlusClick(event) {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      this.socket = (0, _socket2.default)('/');
+	      this.socket.on('update counter', function (data) {
+	        console.log(data);
+	        if (data.item === _this2.props.id) {
+	          _this2.updatePlusClick();
+	        };
+	      });
+	    }
+	  }, {
+	    key: 'notifyServer',
+	    value: function notifyServer() {
+	      this.socket.emit('counter event', { item: this.props.id });
+	      this.updatePlusClick();
+	    }
+	  }, {
+	    key: 'updatePlusClick',
+	    value: function updatePlusClick(event) {
 	      this.setState({
 	        clicks: this.state.clicks + 1
 	      });
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
-	      var image = _react2.default.createElement("img", { src: "/images/plus.png", onClick: this.onPlusClick, alt: "Plus", height: "20", width: "20" });
+	      var image = _react2.default.createElement('img', { src: '/images/plus.png', onClick: this.notifyServer.bind(this), alt: 'Plus', height: '20', width: '20' });
 	      return _react2.default.createElement(
-	        "li",
-	        { className: "item" },
+	        'li',
+	        { className: 'item' },
 	        this.props.text,
 	        image,
 	        this.state.clicks

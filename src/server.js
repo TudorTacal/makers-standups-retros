@@ -67,6 +67,10 @@ io.on('connection', function(socket){
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
   });
+  socket.on('counter event', function(data) {
+    console.log(data);
+    socket.broadcast.emit('update counter', data);
+  });
 });
 
 const port = process.env.PORT || 3000;

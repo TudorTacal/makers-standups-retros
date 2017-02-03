@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import io from 'socket.io-client';
 
 class Item extends Component {
   constructor(props) {
@@ -6,9 +7,26 @@ class Item extends Component {
     this.state = {
       clicks: 0
     };
-    this.onPlusClick = this.onPlusClick.bind(this);
+    this.updatePlusClick = this.updatePlusClick.bind(this);
+    this.notifyServer = this.notifyServer.bind(this);
   }
-  onPlusClick(event) {
+
+  componentDidMount(){
+    this.socket = io('/');
+    this.socket.on('update counter', data => {
+      console.log(data);
+      if(data.item === this.props.id ){
+        this.updatePlusClick();
+      };
+    });
+  };
+
+  notifyServer(){
+    this.socket.emit('counter event', { item: this.props.id });
+    this.updatePlusClick();
+  };
+
+  updatePlusClick(event) {
     this.setState({
       clicks: this.state.clicks + 1
     })
@@ -16,7 +34,7 @@ class Item extends Component {
 
 
   render() {
-    let image = <img src="/images/plus.png" onClick={this.onPlusClick} alt="Plus" height="20" width="20"/>
+    let image = <img src="/images/plus.png" onClick={this.notifyServer.bind(this)} alt="Plus" height="20" width="20"/>
     return <li className="item" >{this.props.text}{image}{this.state.clicks}</li>
   }
 };
