@@ -39,7 +39,7 @@ io.on('connection', function(socket){
     console.log('user disconnected');
   });
   socket.on('comment event', function(data) {
-    socket.broadcast.to(data.column).emit('update list', data);
+    socket.broadcast.emit('update list', data);
   });
 });
 

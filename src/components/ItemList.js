@@ -20,12 +20,13 @@ class ItemList extends Component {
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
-		socket.emit('comment event', { column: this.props.id, value: comment })
+		this.socket.emit('comment event', comment);
+		this.updateList(comment);
 	}
 
-	updateList(newComment){
+	updateList(newItem){
 		this.setState({
-			data: ({text: newComment.value})
+			data: this.state.data.concat({text: newItem})
 		});
 		this.refs.comment.value = "";
 	}
