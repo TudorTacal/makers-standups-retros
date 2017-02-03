@@ -32,7 +32,8 @@ app.get('/standups', (req, res) => {
 })
 
 app.post('/standups', (req, res) => {
-  let standup = { id: 1};
+  let randomId = Math.random().toString(16).substring(9);
+  let standup = { id: randomId};
   res.json(standup);
   console.log(standup);
 })
