@@ -26736,10 +26736,8 @@
 			key: 'handleClick',
 			value: function handleClick(event) {
 				var url = this.props.route;
-				console.log(url);
 				_axios2.default.post(url).then(function (res) {
 					var id = String(res.data.id);
-					console.log(url);
 					window.location.href = window.location.href + url + '/' + id;
 				});
 				event.preventDefault();

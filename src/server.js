@@ -6,9 +6,7 @@ import { renderToString } from 'react-dom/server';
 import HomePage from './components/HomePage'
 import RetroPage from './components/RetroPage'
 import StandupPage from './components/StandupPage'
-
-
-
+import generateRandomId from './helpers/randomIdAlgorithm'
 
 const app = new Express();
 const server = new Server(app);
@@ -16,7 +14,6 @@ const server = new Server(app);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 console.log(path)
-
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use('/standups', Express.static(path.join(__dirname, 'static')));
@@ -33,18 +30,16 @@ app.get('/standups', (req, res) => {
 })
 
 app.post('/standups', (req, res) => {
-  let randomId = Math.random().toString(16).substring(9);
+  let randomId = generateRandomId();
   let standup = { id: randomId};
   res.json(standup);
 })
 
 app.post('/retros', (req, res) => {
-  let randomId = Math.random().toString(16).substring(9);
+  let randomId = generateRandomId();
   let retro = { id: randomId};
   res.json(retro);
 })
-
-
 
 app.get('/retro', (req, res) => {
   let markup = renderToString(<RetroPage/>)
