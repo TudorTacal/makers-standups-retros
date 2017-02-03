@@ -26567,7 +26567,11 @@
 	    { path: '/standups', component: _StandupPage2.default },
 	    _react2.default.createElement(_reactRouter.Route, { path: '/standups/:id', component: _StandupPage2.default })
 	  ),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/retro', component: _RetroPage2.default })
+	  _react2.default.createElement(
+	    _reactRouter.Route,
+	    { path: '/retro', component: _RetroPage2.default },
+	    _react2.default.createElement(_reactRouter.Route, { path: '/retros/:id', component: _RetroPage2.default })
+	  )
 	);
 
 	exports.default = routes;
@@ -26627,8 +26631,8 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'homePageButtons' },
-						_react2.default.createElement(_Button2.default, { route: '/standup', name: 'New Stand Up' }),
-						_react2.default.createElement(_Button2.default, { route: '/retro', name: 'New Retro' })
+						_react2.default.createElement(_Button2.default, { route: 'standups', name: 'New Stand Up' }),
+						_react2.default.createElement(_Button2.default, { route: 'retros', name: 'New Retro' })
 					)
 				);
 			}
@@ -26731,11 +26735,13 @@
 		_createClass(Button, [{
 			key: 'handleClick',
 			value: function handleClick(event) {
-				_axios2.default.post("/standups").then(function (res) {
+				var url = this.props.route;
+				console.log(url);
+				_axios2.default.post(url).then(function (res) {
 					var id = String(res.data.id);
-					window.location.href = "http://localhost:3000/standups/" + id;
+					console.log(url);
+					window.location.href = window.location.href + url + '/' + id;
 				});
-				alert("button clicked");
 				event.preventDefault();
 			}
 		}, {

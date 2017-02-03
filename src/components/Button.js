@@ -8,12 +8,12 @@ class Button extends Component {
 	};
 
 	handleClick(event){
-		axios.post("/standups")
+		let url = this.props.route
+		axios.post(url)
 		.then(res =>{
 			let id = String(res.data.id);
-			window.location.href = window.location.href + '/standups/' + id;
+			window.location.href = window.location.href + url + '/' + id;
 		});
-		alert("button clicked");
 		event.preventDefault();
 	};
 	render() {

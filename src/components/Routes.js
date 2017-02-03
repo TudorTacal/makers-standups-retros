@@ -11,7 +11,9 @@ const routes = (
       <Route path="/standups" component={StandupPage}>
         <Route path="/standups/:id" component={StandupPage}/>
       </Route>
-      <Route path="/retro" component={RetroPage}/>
+      <Route path="/retro" component={RetroPage}>
+        <Route path="/retros/:id" component={RetroPage}/>
+      </Route>
     </Route>
 );
 

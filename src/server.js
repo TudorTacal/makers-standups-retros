@@ -20,6 +20,7 @@ console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use('/standups', Express.static(path.join(__dirname, 'static')));
+app.use('/retros', Express.static(path.join(__dirname, 'static')));
 
 app.get('/', (req, res) => {
   let markup = renderToString(<HomePage/>)
@@ -35,8 +36,15 @@ app.post('/standups', (req, res) => {
   let randomId = Math.random().toString(16).substring(9);
   let standup = { id: randomId};
   res.json(standup);
-  console.log(standup);
 })
+
+app.post('/retros', (req, res) => {
+  let randomId = Math.random().toString(16).substring(9);
+  let retro = { id: randomId};
+  res.json(retro);
+})
+
+
 
 app.get('/retro', (req, res) => {
   let markup = renderToString(<RetroPage/>)
@@ -44,8 +52,12 @@ app.get('/retro', (req, res) => {
 })
 
 app.get('/standups/:id', (req, res) => {
-  console.log(req.params.id)
   let markup = renderToString(<StandupPage/>)
+  res.render('template', {markup})
+})
+
+app.get('/retros/:id', (req,res) => {
+  let markup = renderToString(<RetroPage/>)
   res.render('template', {markup})
 })
 
