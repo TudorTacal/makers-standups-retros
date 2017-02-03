@@ -26,11 +26,6 @@ app.get('/', (req, res) => {
   res.render('template', {markup});
 });
 
-app.get('/standups', (req, res) => {
-  let markup = renderToString(<StandupPage/>)
-  res.render('template', {markup})
-})
-
 app.post('/standups', (req, res) => {
   let randomId = generateRandomId();
   let standup = { id: randomId};
@@ -41,11 +36,6 @@ app.post('/retros', (req, res) => {
   let randomId = generateRandomId();
   let retro = { id: randomId};
   res.json(retro);
-})
-
-app.get('/retro', (req, res) => {
-  let markup = renderToString(<RetroPage/>)
-  res.render('template', {markup})
 })
 
 app.get('/standups/:id', (req, res) => {

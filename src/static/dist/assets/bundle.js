@@ -28488,7 +28488,6 @@
 			value: function componentDidMount() {
 				var _this2 = this;
 
-				console.log(this.props.id);
 				this.socket = (0, _socket2.default)('/');
 				this.socket.on('update list', function (data) {
 					if (data.itemList === _this2.props.id) {
@@ -28600,7 +28599,6 @@
 
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('update counter', function (data) {
-	        console.log(data);
 	        if (data.item === _this2.props.id) {
 	          _this2.updatePlusClick();
 	        };
