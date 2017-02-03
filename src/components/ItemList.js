@@ -11,7 +11,6 @@ class ItemList extends Component {
 	}
 
 	componentDidMount () {
-		console.log(this.props.id);
 		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
@@ -37,7 +36,7 @@ class ItemList extends Component {
 	render() {
 		let items = this.state.data.map((item, index) => {
 			return (
-				<Item text={item.text} key={index}>
+				<Item id={item.text} text={item.text} key={index}>
 					{ item.text }
 				</Item>
 			)

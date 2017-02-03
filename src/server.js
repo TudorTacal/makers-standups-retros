@@ -16,7 +16,6 @@ const io = socketIo(server);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use('/standups', Express.static(path.join(__dirname, 'static')));
@@ -26,11 +25,6 @@ app.get('/', (req, res) => {
   let markup = renderToString(<HomePage/>)
   res.render('template', {markup});
 });
-
-app.get('/standups', (req, res) => {
-  let markup = renderToString(<StandupPage/>)
-  res.render('template', {markup})
-})
 
 app.post('/standups', (req, res) => {
   let randomId = generateRandomId();
@@ -42,11 +36,6 @@ app.post('/retros', (req, res) => {
   let randomId = generateRandomId();
   let retro = { id: randomId};
   res.json(retro);
-})
-
-app.get('/retro', (req, res) => {
-  let markup = renderToString(<RetroPage/>)
-  res.render('template', {markup})
 })
 
 app.get('/standups/:id', (req, res) => {
@@ -66,6 +55,9 @@ io.on('connection', function(socket){
   });
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
+  });
+  socket.on('counter event', function(data) {
+    socket.broadcast.emit('update counter', data);
   });
 });
 
