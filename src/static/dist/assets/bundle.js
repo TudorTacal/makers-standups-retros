@@ -26912,7 +26912,7 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'column-content' },
-						_react2.default.createElement(_ItemList2.default, null)
+						_react2.default.createElement(_ItemList2.default, { id: this.props.title })
 					)
 				);
 			}
@@ -26974,9 +26974,12 @@
 			value: function componentDidMount() {
 				var _this2 = this;
 
+				console.log(this.props.id);
 				this.socket = (0, _socket2.default)('/');
 				this.socket.on('update list', function (data) {
-					_this2.updateList(data);
+					if (data.itemList === _this2.props.id) {
+						_this2.updateList(data.text);
+					}
 				});
 			}
 		}, {
@@ -26984,7 +26987,7 @@
 			value: function notifyServer(event) {
 				event.preventDefault();
 				var comment = this.refs.comment.value;
-				this.socket.emit('comment event', comment);
+				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}
 		}, {

@@ -11,16 +11,19 @@ class ItemList extends Component {
 	}
 
 	componentDidMount () {
+		console.log(this.props.id);
 		this.socket = io('/');
 		this.socket.on('update list', data => {
-			this.updateList(data);
+			if (data.itemList === this.props.id) {
+				this.updateList(data.text);
+			}
 		});
 	}
 
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
-		this.socket.emit('comment event', comment);
+		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);
 	}
 
