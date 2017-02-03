@@ -7,9 +7,6 @@ import HomePage from './components/HomePage'
 import RetroPage from './components/RetroPage'
 import StandupPage from './components/StandupPage'
 
-
-
-
 const app = new Express();
 const server = new Server(app);
 
@@ -43,7 +40,6 @@ app.post('/retros', (req, res) => {
   let retro = { id: randomId};
   res.json(retro);
 })
-
 
 
 app.get('/retro', (req, res) => {
