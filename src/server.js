@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import HomePage from './components/HomePage'
 import RetroPage from './components/RetroPage'
 import StandupPage from './components/StandupPage'
-
+import generateRandomId from './helpers/randomIdAlgorithm'
 
 const app = new Express();
 const server = new Server(app);
@@ -16,18 +16,42 @@ app.set('views', path.join(__dirname, 'views'));
 console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
+app.use('/standups', Express.static(path.join(__dirname, 'static')));
+app.use('/retros', Express.static(path.join(__dirname, 'static')));
 
 app.get('/', (req, res) => {
   let markup = renderToString(<HomePage/>)
   res.render('template', {markup});
 });
 
-app.get('/standup', (req, res) => {
+app.get('/standups', (req, res) => {
   let markup = renderToString(<StandupPage/>)
   res.render('template', {markup})
 })
 
+app.post('/standups', (req, res) => {
+  let randomId = generateRandomId();
+  let standup = { id: randomId};
+  res.json(standup);
+})
+
+app.post('/retros', (req, res) => {
+  let randomId = generateRandomId();
+  let retro = { id: randomId};
+  res.json(retro);
+})
+
 app.get('/retro', (req, res) => {
+  let markup = renderToString(<RetroPage/>)
+  res.render('template', {markup})
+})
+
+app.get('/standups/:id', (req, res) => {
+  let markup = renderToString(<StandupPage/>)
+  res.render('template', {markup})
+})
+
+app.get('/retros/:id', (req,res) => {
   let markup = renderToString(<RetroPage/>)
   res.render('template', {markup})
 })
