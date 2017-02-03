@@ -11,7 +11,7 @@ class Button extends Component {
 		axios.post("/standups")
 		.then(res =>{
 			let id = String(res.data.id);
-			window.location.href = "http://localhost:3000/standups/" + id;
+			window.location.href = window.location.href + '/standups/' + id;
 		});
 		alert("button clicked");
 		event.preventDefault();
