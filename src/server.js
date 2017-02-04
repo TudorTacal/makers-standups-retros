@@ -9,7 +9,17 @@ import RetroPage from './components/RetroPage';
 import StandupPage from './components/StandupPage';
 import socketIo from 'socket.io';
 import generateRandomId from './helpers/randomIdAlgorithm';
+import Standup from './models/standup.js'
+import Retro from './models/retro.js'
+import mongoose from 'mongoose'
 
+mongoose.connect('mongodb://localhost/standups');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function() {
+  console.log('We\'re connected!');
+});
 
 
 const app = new Express();
@@ -18,7 +28,6 @@ const io = socketIo(server);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
 app.use('/standups', Express.static(path.join(__dirname, 'static')));
@@ -29,26 +38,24 @@ app.get('/', (req, res) => {
   res.render('template', {markup});
 });
 
-app.get('/standups', (req, res) => {
-  let markup = renderToString(<StandupPage/>)
-  res.render('template', {markup})
-})
-
 app.post('/standups', (req, res) => {
-  let randomId = generateRandomId();
-  let standup = { id: randomId};
-  res.json(standup);
+  var mongoStandup = new Standup();
+  mongoStandup.board = 'I am the board';
+  mongoStandup.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoStandup)
 })
 
 app.post('/retros', (req, res) => {
-  let randomId = generateRandomId();
-  let retro = { id: randomId};
-  res.json(retro);
-})
-
-app.get('/retro', (req, res) => {
-  let markup = renderToString(<RetroPage/>)
-  res.render('template', {markup})
+  var mongoStandup = new Retro();
+  mongoStandup.board = 'I am the  retro board';
+  mongoStandup.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoStandup)
 })
 
 app.get('/standups/:id', (req, res) => {
@@ -68,6 +75,9 @@ io.on('connection', function(socket){
   });
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
+  });
+  socket.on('counter event', function(data) {
+    socket.broadcast.emit('update counter', data);
   });
 });
 

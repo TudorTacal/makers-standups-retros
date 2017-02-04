@@ -8,7 +8,7 @@ class Column extends Component {
 			<div className="column">
 				<h1>{ this.props.title }</h1>
 				<div className="column-content">
-					<ItemList id={Math.random().toString(16).substring(9)}/>
+					<ItemList id={this.props.id}/>
 				</div>
 			</div>
 		);

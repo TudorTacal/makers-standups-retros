@@ -5,15 +5,13 @@ import io  from 'socket.io-client';
 class ItemList extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}], value: '' };
+		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}] };
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
 	}
 
 	componentDidMount () {
-		console.log(this.props.id);
-		var url = window.locatio.href
-		this.socket = io(url);
+		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
 				this.updateList(data.text);
@@ -38,7 +36,7 @@ class ItemList extends Component {
 	render() {
 		let items = this.state.data.map((item, index) => {
 			return (
-				<Item text={item.text} key={index}>
+				<Item id={this.props.id + String(index)} text={item.text} key={index}>
 					{ item.text }
 				</Item>
 			)
