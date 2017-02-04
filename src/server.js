@@ -74,9 +74,24 @@ app.get('/retros/:id', (req,res) => {
   res.render('template', {markup})
 })
 
-app.post('items', (req, res) => {
+app.post('/items', (req, res) => {
   let mongoItem = new MongoItem ();
-  console.log(req.body)
+  mongoItem.text = req.body.text;
+  mongoItem.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoItem)
+  console.log(mongoItem)
+})
+
+app.get('/items', (req, res) => {
+  var data;
+  let items = MongoItem.find({}, function(err,info) {
+    data = info;
+    res.json(info)
+  });
+
 })
 
 io.on('connection', function(socket){

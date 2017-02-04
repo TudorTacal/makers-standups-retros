@@ -28507,11 +28507,18 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var items;
+
 	var ItemList = function (_Component) {
 		_inherits(ItemList, _Component);
 
 		function ItemList(props) {
 			_classCallCheck(this, ItemList);
+
+			_axios2.default.get('/items').then(function (res) {
+				items = res.data;
+				console.log(items);
+			});
 
 			var _this = _possibleConstructorReturn(this, (ItemList.__proto__ || Object.getPrototypeOf(ItemList)).call(this, props));
 
@@ -28536,14 +28543,17 @@
 		}, {
 			key: 'notifyServer',
 			value: function notifyServer(event) {
-				// axios.post('/items', comment).then(res => {
-				// 	this.setState({
-				// 		data: this.state.data.concat({text: res.data.text})
-				// 	})
-				// })
+				var _this3 = this;
+
 				event.preventDefault();
 				var comment = this.refs.comment.value;
-				console.log(comment);
+				var item = { text: comment };
+				_axios2.default.post('/items', item).then(function (res) {
+					_this3.setState({
+						data: _this3.state.data.concat({ text: res.data.text })
+					});
+				});
+				console.log(this.state.data);
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}
@@ -28558,12 +28568,12 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this3 = this;
+				var _this4 = this;
 
 				var items = this.state.data.map(function (item, index) {
 					return _react2.default.createElement(
 						_Item2.default,
-						{ id: _this3.props.id + String(index), text: item.text, key: index },
+						{ id: _this4.props.id + String(index), text: item.text, key: index },
 						item.text
 					);
 				});

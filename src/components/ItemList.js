@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
 import axios from 'axios'
-
+var items;
 class ItemList extends Component {
+
 	constructor(props) {
+		axios.get('/items').then(res => {
+			items = res.data
+			console.log(items)
+		})
 		super(props);
 		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}] };
 		this.notifyServer = this.notifyServer.bind(this);
@@ -23,11 +28,13 @@ class ItemList extends Component {
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
-		axios.post('/items', comment).then(res => {
+		let item = {text: comment}
+		axios.post('/items', item).then(res => {
 			this.setState({
-				data: this.state.data.concat({text: res.data})
+				data: this.state.data.concat({text: res.data.text})
 			})
 		})
+		console.log(this.state.data)
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);
 	}
