@@ -1,4 +1,4 @@
-import mongoose from 'mongooe'
+import mongoose from 'mongoose'
 
 var Schema = mongoose.Schema;
 

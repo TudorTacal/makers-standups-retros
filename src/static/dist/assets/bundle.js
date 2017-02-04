@@ -28495,6 +28495,10 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
+	var _axios = __webpack_require__(237);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28532,8 +28536,14 @@
 		}, {
 			key: 'notifyServer',
 			value: function notifyServer(event) {
+				// axios.post('/items', comment).then(res => {
+				// 	this.setState({
+				// 		data: this.state.data.concat({text: res.data.text})
+				// 	})
+				// })
 				event.preventDefault();
 				var comment = this.refs.comment.value;
+				console.log(comment);
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}

@@ -21,13 +21,13 @@ class ItemList extends Component {
 	}
 
 	notifyServer(event) {
-		axios.post('/items').then(res => {
-			this.setState({
-				data: this.state.data.concat({text: res.data.text})
-			})
-		})
 		event.preventDefault();
 		let comment = this.refs.comment.value;
+		axios.post('/items', comment).then(res => {
+			this.setState({
+				data: this.state.data.concat({text: res.data})
+			})
+		})
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);
 	}
