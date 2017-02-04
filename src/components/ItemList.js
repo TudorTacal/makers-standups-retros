@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
+import axios from 'axios'
 
 class ItemList extends Component {
 	constructor(props) {
@@ -20,6 +21,11 @@ class ItemList extends Component {
 	}
 
 	notifyServer(event) {
+		axios.post('/items').then(res => {
+			this.setState({
+				data: this.state.data.concat({text: res.data.text})
+			})
+		})
 		event.preventDefault();
 		let comment = this.refs.comment.value;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
