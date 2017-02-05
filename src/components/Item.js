@@ -13,18 +13,28 @@ class Item extends Component {
   }
 
   componentDidMount(){
+    var _this = this
     this.socket = io('/');
     this.socket.on('update counter', data => {
       if(data.item === this.props.id ){
         this.updatePlusClick();
       };
     });
+    axios.get('/items').then(res =>{
+      res.data.forEach(function(item){
+        if (entry.itemId === _this.props.id) {
+          _this.setState ({
+            clicks: item.clicks
+          })
+        }
+      })
+    });
   };
 
   notifyServer(){
     this.socket.emit('counter event', { item: this.props.id });
     this.updatePlusClick();
-    let clicks = {clicks: this.state.clicks}
+    let clicks = {itemId: this.props.id, clicks: this.state.clicks}
     axios.post('/items',clicks )
   };
 

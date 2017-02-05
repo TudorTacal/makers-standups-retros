@@ -78,7 +78,9 @@ app.post('/items', (req, res) => {
   let mongoItem = new MongoItem ();
   mongoItem.text = req.body.text;
   mongoItem.listId = req.body.listId
+  mongoItem.itemId = req.body.itemId
   mongoItem.clicks = req.body.clicks
+  console.log(mongoItem)
   mongoItem.save(function(err) {
   if (err)
     res.send(err);

@@ -25,7 +25,6 @@ class ItemList extends Component {
 			})
 		});
 	}
-
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;

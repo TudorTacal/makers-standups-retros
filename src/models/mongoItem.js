@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var ItemSchema = new Schema({
   text: String,
   listId: String,
+  itemId: String,
   clicks: Number,
 })
 

@@ -28634,26 +28634,36 @@
 	  function Item(props) {
 	    _classCallCheck(this, Item);
 
-	    var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
 
-	    _this.state = {
+	    _this2.state = {
 	      clicks: 0
 	    };
-	    _this.updatePlusClick = _this.updatePlusClick.bind(_this);
-	    _this.notifyServer = _this.notifyServer.bind(_this);
-	    return _this;
+	    _this2.updatePlusClick = _this2.updatePlusClick.bind(_this2);
+	    _this2.notifyServer = _this2.notifyServer.bind(_this2);
+	    return _this2;
 	  }
 
 	  _createClass(Item, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
+	      var _this3 = this;
 
+	      var _this = this;
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('update counter', function (data) {
-	        if (data.item === _this2.props.id) {
-	          _this2.updatePlusClick();
+	        if (data.item === _this3.props.id) {
+	          _this3.updatePlusClick();
 	        };
+	      });
+	      _axios2.default.get('/items').then(function (res) {
+	        res.data.forEach(function (entry) {
+	          if (entry.itemId === _this.props.id) {
+	            _this.setState({
+	              clicks: entry.clicks
+	            });
+	          }
+	        });
 	      });
 	    }
 	  }, {
@@ -28661,7 +28671,7 @@
 	    value: function notifyServer() {
 	      this.socket.emit('counter event', { item: this.props.id });
 	      this.updatePlusClick();
-	      var clicks = { clicks: this.state.clicks };
+	      var clicks = { itemId: this.props.id, clicks: this.state.clicks };
 	      _axios2.default.post('/items', clicks);
 	    }
 	  }, {
