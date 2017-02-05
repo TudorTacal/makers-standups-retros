@@ -7,9 +7,15 @@ import io  from 'socket.io-client';
 class ItemList extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}], value: '' };
+		this.state = { data: [] };
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
+	}
+
+	getInitialState() {
+		return {
+			data: []
+		};
 	}
 
 	componentDidMount () {
@@ -24,6 +30,7 @@ class ItemList extends Component {
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
+		if (comment === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);
 	}

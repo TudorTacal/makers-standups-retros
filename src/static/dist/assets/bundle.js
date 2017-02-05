@@ -28519,13 +28519,20 @@
 
 			var _this = _possibleConstructorReturn(this, (ItemList.__proto__ || Object.getPrototypeOf(ItemList)).call(this, props));
 
-			_this.state = { data: [{ text: "I am the first item" }, { text: "I am the second item" }], value: '' };
+			_this.state = { data: [] };
 			_this.notifyServer = _this.notifyServer.bind(_this);
 			_this.updateList = _this.updateList.bind(_this);
 			return _this;
 		}
 
 		_createClass(ItemList, [{
+			key: 'getInitialState',
+			value: function getInitialState() {
+				return {
+					data: []
+				};
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var _this2 = this;
@@ -28542,6 +28549,7 @@
 			value: function notifyServer(event) {
 				event.preventDefault();
 				var comment = this.refs.comment.value;
+				if (comment === '') return;
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}
