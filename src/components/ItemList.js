@@ -24,6 +24,7 @@ class ItemList extends Component {
 		axios.get('/items').then(res =>{
 			mongoData = res.data
 			res.data.forEach(function(entry){
+				// if id's match load the data if not leave it blank
 				_this.updateList(entry.text)
 			})
 		});
@@ -32,7 +33,7 @@ class ItemList extends Component {
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
-		let item = {text: comment}
+		let item = {text: comment, listId: this.props.id}
 		axios.post('/items', item)
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);

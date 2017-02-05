@@ -76,7 +76,9 @@ app.get('/retros/:id', (req,res) => {
 
 app.post('/items', (req, res) => {
   let mongoItem = new MongoItem ();
+  MongoItem.update()
   mongoItem.text = req.body.text;
+  mongoItem.listId = req.body.listId
   mongoItem.save(function(err) {
   if (err)
     res.send(err);
@@ -85,9 +87,7 @@ app.post('/items', (req, res) => {
 })
 
 app.get('/items', (req, res) => {
-  var data;
-  let items = MongoItem.find({}, function(err,info) {
-    data = info;
+  MongoItem.find({}, function(err,info) {
     res.json(info)
   });
 

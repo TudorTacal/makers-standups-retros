@@ -28539,12 +28539,9 @@
 				_axios2.default.get('/items').then(function (res) {
 					mongoData = res.data;
 					res.data.forEach(function (entry) {
+						// if id's match load the data if not leave it blank
 						_this.updateList(entry.text);
 					});
-					// _this.updateList(res.data[0].text)
-					// _this.setState ({
-					// 	data: this.state.data.concat({text: res.data[0].text})
-					// })
 				});
 			}
 		}, {
@@ -28552,7 +28549,7 @@
 			value: function notifyServer(event) {
 				event.preventDefault();
 				var comment = this.refs.comment.value;
-				var item = { text: comment };
+				var item = { text: comment, listId: this.props.id };
 				_axios2.default.post('/items', item);
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
