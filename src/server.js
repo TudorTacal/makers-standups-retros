@@ -1,37 +1,100 @@
 import path from 'path';
-import {Server} from 'http';
+import { Server } from 'http';
 import Express from 'express'
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import HomePage from './components/HomePage'
-import RetroPage from './components/RetroPage'
-import StandupPage from './components/StandupPage'
+import HomePage from './components/HomePage';
+import RetroPage from './components/RetroPage';
+import StandupPage from './components/StandupPage';
+import socketIo from 'socket.io';
+import generateRandomId from './helpers/randomIdAlgorithm';
+import Standup from './models/standup.js'
+import Retro from './models/retro.js'
+import mongoose from 'mongoose'
 
+mongoose.connect('mongodb://localhost/standups');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function() {
+  console.log('We\'re connected!');
+});
 
 const app = new Express();
 const server = new Server(app);
+const io = socketIo(server);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-console.log(path)
 
 app.use(Express.static(path.join(__dirname, 'static')));
+app.use('/standups', Express.static(path.join(__dirname, 'static')));
+app.use('/retros', Express.static(path.join(__dirname, 'static')));
 
 app.get('/', (req, res) => {
   let markup = renderToString(<HomePage/>)
   res.render('template', {markup});
 });
 
-app.get('/standup', (req, res) => {
+app.post('/standups', (req, res) => {
+  var mongoStandup = new Standup();
+  mongoStandup.board = 'I am the board';
+  mongoStandup.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoStandup)
+})
+
+app.post('/retros', (req, res) => {
+  var mongoStandup = new Retro();
+  mongoStandup.board = 'I am the  retro board';
+  mongoStandup.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoStandup)
+})
+
+app.get('/standups/:id', (req, res) => {
   let markup = renderToString(<StandupPage/>)
   res.render('template', {markup})
 })
 
-app.get('/retro', (req, res) => {
+app.get('/retros/:id', (req,res) => {
   let markup = renderToString(<RetroPage/>)
   res.render('template', {markup})
 })
-
+let clients = [];
+io.on('connection', function(socket){
+  socket.nickname = 'Unknown';
+  console.log( socket.nickname + ' connected');
+  socket.on('disconnect', function(){
+    console.log( socket.nickname + ' disconnected');
+    if(socket.nickname !== "Unknown" && io.nsps['/'].adapter.rooms[socket.nickname]){
+      console.log(socket.nickname);
+      let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
+      let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
+      io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
+        users: numClients});
+    }
+  });
+  socket.on('comment event', function(data) {
+    socket.broadcast.emit('update list', data);
+  });
+  socket.on('counter event', function(data) {
+    socket.broadcast.emit('update counter', data);
+  });
+  socket.on('room', function(room) {
+    socket.nickname = room
+    socket.join(room);
+    let clientsRoom = io.nsps['/'].adapter.rooms[room].sockets;
+    let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
+    console.log(numClients);
+    io.to(room).emit('enter', { text: 'what is going on, party people?',
+      users: numClients});
+  });
+});
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'production';
 server.listen(port, err => {

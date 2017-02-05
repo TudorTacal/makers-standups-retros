@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Layout from './Layout';
 import Board from './Board';
+import UserInfo from './UserInfo';
 
 class StandupPage extends Component {
   render () {
@@ -14,6 +15,7 @@ class StandupPage extends Component {
         </div>
         <div className="standupBoard">
           <Board titles={ titles } />
+          <UserInfo />
         </div>
       </div>
     )
