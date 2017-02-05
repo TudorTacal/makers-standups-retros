@@ -40,7 +40,7 @@ app.post('/standups', (req, res) => {
   var mongoStandup = new Standup();
   mongoStandup.board = 'I am the board';
   mongoStandup.save(function(err) {
-  if (err)
+    if (err)
     res.send(err);
   });
   res.json(mongoStandup)
@@ -50,7 +50,7 @@ app.post('/retros', (req, res) => {
   var mongoStandup = new Retro();
   mongoStandup.board = 'I am the  retro board';
   mongoStandup.save(function(err) {
-  if (err)
+    if (err)
     res.send(err);
   });
   res.json(mongoStandup)
@@ -65,6 +65,7 @@ app.get('/retros/:id', (req,res) => {
   let markup = renderToString(<RetroPage/>)
   res.render('template', {markup})
 })
+
 let clients = [];
 io.on('connection', function(socket){
   socket.nickname = 'Unknown';
@@ -76,15 +77,18 @@ io.on('connection', function(socket){
       let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
       let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
       io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
-        users: numClients});
+      users: numClients});
     }
   });
+
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
   });
+
   socket.on('counter event', function(data) {
     socket.broadcast.emit('update counter', data);
   });
+
   socket.on('room', function(room) {
     socket.nickname = room
     socket.join(room);
@@ -92,9 +96,10 @@ io.on('connection', function(socket){
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
     console.log(numClients);
     io.to(room).emit('enter', { text: 'what is going on, party people?',
-      users: numClients});
+    users: numClients});
   });
 });
+
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'production';
 server.listen(port, err => {

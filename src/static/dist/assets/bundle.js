@@ -37100,7 +37100,6 @@
 	        _this2.socket.emit('room', boardId);
 	      });
 	      this.socket.on('enter', function (data) {
-	        console.log(data);
 	        _this2.updateUserCount(data.users);
 	      });
 	      this.socket.on('leave', function (data) {
@@ -37160,6 +37159,10 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
+	var _UserInfo = __webpack_require__(320);
+
+	var _UserInfo2 = _interopRequireDefault(_UserInfo);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37194,7 +37197,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'retroBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles })
+	          _react2.default.createElement(_Board2.default, { titles: titles }),
+	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
 	    }
