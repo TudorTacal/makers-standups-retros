@@ -21,22 +21,24 @@ class UserInfo extends Component {
     });
     this.socket.on('enter', (data) => {
       this.updateUserCount(data.users);
+      this.updateUserNames();
     });
     this.socket.on('leave', (data) => {
       this.updateUserCount(data.users);
+      delete this.state.userNames[data.socket];
+      this.updateUserNames();
     });
     this.socket.on('update names', (data) => {
-      console.log(this.state.userNames[data.socket]);
       this.state.userNames[data.socket] = data.name;
-      this.setState((prevState) => {
-        return {userNames: prevState.userNames};
+      this.setState({
+        userNames: this.state.userNames
       });
     });
 
     this.socket.on('update users', (data) => {
-      this.setState({
-        userNames: data.userNames
-      })
+        this.setState({
+          userNames: data.userNames
+        })
     });
   }
 
@@ -44,15 +46,13 @@ class UserInfo extends Component {
     this.setState({
       userCount: count
     });
-    let boardId = window.location.pathname.split('/')[2];
-    this.socket.emit("new user", {room: boardId, userNames: this.state.userNames})
 	}
 
-  updateUserNames(names){
-    console.log(names);
-    this.setState({
-      userNames: names
-    });
+  updateUserNames(){
+    let boardId = window.location.pathname.split('/')[2];
+    if(Object.keys(this.state.userNames).length !== 0) {
+      this.socket.emit("new user", {room: boardId, userNames: this.state.userNames})
+    }
   }
 
   updateName(){

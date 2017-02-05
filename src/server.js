@@ -75,7 +75,7 @@ io.on('connection', function(socket){
       console.log(socket.nickname);
       let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
       let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
-      io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
+      io.to(socket.nickname).emit('leave', { socket: socket.id,
         users: numClients});
     }
   });
@@ -98,6 +98,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('new user', function(data) {
+    console.log(data.userNames);
     io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });

@@ -37103,15 +37103,17 @@
 	      });
 	      this.socket.on('enter', function (data) {
 	        _this2.updateUserCount(data.users);
+	        _this2.updateUserNames();
 	      });
 	      this.socket.on('leave', function (data) {
 	        _this2.updateUserCount(data.users);
+	        delete _this2.state.userNames[data.socket];
+	        _this2.updateUserNames();
 	      });
 	      this.socket.on('update names', function (data) {
-	        console.log(_this2.state.userNames[data.socket]);
 	        _this2.state.userNames[data.socket] = data.name;
-	        _this2.setState(function (prevState) {
-	          return { userNames: prevState.userNames };
+	        _this2.setState({
+	          userNames: _this2.state.userNames
 	        });
 	      });
 
@@ -37127,16 +37129,14 @@
 	      this.setState({
 	        userCount: count
 	      });
-	      var boardId = window.location.pathname.split('/')[2];
-	      this.socket.emit("new user", { room: boardId, userNames: this.state.userNames });
 	    }
 	  }, {
 	    key: 'updateUserNames',
-	    value: function updateUserNames(names) {
-	      console.log(names);
-	      this.setState({
-	        userNames: names
-	      });
+	    value: function updateUserNames() {
+	      var boardId = window.location.pathname.split('/')[2];
+	      if (Object.keys(this.state.userNames).length !== 0) {
+	        this.socket.emit("new user", { room: boardId, userNames: this.state.userNames });
+	      }
 	    }
 	  }, {
 	    key: 'updateName',
