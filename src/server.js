@@ -74,6 +74,7 @@ app.get('/retros/:id', (req,res) => {
   res.render('template', {markup})
 })
 
+
 app.post('/items', (req, res) => {
   let mongoItem = new MongoItem ();
   mongoItem.text = req.body.text;
@@ -95,10 +96,21 @@ app.get('/items', (req, res) => {
 
 })
 
+
+let clients = [];
+
 io.on('connection', function(socket){
-  console.log('a user connected');
+  socket.nickname = 'Unknown';
+  console.log( socket.nickname + ' connected');
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log( socket.nickname + ' disconnected');
+    if(socket.nickname !== "Unknown" && io.nsps['/'].adapter.rooms[socket.nickname]){
+      console.log(socket.nickname);
+      let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
+      let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
+      io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
+        users: numClients});
+    }
   });
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
@@ -106,8 +118,16 @@ io.on('connection', function(socket){
   socket.on('counter event', function(data) {
     socket.broadcast.emit('update counter', data);
   });
+  socket.on('room', function(room) {
+    socket.nickname = room
+    socket.join(room);
+    let clientsRoom = io.nsps['/'].adapter.rooms[room].sockets;
+    let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
+    console.log(numClients);
+    io.to(room).emit('enter', { text: 'what is going on, party people?',
+      users: numClients});
+  });
 });
-
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'production';
 server.listen(port, err => {
