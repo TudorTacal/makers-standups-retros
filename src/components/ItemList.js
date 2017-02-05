@@ -30,7 +30,7 @@ class ItemList extends Component {
 	notifyServer(event) {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
-		if (comment === '') return;
+		if (comment.trim() === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);
 	}

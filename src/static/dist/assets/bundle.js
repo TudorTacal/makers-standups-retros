@@ -28549,7 +28549,7 @@
 			value: function notifyServer(event) {
 				event.preventDefault();
 				var comment = this.refs.comment.value;
-				if (comment === '') return;
+				if (comment.trim() === '') return;
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}
