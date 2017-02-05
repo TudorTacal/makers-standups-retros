@@ -8,11 +8,29 @@ import RetroPage from './components/RetroPage';
 import StandupPage from './components/StandupPage';
 import socketIo from 'socket.io';
 import generateRandomId from './helpers/randomIdAlgorithm';
+import Standup from './models/standup.js'
+import Retro from './models/retro.js'
+import mongoose from 'mongoose'
+import MongoItem from './models/mongoItem'
+
+
+
+mongoose.connect('mongodb://localhost/standups');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function() {
+  console.log('We\'re connected!');
+});
 
 
 const app = new Express();
 const server = new Server(app);
 const io = socketIo(server);
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -27,15 +45,23 @@ app.get('/', (req, res) => {
 });
 
 app.post('/standups', (req, res) => {
-  let randomId = generateRandomId();
-  let standup = { id: randomId};
-  res.json(standup);
+  var mongoStandup = new Standup();
+  mongoStandup.board = 'I am the board';
+  mongoStandup.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoStandup)
 })
 
 app.post('/retros', (req, res) => {
-  let randomId = generateRandomId();
-  let retro = { id: randomId};
-  res.json(retro);
+  var mongoStandup = new Retro();
+  mongoStandup.board = 'I am the  retro board';
+  mongoStandup.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoStandup)
 })
 
 app.get('/standups/:id', (req, res) => {
@@ -48,10 +74,43 @@ app.get('/retros/:id', (req,res) => {
   res.render('template', {markup})
 })
 
+
+app.post('/items', (req, res) => {
+  let mongoItem = new MongoItem ();
+  mongoItem.text = req.body.text;
+  mongoItem.listId = req.body.listId
+  mongoItem.itemId = req.body.itemId
+  mongoItem.clicks = req.body.clicks
+  console.log(mongoItem)
+  mongoItem.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoItem)
+})
+
+app.get('/items', (req, res) => {
+  MongoItem.find({}, function(err,info) {
+    res.json(info)
+  });
+
+})
+
+
+let clients = [];
+
 io.on('connection', function(socket){
-  console.log('a user connected');
+  socket.nickname = 'Unknown';
+  console.log( socket.nickname + ' connected');
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log( socket.nickname + ' disconnected');
+    if(socket.nickname !== "Unknown" && io.nsps['/'].adapter.rooms[socket.nickname]){
+      console.log(socket.nickname);
+      let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
+      let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
+      io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
+        users: numClients});
+    }
   });
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
@@ -59,8 +118,16 @@ io.on('connection', function(socket){
   socket.on('counter event', function(data) {
     socket.broadcast.emit('update counter', data);
   });
+  socket.on('room', function(room) {
+    socket.nickname = room
+    socket.join(room);
+    let clientsRoom = io.nsps['/'].adapter.rooms[room].sockets;
+    let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
+    console.log(numClients);
+    io.to(room).emit('enter', { text: 'what is going on, party people?',
+      users: numClients});
+  });
 });
-
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'production';
 server.listen(port, err => {
