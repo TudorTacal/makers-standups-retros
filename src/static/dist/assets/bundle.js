@@ -28518,6 +28518,8 @@
 			_this2.state = { data: [{ text: "I am the first item" }, { text: "I am the second item" }] };
 			_this2.notifyServer = _this2.notifyServer.bind(_this2);
 			_this2.updateList = _this2.updateList.bind(_this2);
+			_this2.axiosGet = _this2.axiosGet.bind(_this2);
+
 			return _this2;
 		}
 
@@ -28533,6 +28535,12 @@
 						_this3.updateList(data.text);
 					}
 				});
+				this.axiosGet();
+			}
+		}, {
+			key: 'axiosGet',
+			value: function axiosGet() {
+				var _this = this;
 				_axios2.default.get('/items').then(function (res) {
 					res.data.forEach(function (entry) {
 						if (entry.listId === _this.props.id) _this.updateList(entry.text);
@@ -28641,6 +28649,7 @@
 	    };
 	    _this2.updatePlusClick = _this2.updatePlusClick.bind(_this2);
 	    _this2.notifyServer = _this2.notifyServer.bind(_this2);
+	    _this2.axiosGet = _this2.axiosGet.bind(_this2);
 	    return _this2;
 	  }
 
@@ -28652,17 +28661,17 @@
 	      var _this = this;
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('update counter', function (data) {
-	        if (data.item === _this3.props.id) {
-	          _this3.updatePlusClick();
-	        };
+	        if (data.item === _this3.props.id) _this3.updatePlusClick(_this3.state.clicks);
 	      });
+	      this.axiosGet();
+	    }
+	  }, {
+	    key: 'axiosGet',
+	    value: function axiosGet() {
+	      var _this = this;
 	      _axios2.default.get('/items').then(function (res) {
 	        res.data.forEach(function (item) {
-	          if (item.itemId === _this.props.id) {
-	            _this.setState({
-	              clicks: item.clicks + 1
-	            });
-	          }
+	          if (item.itemId === _this.props.id) _this.updatePlusClick(item.clicks);
 	        });
 	      });
 	    }
@@ -28670,7 +28679,7 @@
 	    key: 'notifyServer',
 	    value: function notifyServer() {
 	      this.socket.emit('counter event', { item: this.props.id });
-	      this.updatePlusClick();
+	      this.updatePlusClick(this.state.clicks);
 	      var clicks = { itemId: this.props.id, clicks: this.state.clicks };
 	      _axios2.default.post('/items', clicks);
 	    }
@@ -28678,7 +28687,7 @@
 	    key: 'updatePlusClick',
 	    value: function updatePlusClick(event) {
 	      this.setState({
-	        clicks: this.state.clicks + 1
+	        clicks: event + 1
 	      });
 	    }
 	  }, {

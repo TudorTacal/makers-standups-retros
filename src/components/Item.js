@@ -10,37 +10,37 @@ class Item extends Component {
     };
     this.updatePlusClick = this.updatePlusClick.bind(this);
     this.notifyServer = this.notifyServer.bind(this);
+    this.axiosGet = this.axiosGet.bind(this);
   }
 
   componentDidMount(){
     var _this = this
     this.socket = io('/');
     this.socket.on('update counter', data => {
-      if(data.item === this.props.id ){
-        this.updatePlusClick();
-      };
+      if (data.item === this.props.id) this.updatePlusClick(this.state.clicks);
     });
+    this.axiosGet();
+  };
+  
+  axiosGet() {
+    var _this = this
     axios.get('/items').then(res =>{
       res.data.forEach(function(item){
-        if (item.itemId === _this.props.id) {
-          _this.setState ({
-            clicks: item.clicks+1
-          })
-        }
+        if (item.itemId === _this.props.id) _this.updatePlusClick(item.clicks)
       })
     });
-  };
+  }
 
   notifyServer(){
     this.socket.emit('counter event', { item: this.props.id });
-    this.updatePlusClick();
+    this.updatePlusClick(this.state.clicks);
     let clicks = {itemId: this.props.id, clicks: this.state.clicks}
     axios.post('/items',clicks )
   };
 
   updatePlusClick(event) {
     this.setState({
-      clicks: this.state.clicks + 1
+      clicks: event + 1
     })
   }
 

@@ -9,6 +9,8 @@ class ItemList extends Component {
 		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}]};
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
+		this.axiosGet = this.axiosGet.bind(this);
+
 	}
 
 	componentDidMount () {
@@ -19,6 +21,11 @@ class ItemList extends Component {
 				this.updateList(data.text);
 			}
 		});
+		this.axiosGet();
+	}
+
+	axiosGet(){
+		var _this = this
 		axios.get('/items').then(res =>{
 			res.data.forEach(function(entry){
 				if (entry.listId === _this.props.id) _this.updateList(entry.text)
