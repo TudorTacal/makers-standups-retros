@@ -2,26 +2,30 @@ import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
 import axios from 'axios'
-var items;
+var mongoItems;
 class ItemList extends Component {
 
 	constructor(props) {
-		axios.get('/items').then(res => {
-			items = res.data
-			console.log(items)
-		})
 		super(props);
-		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}] };
+		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}]};
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
 	}
 
 	componentDidMount () {
+		var _this = this;
 		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
 				this.updateList(data.text);
 			}
+		});
+		var mongoData;
+		axios.get('/items').then(res =>{
+			mongoData = res.data
+			res.data.forEach(function(entry){
+				_this.updateList(entry.text)
+			})
 		});
 	}
 
@@ -29,12 +33,7 @@ class ItemList extends Component {
 		event.preventDefault();
 		let comment = this.refs.comment.value;
 		let item = {text: comment}
-		axios.post('/items', item).then(res => {
-			this.setState({
-				data: this.state.data.concat({text: res.data.text})
-			})
-		})
-		console.log(this.state.data)
+		axios.post('/items', item)
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
 		this.updateList(comment);
 	}
@@ -47,6 +46,7 @@ class ItemList extends Component {
 	}
 
 	render() {
+
 		let items = this.state.data.map((item, index) => {
 			return (
 				<Item id={this.props.id + String(index)} text={item.text} key={index}>

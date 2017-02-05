@@ -82,7 +82,6 @@ app.post('/items', (req, res) => {
     res.send(err);
   });
   res.json(mongoItem)
-  console.log(mongoItem)
 })
 
 app.get('/items', (req, res) => {

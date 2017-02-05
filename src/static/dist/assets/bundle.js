@@ -28507,7 +28507,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var items;
+	var mongoItems;
 
 	var ItemList = function (_Component) {
 		_inherits(ItemList, _Component);
@@ -28515,45 +28515,45 @@
 		function ItemList(props) {
 			_classCallCheck(this, ItemList);
 
-			_axios2.default.get('/items').then(function (res) {
-				items = res.data;
-				console.log(items);
-			});
+			var _this2 = _possibleConstructorReturn(this, (ItemList.__proto__ || Object.getPrototypeOf(ItemList)).call(this, props));
 
-			var _this = _possibleConstructorReturn(this, (ItemList.__proto__ || Object.getPrototypeOf(ItemList)).call(this, props));
-
-			_this.state = { data: [{ text: "I am the first item" }, { text: "I am the second item" }] };
-			_this.notifyServer = _this.notifyServer.bind(_this);
-			_this.updateList = _this.updateList.bind(_this);
-			return _this;
+			_this2.state = { data: [{ text: "I am the first item" }, { text: "I am the second item" }] };
+			_this2.notifyServer = _this2.notifyServer.bind(_this2);
+			_this2.updateList = _this2.updateList.bind(_this2);
+			return _this2;
 		}
 
 		_createClass(ItemList, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				var _this2 = this;
+				var _this3 = this;
 
+				var _this = this;
 				this.socket = (0, _socket2.default)('/');
 				this.socket.on('update list', function (data) {
-					if (data.itemList === _this2.props.id) {
-						_this2.updateList(data.text);
+					if (data.itemList === _this3.props.id) {
+						_this3.updateList(data.text);
 					}
+				});
+				var mongoData;
+				_axios2.default.get('/items').then(function (res) {
+					mongoData = res.data;
+					res.data.forEach(function (entry) {
+						_this.updateList(entry.text);
+					});
+					// _this.updateList(res.data[0].text)
+					// _this.setState ({
+					// 	data: this.state.data.concat({text: res.data[0].text})
+					// })
 				});
 			}
 		}, {
 			key: 'notifyServer',
 			value: function notifyServer(event) {
-				var _this3 = this;
-
 				event.preventDefault();
 				var comment = this.refs.comment.value;
 				var item = { text: comment };
-				_axios2.default.post('/items', item).then(function (res) {
-					_this3.setState({
-						data: _this3.state.data.concat({ text: res.data.text })
-					});
-				});
-				console.log(this.state.data);
+				_axios2.default.post('/items', item);
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}
