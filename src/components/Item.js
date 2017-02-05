@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import axios from 'axios'
 
 class Item extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class Item extends Component {
   notifyServer(){
     this.socket.emit('counter event', { item: this.props.id });
     this.updatePlusClick();
+    let clicks = {clicks: this.state.clicks}
+    axios.post('/items',clicks )
   };
 
   updatePlusClick(event) {

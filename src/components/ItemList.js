@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
 import axios from 'axios'
-var mongoItems;
 class ItemList extends Component {
 
 	constructor(props) {
@@ -20,9 +19,7 @@ class ItemList extends Component {
 				this.updateList(data.text);
 			}
 		});
-		var mongoData;
 		axios.get('/items').then(res =>{
-			mongoData = res.data
 			res.data.forEach(function(entry){
 				if (entry.listId === _this.props.id) _this.updateList(entry.text)
 			})

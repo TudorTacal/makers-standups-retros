@@ -28507,8 +28507,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mongoItems;
-
 	var ItemList = function (_Component) {
 		_inherits(ItemList, _Component);
 
@@ -28535,12 +28533,8 @@
 						_this3.updateList(data.text);
 					}
 				});
-				var mongoData;
 				_axios2.default.get('/items').then(function (res) {
-					mongoData = res.data;
 					res.data.forEach(function (entry) {
-						console.log(entry.listId);
-						console.log(_this.props.id);
 						if (entry.listId === _this.props.id) _this.updateList(entry.text);
 					});
 				});
@@ -28622,6 +28616,10 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
+	var _axios = __webpack_require__(237);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28663,6 +28661,8 @@
 	    value: function notifyServer() {
 	      this.socket.emit('counter event', { item: this.props.id });
 	      this.updatePlusClick();
+	      var clicks = { clicks: this.state.clicks };
+	      _axios2.default.post('/items', clicks);
 	    }
 	  }, {
 	    key: 'updatePlusClick',
