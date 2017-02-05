@@ -28590,7 +28590,7 @@
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer.bind(this) },
-							_react2.default.createElement('input', { type: 'text', ref: 'comment' }),
+							_react2.default.createElement('input', { type: 'text', maxLength: '50', ref: 'comment' }),
 							_react2.default.createElement('input', { type: 'submit', value: 'Add' })
 						)
 					)
