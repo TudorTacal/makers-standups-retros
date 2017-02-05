@@ -28539,8 +28539,9 @@
 				_axios2.default.get('/items').then(function (res) {
 					mongoData = res.data;
 					res.data.forEach(function (entry) {
-						// if id's match load the data if not leave it blank
-						_this.updateList(entry.text);
+						console.log(entry.listId);
+						console.log(_this.props.id);
+						if (entry.listId === _this.props.id) _this.updateList(entry.text);
 					});
 				});
 			}

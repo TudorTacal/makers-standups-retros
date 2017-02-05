@@ -24,8 +24,7 @@ class ItemList extends Component {
 		axios.get('/items').then(res =>{
 			mongoData = res.data
 			res.data.forEach(function(entry){
-				// if id's match load the data if not leave it blank
-				_this.updateList(entry.text)
+				if (entry.listId === _this.props.id) _this.updateList(entry.text)
 			})
 		});
 	}
