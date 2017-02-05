@@ -10,12 +10,6 @@ class ItemList extends Component {
 		this.updateList = this.updateList.bind(this);
 	}
 
-	getInitialState() {
-		return {
-			data: []
-		};
-	}
-
 	componentDidMount () {
 		this.socket = io('/');
 		this.socket.on('update list', data => {
@@ -38,7 +32,6 @@ class ItemList extends Component {
 		this.setState({
 			data: this.state.data.concat({text: newItem})
 		});
-		// this.refs.comment.value = "";
 	}
 
 	render() {

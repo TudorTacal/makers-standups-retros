@@ -28523,13 +28523,6 @@
 		}
 
 		_createClass(ItemList, [{
-			key: 'getInitialState',
-			value: function getInitialState() {
-				return {
-					data: []
-				};
-			}
-		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var _this2 = this;
@@ -28557,7 +28550,6 @@
 				this.setState({
 					data: this.state.data.concat({ text: newItem })
 				});
-				// this.refs.comment.value = "";
 			}
 		}, {
 			key: 'render',
