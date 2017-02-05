@@ -28522,7 +28522,7 @@
 				this.setState({
 					data: this.state.data.concat({ text: newItem })
 				});
-				this.refs.comment.value = "";
+				this.state.value = "";
 			}
 		}, {
 			key: 'render',
