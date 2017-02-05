@@ -15,7 +15,7 @@ import MongoItem from './models/mongoItem'
 
 
 
-mongoose.connect('mongodb://<tudor>:<Standups10!>@ds035059.mlab.com:35059/standups');
+mongoose.connect('mongodb://tudor:Standups10!@ds035059.mlab.com:35059/standups');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
