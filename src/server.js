@@ -14,7 +14,7 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-var url = processes.env.MONGOLAB_URI
+var url = process.env.MONGOLAB_URI
 mongoose.connect(url);
 
 var db = mongoose.connection;
