@@ -22,9 +22,9 @@ class Item extends Component {
     });
     axios.get('/items').then(res =>{
       res.data.forEach(function(item){
-        if (entry.itemId === _this.props.id) {
+        if (item.itemId === _this.props.id) {
           _this.setState ({
-            clicks: item.clicks
+            clicks: item.clicks+1
           })
         }
       })
@@ -43,7 +43,6 @@ class Item extends Component {
       clicks: this.state.clicks + 1
     })
   }
-
 
   render() {
     let image = <img src="/images/plus.png" onClick={this.notifyServer.bind(this)} alt="Plus" height="20" width="20"/>

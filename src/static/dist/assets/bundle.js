@@ -28657,10 +28657,10 @@
 	        };
 	      });
 	      _axios2.default.get('/items').then(function (res) {
-	        res.data.forEach(function (entry) {
-	          if (entry.itemId === _this.props.id) {
+	        res.data.forEach(function (item) {
+	          if (item.itemId === _this.props.id) {
 	            _this.setState({
-	              clicks: entry.clicks
+	              clicks: item.clicks + 1
 	            });
 	          }
 	        });
