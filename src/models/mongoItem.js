@@ -2,9 +2,12 @@ import mongoose from 'mongoose'
 
 var Schema = mongoose.Schema;
 
-var MongoItemSchema = new Schema({
-  text: String,
-  clicks: Number
-});
 
-export default mongoose.model('MongoItem', MongoItemSchema);
+var ItemSchema = new Schema({
+  text: String,
+  listId: String,
+  itemId: String,
+  clicks: Number,
+})
+
+export default mongoose.model('MongoItem', ItemSchema);

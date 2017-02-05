@@ -11,6 +11,9 @@ import generateRandomId from './helpers/randomIdAlgorithm';
 import Standup from './models/standup.js'
 import Retro from './models/retro.js'
 import mongoose from 'mongoose'
+import MongoItem from './models/mongoItem'
+
+
 
 mongoose.connect('mongodb://localhost/standups');
 
@@ -20,9 +23,14 @@ db.once('open', function() {
   console.log('We\'re connected!');
 });
 
+
 const app = new Express();
 const server = new Server(app);
 const io = socketIo(server);
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -66,7 +74,29 @@ app.get('/retros/:id', (req,res) => {
   res.render('template', {markup})
 })
 
+app.post('/items', (req, res) => {
+  let mongoItem = new MongoItem ();
+  mongoItem.text = req.body.text;
+  mongoItem.listId = req.body.listId
+  mongoItem.itemId = req.body.itemId
+  mongoItem.clicks = req.body.clicks
+  console.log(mongoItem)
+  mongoItem.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoItem)
+})
+
+app.get('/items', (req, res) => {
+  MongoItem.find({}, function(err,info) {
+    res.json(info)
+  });
+
+})
+
 let clients = [];
+
 io.on('connection', function(socket){
   socket.nickname = 'Unknown';
   console.log( socket.nickname + ' connected');
