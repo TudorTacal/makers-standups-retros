@@ -91,6 +91,10 @@ app.post('/items', (req, res) => {
 
 app.get('/items', (req, res) => {
   MongoItem.find({}, function(err,info) {
+    if (err) {
+      console.log("Error:", err);
+      res.send(err);
+    }
     res.json(info)
   });
 })
