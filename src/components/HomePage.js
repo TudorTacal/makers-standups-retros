@@ -11,8 +11,8 @@ class HomePage extends Component {
 					<Layout />
 				</div>
 				<div className="homePageButtons">
-					<Button route="standups" name="New Stand Up" />
-					<Button route="retros" name="New Retro" />
+					<Button route="standups" name="S" />
+					<Button route="retros" name="R" />
 				</div>
 			</div>
 		)
