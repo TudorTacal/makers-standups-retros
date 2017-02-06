@@ -37156,7 +37156,8 @@
 
 	    _this.state = { userCount: 1,
 	      socketId: '',
-	      userNames: {} };
+	      userNames: {},
+	      randomNames: ["Dines", "Amanda", "Kim", "Tudor"] };
 	    _this.updateUserCount = _this.updateUserCount.bind(_this);
 	    _this.updateUserNames = _this.updateUserNames.bind(_this);
 	    _this.updateName = _this.updateName.bind(_this);
@@ -37170,17 +37171,25 @@
 
 	      var boardId = window.location.pathname.split('/')[2];
 	      this.socket = (0, _socket2.default)('/');
+
 	      this.socket.on('connect', function () {
-	        _this2.socket.emit('room', { boardId: boardId });
+	        _this2.state.userNames[_this2.socket.id] = _this2.state.randomNames[Math.floor(Math.random() * _this2.state.randomNames.length)];
+	        document.getElementById("name-input").placeholder = _this2.state.userNames[_this2.socket.id];
+	        _this2.socket.emit('room', { boardId: boardId,
+	          name: _this2.state.userNames[_this2.socket.id],
+	          socketId: _this2.socket.id });
 	      });
-	      this.socket.on('enter', function (data) {
-	        _this2.updateUserCount(data.users);
+	      this.socket.on('entered', function (data) {
+	        _this2.state.userNames[data.socketId] = data.name;
 	        _this2.updateUserNames();
+	        _this2.updateUserCount(data.users);
 	      });
+
 	      this.socket.on('leave', function (data) {
+	        console.log(data);
 	        _this2.updateUserCount(data.users);
 	        delete _this2.state.userNames[data.socket];
-	        _this2.updateUserNames();
+	        _this2.socket.emit("new user", { room: boardId, userNames: _this2.state.userNames });
 	      });
 	      this.socket.on('update names', function (data) {
 	        _this2.state.userNames[data.socket] = data.name;
@@ -37206,7 +37215,7 @@
 	    key: 'updateUserNames',
 	    value: function updateUserNames() {
 	      var boardId = window.location.pathname.split('/')[2];
-	      if (Object.keys(this.state.userNames).length !== 0) {
+	      if (Object.keys(this.state.userNames).length > 1) {
 	        this.socket.emit("new user", { room: boardId, userNames: this.state.userNames });
 	      }
 	    }
@@ -37231,7 +37240,7 @@
 	          null,
 	          'Add your name below...'
 	        ),
-	        _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.updateName }),
+	        _react2.default.createElement('input', { id: 'name-input', type: 'text', ref: 'name', onChange: this.updateName }),
 	        _react2.default.createElement(
 	          'p',
 	          null,

@@ -14,9 +14,8 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-
-mongoose.connect('mongodb://localhost/standups');
-
+var url = "mongodb://localhost/standups"
+mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
@@ -55,13 +54,13 @@ app.post('/standups', (req, res) => {
 })
 
 app.post('/retros', (req, res) => {
-  var mongoStandup = new Retro();
-  mongoStandup.board = 'I am the  retro board';
-  mongoStandup.save(function(err) {
+  var mongoRetro = new Retro();
+  mongoRetro.board = 'I am the retro board';
+  mongoRetro.save(function(err) {
     if (err)
     res.send(err);
   });
-  res.json(mongoStandup)
+  res.json(mongoRetro)
 })
 
 app.get('/standups/:id', (req, res) => {
@@ -80,19 +79,23 @@ app.post('/items', (req, res) => {
   mongoItem.listId = req.body.listId
   mongoItem.itemId = req.body.itemId
   mongoItem.clicks = req.body.clicks
-  console.log(mongoItem)
   mongoItem.save(function(err) {
-  if (err)
+  if (err) {
+    console.log("Error:", err);
     res.send(err);
+  }
   });
   res.json(mongoItem)
 })
 
 app.get('/items', (req, res) => {
   MongoItem.find({}, function(err,info) {
+    if (err) {
+      console.log("Error:", err);
+      res.send(err);
+    }
     res.json(info)
   });
-
 })
 
 let clients = [];
@@ -102,7 +105,6 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log( socket.nickname + ' disconnected');
     if(socket.nickname !== "Unknown" && io.nsps['/'].adapter.rooms[socket.nickname]){
-      console.log(socket.nickname);
       let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
       let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
       io.to(socket.nickname).emit('leave', { socket: socket.id,
@@ -120,7 +122,9 @@ io.on('connection', function(socket){
     socket.join(data.boardId);
     let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
-    io.to(data.boardId).emit('enter', {users: numClients});
+    io.to(data.boardId).emit('entered', {users: numClients,
+                                        name: data.name,
+                                        socketId: data.socketId});
   });
   socket.on('name', function(data) {
     io.to(data.room).emit('update names', { socket: socket.id,
@@ -128,7 +132,6 @@ io.on('connection', function(socket){
   });
 
   socket.on('new user', function(data) {
-    console.log(data.userNames);
     io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });
