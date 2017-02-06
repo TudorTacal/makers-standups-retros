@@ -16,7 +16,6 @@ import MongoItem from './models/mongoItem'
 
 var url = process.env.MONGOLAB_URI
 mongoose.connect(url);
-// 'mongodb://localhost/standups'
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
