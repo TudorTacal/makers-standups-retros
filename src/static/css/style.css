@@ -38,10 +38,29 @@ a.homepageButton:hover {
 	background-color: white;
 }
 
-/*Standup Page*/
+/*Boards*/
+
+.boardContainer {
+	width: 70%;
+	margin: auto;
+	background-color: yellow;
+	overflow: auto;
+}
+
+/*Page Content*/
 
 div.standupPageContent {
 	text-align: center;
+	float: left;
+	background-color: blue;
+	width: 80%;
+}
+
+div.retroPageContent {
+	text-align: center;
+	float: left;
+	background-color: blue;
+	width: 85%;
 }
 
 div.whiteBoard div {
@@ -76,8 +95,18 @@ div.column-content {
 	list-style-type: none;
 }
 
-/*Retro Page*/
+/*User Info*/
 
-div.retroPageContent {
-	text-align: center;
+.userInfo {
+	float: right;
+	/*margin-left: 30px;*/
+}
+
+.userInfo ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.userInfo li {
+	padding-bottom: 10px;
 }

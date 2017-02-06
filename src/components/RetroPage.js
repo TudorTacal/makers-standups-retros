@@ -9,12 +9,16 @@ class RetroPage extends Component {
     let titles = ["Successes", "Struggles", "Suggestions", "Actions"]
 
     return (
-      <div className="retroPageContent">
-        <div className="logo">
-          <Layout />
+      <div className="boardContainer">
+        <div className="retroPageContent">
+          <div className="logo">
+            <Layout />
+          </div>
+          <div className="retroBoard">
+            <Board titles={ titles } />
+          </div>
         </div>
-        <div className="retroBoard">
-          <Board titles={ titles } />
+        <div className="userInfo">
           <UserInfo />
         </div>
       </div>

@@ -28321,16 +28321,24 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'standupPageContent' },
+	        { className: 'boardContainer' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'logo' },
-	          _react2.default.createElement(_Layout2.default, null)
+	          { className: 'standupPageContent' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'logo' },
+	            _react2.default.createElement(_Layout2.default, null)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'standupBoard' },
+	            _react2.default.createElement(_Board2.default, { titles: titles })
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'standupBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles }),
+	          { className: 'userInfo' },
 	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
@@ -37221,11 +37229,16 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
+	          'Add your name below...'
+	        ),
+	        _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.updateName }),
+	        _react2.default.createElement(
+	          'p',
+	          null,
 	          this.state.userCount,
 	          ' users connected.'
 	        ),
-	        _react2.default.createElement(_UserList2.default, { userNames: this.state.userNames }),
-	        _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.updateName })
+	        _react2.default.createElement(_UserList2.default, { userNames: this.state.userNames })
 	      );
 	    }
 	  }]);
@@ -37374,16 +37387,24 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'retroPageContent' },
+	        { className: 'boardContainer' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'logo' },
-	          _react2.default.createElement(_Layout2.default, null)
+	          { className: 'retroPageContent' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'logo' },
+	            _react2.default.createElement(_Layout2.default, null)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'retroBoard' },
+	            _react2.default.createElement(_Board2.default, { titles: titles })
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'retroBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles }),
+	          { className: 'userInfo' },
 	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
