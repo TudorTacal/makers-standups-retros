@@ -28465,7 +28465,7 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'column-content' },
-						_react2.default.createElement(_ItemList2.default, { id: this.props.id })
+						_react2.default.createElement(_ItemList2.default, { id: this.props.id, title: this.props.title })
 					)
 				);
 			}
@@ -28577,11 +28577,19 @@
 				var _this4 = this;
 
 				var items = this.state.data.map(function (item, index) {
-					return _react2.default.createElement(
-						_Item2.default,
-						{ id: _this4.props.id + String(index), text: item.text, key: index },
-						item.text
-					);
+					if (_this4.props.title === "I am blocked") {
+						return _react2.default.createElement(
+							_Item2.default,
+							{ id: _this4.props.id + String(index), text: item.text, key: index, search: 'yes' },
+							item.text
+						);
+					} else {
+						return _react2.default.createElement(
+							_Item2.default,
+							{ id: _this4.props.id + String(index), text: item.text, key: index, search: 'no' },
+							item.text
+						);
+					}
 				});
 				return _react2.default.createElement(
 					'div',
@@ -28700,13 +28708,31 @@
 	    key: 'render',
 	    value: function render() {
 	      var image = _react2.default.createElement('img', { src: '/images/plus.png', onClick: this.notifyServer.bind(this), alt: 'Plus', height: '20', width: '20' });
-	      return _react2.default.createElement(
-	        'li',
-	        { className: 'item' },
-	        this.props.text,
-	        image,
-	        this.state.clicks
-	      );
+	      if (this.props.search === "yes") {
+	        var searchQuery = this.props.text.split(" ").join("+");
+	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;
+	        var searchLink = _react2.default.createElement(
+	          'a',
+	          { href: searchURL, target: '_blank' },
+	          _react2.default.createElement('img', { src: '/images/so-icon.png', alt: 'SOSearch', height: '20', width: '20' })
+	        );
+	        return _react2.default.createElement(
+	          'li',
+	          { className: 'item' },
+	          this.props.text,
+	          image,
+	          this.state.clicks,
+	          searchLink
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'li',
+	          { className: 'item' },
+	          this.props.text,
+	          image,
+	          this.state.clicks
+	        );
+	      }
 	    }
 	  }]);
 
