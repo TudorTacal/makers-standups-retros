@@ -13,7 +13,7 @@ div.logo {
 nav {
 	background-color: solid black;
 	width: 100%;
-*/	list-style: none;
+	list-style: none;
 }
 
 div.homePageContent {
@@ -23,9 +23,7 @@ div.homePageContent {
 img {
 	max-width: 100%;
 }
-div.homePageButtons {
-	height: 300px;
-}
+
 a.homepageButton {
 	display: inline-block;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -42,8 +40,7 @@ a.homepageButton {
 }
 
 a.homepageButton:hover {
-	color: black;
-	background-color: white;
+	background: url('./redbrick.jpg');
 }
 
 /*Standup Page*/
@@ -89,3 +86,4 @@ div.column-content {
 div.retroPageContent {
 	text-align: center;
 }
+/*Test Css*/
