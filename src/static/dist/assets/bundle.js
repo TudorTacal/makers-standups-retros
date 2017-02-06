@@ -26625,7 +26625,7 @@
 					{ className: 'homePageContent' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'homePageLogo' },
+						{ className: 'header' },
 						_react2.default.createElement(_Layout2.default, null)
 					),
 					_react2.default.createElement(
@@ -26680,9 +26680,13 @@
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "a",
-	        { href: "/" },
-	        _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" })
+	        "nav",
+	        null,
+	        _react2.default.createElement(
+	          "a",
+	          { href: "/" },
+	          _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" })
+	        )
 	      );
 	    }
 	  }]);

@@ -7,7 +7,7 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div className="homePageContent">
-				<div className="homePageLogo">
+				<div className="header">
 					<Layout />
 				</div>
 				<div className="homePageButtons">
