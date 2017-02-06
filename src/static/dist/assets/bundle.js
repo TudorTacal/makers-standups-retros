@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(322);
+	var _RetroPage = __webpack_require__(323);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -28292,7 +28292,7 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _UserInfo = __webpack_require__(320);
+	var _UserInfo = __webpack_require__(321);
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
@@ -28465,7 +28465,7 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'column-content' },
-						_react2.default.createElement(_ItemList2.default, { id: this.props.id })
+						_react2.default.createElement(_ItemList2.default, { id: this.props.id, title: this.props.title })
 					)
 				);
 			}
@@ -28577,11 +28577,19 @@
 				var _this4 = this;
 
 				var items = this.state.data.map(function (item, index) {
-					return _react2.default.createElement(
-						_Item2.default,
-						{ id: _this4.props.id + String(index), text: item.text, key: index },
-						item.text
-					);
+					if (_this4.props.title === "I am blocked") {
+						return _react2.default.createElement(
+							_Item2.default,
+							{ id: _this4.props.id + String(index), text: item.text, key: index, search: 'yes' },
+							item.text
+						);
+					} else {
+						return _react2.default.createElement(
+							_Item2.default,
+							{ id: _this4.props.id + String(index), text: item.text, key: index, search: 'no' },
+							item.text
+						);
+					}
 				});
 				return _react2.default.createElement(
 					'div',
@@ -28700,13 +28708,31 @@
 	    key: 'render',
 	    value: function render() {
 	      var image = _react2.default.createElement('img', { src: '/images/plus.png', onClick: this.notifyServer.bind(this), alt: 'Plus', height: '20', width: '20' });
-	      return _react2.default.createElement(
-	        'li',
-	        { className: 'item' },
-	        this.props.text,
-	        image,
-	        this.state.clicks
-	      );
+	      if (this.props.search === "yes") {
+	        var searchQuery = this.props.text.split(" ").join("+");
+	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;
+	        var searchLink = _react2.default.createElement(
+	          'a',
+	          { href: searchURL },
+	          _react2.default.createElement('img', { src: '/images/so-icon.png', alt: 'SOSearch', height: '20', width: '20' })
+	        );
+	        return _react2.default.createElement(
+	          'li',
+	          { className: 'item' },
+	          this.props.text,
+	          image,
+	          this.state.clicks,
+	          searchLink
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'li',
+	          { className: 'item' },
+	          this.props.text,
+	          image,
+	          this.state.clicks
+	        );
+	      }
 	    }
 	  }]);
 
@@ -31713,13 +31739,13 @@
 
 	var eio = __webpack_require__(286);
 	var Socket = __webpack_require__(315);
-	var Emitter = __webpack_require__(304);
+	var Emitter = __webpack_require__(316);
 	var parser = __webpack_require__(274);
-	var on = __webpack_require__(317);
-	var bind = __webpack_require__(318);
+	var on = __webpack_require__(318);
+	var bind = __webpack_require__(319);
 	var debug = __webpack_require__(271)('socket.io-client:manager');
 	var indexOf = __webpack_require__(313);
-	var Backoff = __webpack_require__(319);
+	var Backoff = __webpack_require__(320);
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -36496,10 +36522,10 @@
 	 */
 
 	var parser = __webpack_require__(274);
-	var Emitter = __webpack_require__(304);
-	var toArray = __webpack_require__(316);
-	var on = __webpack_require__(317);
-	var bind = __webpack_require__(318);
+	var Emitter = __webpack_require__(316);
+	var toArray = __webpack_require__(317);
+	var on = __webpack_require__(318);
+	var bind = __webpack_require__(319);
 	var debug = __webpack_require__(271)('socket.io-client:socket');
 	var hasBin = __webpack_require__(297);
 
@@ -36913,6 +36939,175 @@
 
 /***/ },
 /* 316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/**
+	 * Expose `Emitter`.
+	 */
+
+	if (true) {
+	  module.exports = Emitter;
+	}
+
+	/**
+	 * Initialize a new `Emitter`.
+	 *
+	 * @api public
+	 */
+
+	function Emitter(obj) {
+	  if (obj) return mixin(obj);
+	};
+
+	/**
+	 * Mixin the emitter properties.
+	 *
+	 * @param {Object} obj
+	 * @return {Object}
+	 * @api private
+	 */
+
+	function mixin(obj) {
+	  for (var key in Emitter.prototype) {
+	    obj[key] = Emitter.prototype[key];
+	  }
+	  return obj;
+	}
+
+	/**
+	 * Listen on the given `event` with `fn`.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 * @return {Emitter}
+	 * @api public
+	 */
+
+	Emitter.prototype.on =
+	Emitter.prototype.addEventListener = function(event, fn){
+	  this._callbacks = this._callbacks || {};
+	  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+	    .push(fn);
+	  return this;
+	};
+
+	/**
+	 * Adds an `event` listener that will be invoked a single
+	 * time then automatically removed.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 * @return {Emitter}
+	 * @api public
+	 */
+
+	Emitter.prototype.once = function(event, fn){
+	  function on() {
+	    this.off(event, on);
+	    fn.apply(this, arguments);
+	  }
+
+	  on.fn = fn;
+	  this.on(event, on);
+	  return this;
+	};
+
+	/**
+	 * Remove the given callback for `event` or all
+	 * registered callbacks.
+	 *
+	 * @param {String} event
+	 * @param {Function} fn
+	 * @return {Emitter}
+	 * @api public
+	 */
+
+	Emitter.prototype.off =
+	Emitter.prototype.removeListener =
+	Emitter.prototype.removeAllListeners =
+	Emitter.prototype.removeEventListener = function(event, fn){
+	  this._callbacks = this._callbacks || {};
+
+	  // all
+	  if (0 == arguments.length) {
+	    this._callbacks = {};
+	    return this;
+	  }
+
+	  // specific event
+	  var callbacks = this._callbacks['$' + event];
+	  if (!callbacks) return this;
+
+	  // remove all handlers
+	  if (1 == arguments.length) {
+	    delete this._callbacks['$' + event];
+	    return this;
+	  }
+
+	  // remove specific handler
+	  var cb;
+	  for (var i = 0; i < callbacks.length; i++) {
+	    cb = callbacks[i];
+	    if (cb === fn || cb.fn === fn) {
+	      callbacks.splice(i, 1);
+	      break;
+	    }
+	  }
+	  return this;
+	};
+
+	/**
+	 * Emit `event` with the given args.
+	 *
+	 * @param {String} event
+	 * @param {Mixed} ...
+	 * @return {Emitter}
+	 */
+
+	Emitter.prototype.emit = function(event){
+	  this._callbacks = this._callbacks || {};
+	  var args = [].slice.call(arguments, 1)
+	    , callbacks = this._callbacks['$' + event];
+
+	  if (callbacks) {
+	    callbacks = callbacks.slice(0);
+	    for (var i = 0, len = callbacks.length; i < len; ++i) {
+	      callbacks[i].apply(this, args);
+	    }
+	  }
+
+	  return this;
+	};
+
+	/**
+	 * Return array of callbacks for `event`.
+	 *
+	 * @param {String} event
+	 * @return {Array}
+	 * @api public
+	 */
+
+	Emitter.prototype.listeners = function(event){
+	  this._callbacks = this._callbacks || {};
+	  return this._callbacks['$' + event] || [];
+	};
+
+	/**
+	 * Check if this emitter has `event` handlers.
+	 *
+	 * @param {String} event
+	 * @return {Boolean}
+	 * @api public
+	 */
+
+	Emitter.prototype.hasListeners = function(event){
+	  return !! this.listeners(event).length;
+	};
+
+
+/***/ },
+/* 317 */
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -36931,7 +37126,7 @@
 
 
 /***/ },
-/* 317 */
+/* 318 */
 /***/ function(module, exports) {
 
 	
@@ -36961,7 +37156,7 @@
 
 
 /***/ },
-/* 318 */
+/* 319 */
 /***/ function(module, exports) {
 
 	/**
@@ -36990,7 +37185,7 @@
 
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports) {
 
 	
@@ -37081,7 +37276,7 @@
 
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37100,7 +37295,7 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-	var _UserList = __webpack_require__(321);
+	var _UserList = __webpack_require__(322);
 
 	var _UserList2 = _interopRequireDefault(_UserList);
 
@@ -37212,7 +37407,7 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37296,7 +37491,7 @@
 	exports.default = UserList;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37319,7 +37514,7 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _UserInfo = __webpack_require__(320);
+	var _UserInfo = __webpack_require__(321);
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
