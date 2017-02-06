@@ -37157,7 +37157,9 @@
 	    _this.state = { userCount: 1,
 	      socketId: '',
 	      userNames: {},
-	      randomNames: ["Dines", "Amanda", "Kim", "Tudor"] };
+	      randomNames: ["Dines", "Amanda", "Kim", "Tudor"],
+	      randomColors: ["red", "blue", "orange", "green", "black"],
+	      userStyle: {} };
 	    _this.updateUserCount = _this.updateUserCount.bind(_this);
 	    _this.updateUserNames = _this.updateUserNames.bind(_this);
 	    _this.updateName = _this.updateName.bind(_this);
@@ -37170,8 +37172,9 @@
 	      var _this2 = this;
 
 	      var boardId = window.location.pathname.split('/')[2];
+	      this.state.userStyle["color"] = this.state.randomColors[Math.floor(Math.random() * this.state.randomColors.length)];
 	      this.socket = (0, _socket2.default)('/');
-
+	      console.log(this.state.userStyle.color);
 	      this.socket.on('connect', function () {
 	        _this2.state.userNames[_this2.socket.id] = _this2.state.randomNames[Math.floor(Math.random() * _this2.state.randomNames.length)];
 	        document.getElementById("name-input").placeholder = _this2.state.userNames[_this2.socket.id];

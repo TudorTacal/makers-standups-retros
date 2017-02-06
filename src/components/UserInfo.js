@@ -9,7 +9,8 @@ class UserInfo extends Component {
                   socketId: '',
                   userNames: {},
                   randomNames: ["Dines", "Amanda", "Kim", "Tudor"],
-                  };
+                  randomColors: ["red", "blue", "orange", "green", "black"],
+                  userStyle: {}};
 		this.updateUserCount = this.updateUserCount.bind(this);
 		this.updateUserNames = this.updateUserNames.bind(this);
 		this.updateName = this.updateName.bind(this);
@@ -17,8 +18,9 @@ class UserInfo extends Component {
 
   componentDidMount () {
     let boardId = window.location.pathname.split('/')[2]
+    this.state.userStyle["color"] = this.state.randomColors[Math.floor(Math.random()*this.state.randomColors.length)];
     this.socket = io('/');
-
+    console.log(this.state.userStyle.color);
     this.socket.on('connect', () => {
     this.state.userNames[this.socket.id] = this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)];
     document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id];
