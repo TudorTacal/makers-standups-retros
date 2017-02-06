@@ -7,7 +7,8 @@ class UserInfo extends Component {
     super(props)
     this.state = { userCount: 1,
                   socketId: '',
-                  userNames: {}};
+                  userNames: {},
+                  randomNames: ["Dines", "Amanda", "Kim", "Tudor"]};
 		this.updateUserCount = this.updateUserCount.bind(this);
 		this.updateUserNames = this.updateUserNames.bind(this);
 		this.updateName = this.updateName.bind(this);
@@ -16,17 +17,26 @@ class UserInfo extends Component {
   componentDidMount () {
     let boardId = window.location.pathname.split('/')[2]
     this.socket = io('/');
+
     this.socket.on('connect', () => {
-    this.socket.emit('room', {boardId: boardId});
+    this.state.userNames[this.socket.id] = this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)];
+    document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id];
+    this.socket.emit('room', {boardId: boardId,
+                              name: this.state.userNames[this.socket.id],
+                              socketId: this.socket.id});
     });
-    this.socket.on('enter', (data) => {
-      this.updateUserCount(data.users);
+    this.socket.on('entered', (data) => {
+      this.state.userNames[data.socketId] = data.name;
       this.updateUserNames();
+      this.updateUserCount(data.users);
+
     });
+
     this.socket.on('leave', (data) => {
+      console.log(data);
       this.updateUserCount(data.users);
       delete this.state.userNames[data.socket];
-      this.updateUserNames();
+      this.socket.emit("new user", {room: boardId, userNames: this.state.userNames});
     });
     this.socket.on('update names', (data) => {
       this.state.userNames[data.socket] = data.name;
@@ -50,7 +60,7 @@ class UserInfo extends Component {
 
   updateUserNames(){
     let boardId = window.location.pathname.split('/')[2];
-    if(Object.keys(this.state.userNames).length !== 0) {
+    if(Object.keys(this.state.userNames).length > 1) {
       this.socket.emit("new user", {room: boardId, userNames: this.state.userNames})
     }
   }
@@ -68,7 +78,7 @@ class UserInfo extends Component {
     return (
       <div>
         <p>Add your name below...</p>
-      <input type="text" ref="name" onChange={this.updateName}/>
+        <input id="name-input" type="text" ref="name" onChange={this.updateName}/>
         <p>{this.state.userCount} users connected.</p>
         <UserList userNames={this.state.userNames}/>
       </div>
