@@ -56,8 +56,8 @@ app.post('/standups', (req, res) => {
 
 app.post('/retros', (req, res) => {
   var mongoRetro = new Retro();
-  mongoStandup.board = 'I am the retro board';
-  mongoStandup.save(function(err) {
+  mongoRetro.board = 'I am the retro board';
+  mongoRetro.save(function(err) {
     if (err)
     res.send(err);
   });
