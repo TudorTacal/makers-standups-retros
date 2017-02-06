@@ -14,6 +14,7 @@ class UserInfo extends Component {
 		this.updateUserCount = this.updateUserCount.bind(this);
 		this.updateUserNames = this.updateUserNames.bind(this);
 		this.updateName = this.updateName.bind(this);
+    this.findUser = this.findUser.bind(this);
   }
 
   componentDidMount () {
@@ -24,6 +25,7 @@ class UserInfo extends Component {
     this.socket.on('connect', () => {
     this.state.userNames[this.socket.id] = this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)];
     document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id];
+    this.findUser();
     this.socket.emit('room', {boardId: boardId,
                               name: this.state.userNames[this.socket.id],
                               socketId: this.socket.id});
@@ -74,6 +76,10 @@ class UserInfo extends Component {
     });
     let boardId = window.location.pathname.split('/')[2]
     this.socket.emit("name", {room: boardId, name: this.refs.name.value})
+  }
+
+  findUser(){
+    console.log(document.getElementById("users").getElementsByTagName("li"));
   }
 
   render() {

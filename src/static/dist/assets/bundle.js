@@ -37163,6 +37163,7 @@
 	    _this.updateUserCount = _this.updateUserCount.bind(_this);
 	    _this.updateUserNames = _this.updateUserNames.bind(_this);
 	    _this.updateName = _this.updateName.bind(_this);
+	    _this.findUser = _this.findUser.bind(_this);
 	    return _this;
 	  }
 
@@ -37178,6 +37179,7 @@
 	      this.socket.on('connect', function () {
 	        _this2.state.userNames[_this2.socket.id] = _this2.state.randomNames[Math.floor(Math.random() * _this2.state.randomNames.length)];
 	        document.getElementById("name-input").placeholder = _this2.state.userNames[_this2.socket.id];
+	        _this2.findUser();
 	        _this2.socket.emit('room', { boardId: boardId,
 	          name: _this2.state.userNames[_this2.socket.id],
 	          socketId: _this2.socket.id });
@@ -37230,6 +37232,11 @@
 	      });
 	      var boardId = window.location.pathname.split('/')[2];
 	      this.socket.emit("name", { room: boardId, name: this.refs.name.value });
+	    }
+	  }, {
+	    key: 'findUser',
+	    value: function findUser() {
+	      console.log(document.getElementById("users").getElementsByTagName("li"));
 	    }
 	  }, {
 	    key: 'render',
@@ -37334,7 +37341,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'ul',
-	          null,
+	          { id: 'users' },
 	          userList
 	        )
 	      );
