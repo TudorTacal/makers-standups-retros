@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(321);
+	var _RetroPage = __webpack_require__(322);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -28559,7 +28559,9 @@
 				var comment = this.refs.comment.value;
 				var item = { text: comment, listId: this.props.id };
 				_axios2.default.post('/items', item);
+				if (comment.trim() === '') return;
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
+				this.refs.comment.value = "";
 				this.updateList(comment);
 			}
 		}, {
@@ -28568,7 +28570,6 @@
 				this.setState({
 					data: this.state.data.concat({ text: newItem })
 				});
-				this.refs.comment.value = "";
 			}
 		}, {
 			key: 'render',
@@ -28596,7 +28597,7 @@
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer.bind(this) },
-							_react2.default.createElement('input', { type: 'text', ref: 'comment' }),
+							_react2.default.createElement('input', { type: 'text', maxLength: '50', ref: 'comment' }),
 							_react2.default.createElement('input', { type: 'submit', value: 'Add' })
 						)
 					)
@@ -37099,6 +37100,10 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
+	var _UserList = __webpack_require__(321);
+
+	var _UserList2 = _interopRequireDefault(_UserList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37115,8 +37120,12 @@
 
 	    var _this = _possibleConstructorReturn(this, (UserInfo.__proto__ || Object.getPrototypeOf(UserInfo)).call(this, props));
 
-	    _this.state = { userCount: 1, id: '' };
+	    _this.state = { userCount: 1,
+	      socketId: '',
+	      userNames: {} };
 	    _this.updateUserCount = _this.updateUserCount.bind(_this);
+	    _this.updateUserNames = _this.updateUserNames.bind(_this);
+	    _this.updateName = _this.updateName.bind(_this);
 	    return _this;
 	  }
 
@@ -37128,13 +37137,28 @@
 	      var boardId = window.location.pathname.split('/')[2];
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('connect', function () {
-	        _this2.socket.emit('room', boardId);
+	        _this2.socket.emit('room', { boardId: boardId });
 	      });
 	      this.socket.on('enter', function (data) {
 	        _this2.updateUserCount(data.users);
+	        _this2.updateUserNames();
 	      });
 	      this.socket.on('leave', function (data) {
 	        _this2.updateUserCount(data.users);
+	        delete _this2.state.userNames[data.socket];
+	        _this2.updateUserNames();
+	      });
+	      this.socket.on('update names', function (data) {
+	        _this2.state.userNames[data.socket] = data.name;
+	        _this2.setState({
+	          userNames: _this2.state.userNames
+	        });
+	      });
+
+	      this.socket.on('update users', function (data) {
+	        _this2.setState({
+	          userNames: data.userNames
+	        });
 	      });
 	    }
 	  }, {
@@ -37145,16 +37169,37 @@
 	      });
 	    }
 	  }, {
+	    key: 'updateUserNames',
+	    value: function updateUserNames() {
+	      var boardId = window.location.pathname.split('/')[2];
+	      if (Object.keys(this.state.userNames).length !== 0) {
+	        this.socket.emit("new user", { room: boardId, userNames: this.state.userNames });
+	      }
+	    }
+	  }, {
+	    key: 'updateName',
+	    value: function updateName() {
+	      this.setState({
+	        socketId: this.socket.id
+	      });
+	      var boardId = window.location.pathname.split('/')[2];
+	      this.socket.emit("name", { room: boardId, name: this.refs.name.value });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          this.state.userCount
-	        )
+	          this.state.userCount,
+	          ' users connected.'
+	        ),
+	        _react2.default.createElement(_UserList2.default, { userNames: this.state.userNames }),
+	        _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.updateName })
 	      );
 	    }
 	  }]);
@@ -37182,6 +37227,90 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _socket = __webpack_require__(268);
+
+	var _socket2 = _interopRequireDefault(_socket);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserList = function (_Component) {
+	  _inherits(UserList, _Component);
+
+	  function UserList(props) {
+	    _classCallCheck(this, UserList);
+
+	    var _this = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
+
+	    _this.state = { userNames: [] };
+	    return _this;
+	  }
+
+	  _createClass(UserList, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (nextProps.userNames !== undefined) {
+	        var names = new Array();
+	        for (var key in nextProps.userNames) {
+	          names.push(nextProps.userNames[key]);
+	        }
+	        this.setState({
+	          userNames: names
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userList = [];
+	      var i = 0;
+	      if (this.state.userNames.length !== 0) {
+	        for (i = 0; i < this.state.userNames.length; i += 1) {
+	          userList.push(_react2.default.createElement(
+	            'li',
+	            { key: i },
+	            this.state.userNames[i]
+	          ));
+	        }
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          userList
+	        )
+	      );
+	    }
+	  }]);
+
+	  return UserList;
+	}(_react.Component);
+
+	exports.default = UserList;
+
+/***/ },
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _Layout = __webpack_require__(235);
 
 	var _Layout2 = _interopRequireDefault(_Layout);
@@ -37189,6 +37318,10 @@
 	var _Board = __webpack_require__(264);
 
 	var _Board2 = _interopRequireDefault(_Board);
+
+	var _UserInfo = __webpack_require__(320);
+
+	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37224,7 +37357,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'retroBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles })
+	          _react2.default.createElement(_Board2.default, { titles: titles }),
+	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
 	    }

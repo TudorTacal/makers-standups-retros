@@ -48,7 +48,7 @@ app.post('/standups', (req, res) => {
   var mongoStandup = new Standup();
   mongoStandup.board = 'I am the board';
   mongoStandup.save(function(err) {
-  if (err)
+    if (err)
     res.send(err);
   });
   res.json(mongoStandup)
@@ -58,7 +58,7 @@ app.post('/retros', (req, res) => {
   var mongoRetro = new Retro();
   mongoStandup.board = 'I am the retro board';
   mongoStandup.save(function(err) {
-  if (err)
+    if (err)
     res.send(err);
   });
   res.json(mongoRetro)
@@ -73,7 +73,6 @@ app.get('/retros/:id', (req,res) => {
   let markup = renderToString(<RetroPage/>)
   res.render('template', {markup})
 })
-
 
 app.post('/items', (req, res) => {
   let mongoItem = new MongoItem ();
@@ -95,7 +94,6 @@ app.get('/items', (req, res) => {
 })
 
 let clients = [];
-
 io.on('connection', function(socket){
   socket.nickname = 'Unknown';
   console.log( socket.nickname + ' connected');
@@ -105,7 +103,7 @@ io.on('connection', function(socket){
       console.log(socket.nickname);
       let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
       let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
-      io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
+      io.to(socket.nickname).emit('leave', { socket: socket.id,
         users: numClients});
     }
   });
@@ -115,14 +113,21 @@ io.on('connection', function(socket){
   socket.on('counter event', function(data) {
     socket.broadcast.emit('update counter', data);
   });
-  socket.on('room', function(room) {
-    socket.nickname = room
-    socket.join(room);
-    let clientsRoom = io.nsps['/'].adapter.rooms[room].sockets;
+  socket.on('room', function(data) {
+    socket.nickname = data.boardId
+    socket.join(data.boardId);
+    let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
-    console.log(numClients);
-    io.to(room).emit('enter', { text: 'what is going on, party people?',
-      users: numClients});
+    io.to(data.boardId).emit('enter', {users: numClients});
+  });
+  socket.on('name', function(data) {
+    io.to(data.room).emit('update names', { socket: socket.id,
+    name: data.name })
+  });
+
+  socket.on('new user', function(data) {
+    console.log(data.userNames);
+    io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });
 const port = process.env.PORT || 3000;
@@ -133,5 +138,6 @@ server.listen(port, err => {
   }
   console.info(`Server running on http://localhost:${port} [${env}]`);
 })
+
 
 //Saving this command for later use to start the server "nodemon --exec babel-node --presets 'react,es2015' src/server.js"

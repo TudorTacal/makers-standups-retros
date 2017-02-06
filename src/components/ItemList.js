@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
 import axios from 'axios'
+
 class ItemList extends Component {
 
 	constructor(props) {
@@ -37,7 +38,9 @@ class ItemList extends Component {
 		let comment = this.refs.comment.value;
 		let item = {text: comment, listId: this.props.id}
 		axios.post('/items', item)
+		if (comment.trim() === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
+		this.refs.comment.value = "";
 		this.updateList(comment);
 	}
 
@@ -45,17 +48,23 @@ class ItemList extends Component {
 		this.setState({
 			data: this.state.data.concat({text: newItem})
 		});
-		this.refs.comment.value = "";
 	}
 
 	render() {
-
 		let items = this.state.data.map((item, index) => {
-			return (
-				<Item id={this.props.id + String(index)} text={item.text} key={index}>
-					{ item.text }
-				</Item>
-			)
+			if (this.props.title === "I am blocked") {
+				return (
+					<Item id={this.props.id + String(index)} text={ item.text } key={ index } search="yes">
+						{ item.text }
+					</Item>
+				)
+			} else {
+				return (
+					<Item id={this.props.id + String(index)} text={ item.text } key={ index } search="no">
+						{ item.text }
+					</Item>
+				)
+			}
 		})
 		return (
 			<div>
@@ -64,7 +73,7 @@ class ItemList extends Component {
 				</ul>
 				<div>
 					<form onSubmit={this.notifyServer.bind(this)}>
-					<input type="text" ref="comment" />
+					<input type="text" maxLength="50" ref="comment" />
 					<input type="submit" value="Add" />
 					</form>
 				</div>
