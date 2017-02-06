@@ -14,9 +14,8 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-
-mongoose.connect('mongodb://localhost/standups');
-
+var url = process.env.MONGOLAB_URI
+mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', function() {
@@ -55,13 +54,13 @@ app.post('/standups', (req, res) => {
 })
 
 app.post('/retros', (req, res) => {
-  var mongoStandup = new Retro();
-  mongoStandup.board = 'I am the  retro board';
-  mongoStandup.save(function(err) {
+  var mongoRetro = new Retro();
+  mongoRetro.board = 'I am the retro board';
+  mongoRetro.save(function(err) {
     if (err)
     res.send(err);
   });
-  res.json(mongoStandup)
+  res.json(mongoRetro)
 })
 
 app.get('/standups/:id', (req, res) => {
@@ -80,19 +79,23 @@ app.post('/items', (req, res) => {
   mongoItem.listId = req.body.listId
   mongoItem.itemId = req.body.itemId
   mongoItem.clicks = req.body.clicks
-  console.log(mongoItem)
   mongoItem.save(function(err) {
-  if (err)
+  if (err) {
+    console.log("Error:", err);
     res.send(err);
+  }
   });
   res.json(mongoItem)
 })
 
 app.get('/items', (req, res) => {
   MongoItem.find({}, function(err,info) {
+    if (err) {
+      console.log("Error:", err);
+      res.send(err);
+    }
     res.json(info)
   });
-
 })
 
 let clients = [];
