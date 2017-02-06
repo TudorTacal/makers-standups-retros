@@ -11,6 +11,9 @@ import generateRandomId from './helpers/randomIdAlgorithm';
 import Standup from './models/standup.js'
 import Retro from './models/retro.js'
 import mongoose from 'mongoose'
+import MongoItem from './models/mongoItem'
+
+
 
 mongoose.connect('mongodb://localhost/standups');
 
@@ -20,9 +23,14 @@ db.once('open', function() {
   console.log('We\'re connected!');
 });
 
+
 const app = new Express();
 const server = new Server(app);
 const io = socketIo(server);
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -40,7 +48,7 @@ app.post('/standups', (req, res) => {
   var mongoStandup = new Standup();
   mongoStandup.board = 'I am the board';
   mongoStandup.save(function(err) {
-  if (err)
+    if (err)
     res.send(err);
   });
   res.json(mongoStandup)
@@ -50,7 +58,7 @@ app.post('/retros', (req, res) => {
   var mongoStandup = new Retro();
   mongoStandup.board = 'I am the  retro board';
   mongoStandup.save(function(err) {
-  if (err)
+    if (err)
     res.send(err);
   });
   res.json(mongoStandup)
@@ -65,7 +73,30 @@ app.get('/retros/:id', (req,res) => {
   let markup = renderToString(<RetroPage/>)
   res.render('template', {markup})
 })
+
+app.post('/items', (req, res) => {
+  let mongoItem = new MongoItem ();
+  mongoItem.text = req.body.text;
+  mongoItem.listId = req.body.listId
+  mongoItem.itemId = req.body.itemId
+  mongoItem.clicks = req.body.clicks
+  console.log(mongoItem)
+  mongoItem.save(function(err) {
+  if (err)
+    res.send(err);
+  });
+  res.json(mongoItem)
+})
+
+app.get('/items', (req, res) => {
+  MongoItem.find({}, function(err,info) {
+    res.json(info)
+  });
+
+})
+
 let clients = [];
+
 io.on('connection', function(socket){
   socket.nickname = 'Unknown';
   console.log( socket.nickname + ' connected');
@@ -76,15 +107,18 @@ io.on('connection', function(socket){
       let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
       let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
       io.to(socket.nickname).emit('leave', { text: 'what is going on, party people?',
-        users: numClients});
+      users: numClients});
     }
   });
+
   socket.on('comment event', function(data) {
     socket.broadcast.emit('update list', data);
   });
+
   socket.on('counter event', function(data) {
     socket.broadcast.emit('update counter', data);
   });
+
   socket.on('room', function(room) {
     socket.nickname = room
     socket.join(room);
@@ -92,9 +126,10 @@ io.on('connection', function(socket){
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
     console.log(numClients);
     io.to(room).emit('enter', { text: 'what is going on, party people?',
-      users: numClients});
+    users: numClients});
   });
 });
+
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'production';
 server.listen(port, err => {

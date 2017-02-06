@@ -28500,6 +28500,10 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
+	var _axios = __webpack_require__(237);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28508,30 +28512,47 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	// import mongoose from 'mongoose'
+	// import MongoItem from '../models/mongoItem.js'
+
 	var ItemList = function (_Component) {
 		_inherits(ItemList, _Component);
 
 		function ItemList(props) {
 			_classCallCheck(this, ItemList);
 
-			var _this = _possibleConstructorReturn(this, (ItemList.__proto__ || Object.getPrototypeOf(ItemList)).call(this, props));
+			var _this2 = _possibleConstructorReturn(this, (ItemList.__proto__ || Object.getPrototypeOf(ItemList)).call(this, props));
 
-			_this.state = { data: [{ text: "I am the first item" }, { text: "I am the second item" }], value: '' };
-			_this.notifyServer = _this.notifyServer.bind(_this);
-			_this.updateList = _this.updateList.bind(_this);
-			return _this;
+			_this2.state = { data: [{ text: "I am the first item" }, { text: "I am the second item" }] };
+			_this2.notifyServer = _this2.notifyServer.bind(_this2);
+			_this2.updateList = _this2.updateList.bind(_this2);
+			_this2.axiosGet = _this2.axiosGet.bind(_this2);
+
+			return _this2;
 		}
 
 		_createClass(ItemList, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				var _this2 = this;
+				var _this3 = this;
 
+				var _this = this;
 				this.socket = (0, _socket2.default)('/');
 				this.socket.on('update list', function (data) {
-					if (data.itemList === _this2.props.id) {
-						_this2.updateList(data.text);
+					if (data.itemList === _this3.props.id) {
+						_this3.updateList(data.text);
 					}
+				});
+				this.axiosGet();
+			}
+		}, {
+			key: 'axiosGet',
+			value: function axiosGet() {
+				var _this = this;
+				_axios2.default.get('/items').then(function (res) {
+					res.data.forEach(function (entry) {
+						if (entry.listId === _this.props.id) _this.updateList(entry.text);
+					});
 				});
 			}
 		}, {
@@ -28539,6 +28560,8 @@
 			value: function notifyServer(event) {
 				event.preventDefault();
 				var comment = this.refs.comment.value;
+				var item = { text: comment, listId: this.props.id };
+				_axios2.default.post('/items', item);
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
 				this.updateList(comment);
 			}
@@ -28548,17 +28571,20 @@
 				this.setState({
 					data: this.state.data.concat({ text: newItem })
 				});
+				// var mongoItem = new MongoItem();
+				// mongoItem.text = newItem
+				// mongoItem.save();
 				this.refs.comment.value = "";
 			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this3 = this;
+				var _this4 = this;
 
 				var items = this.state.data.map(function (item, index) {
 					return _react2.default.createElement(
 						_Item2.default,
-						{ id: _this3.props.id + String(index), text: item.text, key: index },
+						{ id: _this4.props.id + String(index), text: item.text, key: index },
 						item.text
 					);
 				});
@@ -28609,6 +28635,10 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
+	var _axios = __webpack_require__(237);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28623,39 +28653,52 @@
 	  function Item(props) {
 	    _classCallCheck(this, Item);
 
-	    var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
 
-	    _this.state = {
+	    _this2.state = {
 	      clicks: 0
 	    };
-	    _this.updatePlusClick = _this.updatePlusClick.bind(_this);
-	    _this.notifyServer = _this.notifyServer.bind(_this);
-	    return _this;
+	    _this2.updatePlusClick = _this2.updatePlusClick.bind(_this2);
+	    _this2.notifyServer = _this2.notifyServer.bind(_this2);
+	    _this2.axiosGet = _this2.axiosGet.bind(_this2);
+	    return _this2;
 	  }
 
 	  _createClass(Item, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
+	      var _this3 = this;
 
+	      var _this = this;
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('update counter', function (data) {
-	        if (data.item === _this2.props.id) {
-	          _this2.updatePlusClick();
-	        };
+	        if (data.item === _this3.props.id) _this3.updatePlusClick(_this3.state.clicks);
+	      });
+	      this.axiosGet();
+	    }
+	  }, {
+	    key: 'axiosGet',
+	    value: function axiosGet() {
+	      var _this = this;
+	      _axios2.default.get('/items').then(function (res) {
+	        res.data.forEach(function (item) {
+	          if (item.itemId === _this.props.id) _this.updatePlusClick(item.clicks);
+	        });
 	      });
 	    }
 	  }, {
 	    key: 'notifyServer',
 	    value: function notifyServer() {
 	      this.socket.emit('counter event', { item: this.props.id });
-	      this.updatePlusClick();
+	      this.updatePlusClick(this.state.clicks);
+	      var clicks = { itemId: this.props.id, clicks: this.state.clicks };
+	      _axios2.default.post('/items', clicks);
 	    }
 	  }, {
 	    key: 'updatePlusClick',
 	    value: function updatePlusClick(event) {
 	      this.setState({
-	        clicks: this.state.clicks + 1
+	        clicks: event + 1
 	      });
 	    }
 	  }, {
@@ -37094,7 +37137,6 @@
 	        _this2.socket.emit('room', boardId);
 	      });
 	      this.socket.on('enter', function (data) {
-	        console.log(data);
 	        _this2.updateUserCount(data.users);
 	      });
 	      this.socket.on('leave', function (data) {
@@ -37154,6 +37196,10 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
+	var _UserInfo = __webpack_require__(320);
+
+	var _UserInfo2 = _interopRequireDefault(_UserInfo);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37188,7 +37234,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'retroBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles })
+	          _react2.default.createElement(_Board2.default, { titles: titles }),
+	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
 	    }
