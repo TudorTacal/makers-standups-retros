@@ -28512,9 +28512,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// import mongoose from 'mongoose'
-	// import MongoItem from '../models/mongoItem.js'
-
 	var ItemList = function (_Component) {
 		_inherits(ItemList, _Component);
 
@@ -28562,7 +28559,9 @@
 				var comment = this.refs.comment.value;
 				var item = { text: comment, listId: this.props.id };
 				_axios2.default.post('/items', item);
+				if (comment.trim() === '') return;
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment });
+				this.refs.comment.value = "";
 				this.updateList(comment);
 			}
 		}, {
@@ -28571,10 +28570,6 @@
 				this.setState({
 					data: this.state.data.concat({ text: newItem })
 				});
-				// var mongoItem = new MongoItem();
-				// mongoItem.text = newItem
-				// mongoItem.save();
-				this.refs.comment.value = "";
 			}
 		}, {
 			key: 'render',
@@ -28602,7 +28597,7 @@
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer.bind(this) },
-							_react2.default.createElement('input', { type: 'text', ref: 'comment' }),
+							_react2.default.createElement('input', { type: 'text', maxLength: '50', ref: 'comment' }),
 							_react2.default.createElement('input', { type: 'submit', value: 'Add' })
 						)
 					)
