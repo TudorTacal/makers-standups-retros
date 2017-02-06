@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(322);
+	var _RetroPage = __webpack_require__(323);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -37138,6 +37138,10 @@
 
 	var _UserList2 = _interopRequireDefault(_UserList);
 
+	var _selectRandomElement = __webpack_require__(322);
+
+	var _selectRandomElement2 = _interopRequireDefault(_selectRandomElement);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37173,11 +37177,11 @@
 	      var _this2 = this;
 
 	      var boardId = window.location.pathname.split('/')[2];
-	      this.state.userStyle["color"] = this.state.randomColors[Math.floor(Math.random() * this.state.randomColors.length)];
+	      this.state.userStyle["color"] = (0, _selectRandomElement2.default)(this.state.randomColors);
 	      this.socket = (0, _socket2.default)('/');
 	      console.log(this.state.userStyle.color);
 	      this.socket.on('connect', function () {
-	        _this2.state.userNames[_this2.socket.id] = _this2.state.randomNames[Math.floor(Math.random() * _this2.state.randomNames.length)];
+	        _this2.state.userNames[_this2.socket.id] = (0, _selectRandomElement2.default)(_this2.state.randomNames);
 	        document.getElementById("name-input").placeholder = _this2.state.userNames[_this2.socket.id];
 	        _this2.findUser();
 	        _this2.socket.emit('room', { boardId: boardId,
@@ -37355,6 +37359,21 @@
 
 /***/ },
 /* 322 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var selectRandomElement = function selectRandomElement(array) {
+	  return array[Math.floor(Math.random() * array.length)];
+	};
+
+	exports.default = selectRandomElement;
+
+/***/ },
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

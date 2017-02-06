@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import UserList from './UserList';
+import selectRandomElement from '../helpers/selectRandomElement';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -19,11 +20,11 @@ class UserInfo extends Component {
 
   componentDidMount () {
     let boardId = window.location.pathname.split('/')[2]
-    this.state.userStyle["color"] = this.state.randomColors[Math.floor(Math.random()*this.state.randomColors.length)];
+    this.state.userStyle["color"] = selectRandomElement(this.state.randomColors);
     this.socket = io('/');
     console.log(this.state.userStyle.color);
     this.socket.on('connect', () => {
-    this.state.userNames[this.socket.id] = this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)];
+    this.state.userNames[this.socket.id] = selectRandomElement(this.state.randomNames);
     document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id];
     this.findUser();
     this.socket.emit('room', {boardId: boardId,
