@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
 import axios from 'axios'
+
 class ItemList extends Component {
 
 	constructor(props) {
@@ -45,6 +46,9 @@ class ItemList extends Component {
 		this.setState({
 			data: this.state.data.concat({text: newItem})
 		});
+		// var mongoItem = new MongoItem();
+		// mongoItem.text = newItem
+		// mongoItem.save();
 		this.refs.comment.value = "";
 	}
 

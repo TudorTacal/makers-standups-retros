@@ -28512,6 +28512,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	// import mongoose from 'mongoose'
+	// import MongoItem from '../models/mongoItem.js'
+
 	var ItemList = function (_Component) {
 		_inherits(ItemList, _Component);
 
@@ -28568,6 +28571,9 @@
 				this.setState({
 					data: this.state.data.concat({ text: newItem })
 				});
+				// var mongoItem = new MongoItem();
+				// mongoItem.text = newItem
+				// mongoItem.save();
 				this.refs.comment.value = "";
 			}
 		}, {
@@ -37190,6 +37196,10 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
+	var _UserInfo = __webpack_require__(320);
+
+	var _UserInfo2 = _interopRequireDefault(_UserInfo);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37224,7 +37234,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'retroBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles })
+	          _react2.default.createElement(_Board2.default, { titles: titles }),
+	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
 	    }
