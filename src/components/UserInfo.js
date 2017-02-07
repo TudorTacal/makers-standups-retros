@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import UserList from './UserList';
+import selectRandomElement from '../helpers/selectRandomElement';
 
 class UserInfo extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class UserInfo extends Component {
     this.state = { userCount: 1,
                   socketId: '',
                   userNames: {},
+
                   randomColors: ["blue", "green", "black", "red"],
                   randomNames: ["Dines", "Amanda", "Kim", "Tudor"],
                   randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Gochi Hand', cursive",
@@ -18,13 +20,16 @@ class UserInfo extends Component {
 		this.updateName = this.updateName.bind(this);
     this.setUserProperties = this.setUserProperties.bind(this);
     this.setUserStyle = this.setUserStyle.bind(this);
+
   }
 
   componentDidMount () {
     let boardId = window.location.pathname.split('/')[2]
+    this.state.userStyle["color"] = selectRandomElement(this.state.randomColors);
     this.socket = io('/');
-
+    console.log(this.state.userStyle.color);
     this.socket.on('connect', () => {
+
     this.setUserProperties(this.socket.id,
                            this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)],
                            this.state.randomColors[Math.floor(Math.random()*this.state.randomColors.length)],
@@ -34,6 +39,7 @@ class UserInfo extends Component {
       userNames: this.state.userNames
     })
     this.setUserStyle(this.state.userNames)
+
     this.socket.emit('room', {boardId: boardId,
                               name: this.state.userNames[this.socket.id]['name'],
                               socketId: this.socket.id,
@@ -87,6 +93,7 @@ class UserInfo extends Component {
     this.socket.emit("name", {room: boardId, name: this.refs.name.value})
   }
 
+
   setUserProperties(socketId, name, color, font) {
     this.state.userNames[socketId] = {name: name, color: color, font: font };
   }
@@ -96,6 +103,7 @@ class UserInfo extends Component {
       document.getElementById(socket).style.color = userNames[socket]['color'];
       document.getElementById(socket).style.fontFamily = userNames[socket]['font'];
     }
+
   }
 
   render() {

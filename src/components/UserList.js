@@ -30,7 +30,9 @@ class UserList extends Component {
     }
 		return (
 			<div>
+
 				<ul id="userList">
+
           {userList}
 				</ul>
 			</div>
