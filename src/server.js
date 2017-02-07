@@ -124,14 +124,17 @@ io.on('connection', function(socket){
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
     io.to(data.boardId).emit('entered', {users: numClients,
                                         name: data.name,
-                                        socketId: data.socketId});
+                                        socketId: data.socketId,
+                                        color: data.color});
   });
   socket.on('name', function(data) {
+    console.log(data)
     io.to(data.room).emit('update names', { socket: socket.id,
     name: data.name })
   });
 
   socket.on('new user', function(data) {
+    console.log(data);
     io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });

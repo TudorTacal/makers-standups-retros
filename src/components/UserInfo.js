@@ -8,6 +8,7 @@ class UserInfo extends Component {
     this.state = { userCount: 1,
                   socketId: '',
                   userNames: {},
+                  randomColors: ["blue", "green", "black", "red"],
                   randomNames: ["Dines", "Amanda", "Kim", "Tudor"]};
 		this.updateUserCount = this.updateUserCount.bind(this);
 		this.updateUserNames = this.updateUserNames.bind(this);
@@ -19,27 +20,36 @@ class UserInfo extends Component {
     this.socket = io('/');
 
     this.socket.on('connect', () => {
-    this.state.userNames[this.socket.id] = this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)];
-    document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id];
+    this.state.userNames[this.socket.id] = {name: this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)],
+                                            color: this.state.randomColors[Math.floor(Math.random()*this.state.randomColors.length)]};
+    document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id]['name'];
+    this.setState({
+      userNames: this.state.userNames
+    })
+    for (let socket in this.state.userNames) {
+      document.getElementById(socket).style.color = this.state.userNames[socket]['color'];
+    }
+
     this.socket.emit('room', {boardId: boardId,
-                              name: this.state.userNames[this.socket.id],
-                              socketId: this.socket.id});
+                              name: this.state.userNames[this.socket.id]['name'],
+                              socketId: this.socket.id,
+                              color: this.state.userNames[this.socket.id]['color']});
     });
     this.socket.on('entered', (data) => {
-      this.state.userNames[data.socketId] = data.name;
+      this.state.userNames[data.socketId] = {name: data.name,
+                                              color: data.color};
       this.updateUserNames();
       this.updateUserCount(data.users);
 
     });
 
     this.socket.on('leave', (data) => {
-      console.log(data);
       this.updateUserCount(data.users);
       delete this.state.userNames[data.socket];
       this.socket.emit("new user", {room: boardId, userNames: this.state.userNames});
     });
     this.socket.on('update names', (data) => {
-      this.state.userNames[data.socket] = data.name;
+      this.state.userNames[data.socket]['name'] = data.name;
       this.setState({
         userNames: this.state.userNames
       });
@@ -49,6 +59,9 @@ class UserInfo extends Component {
         this.setState({
           userNames: data.userNames
         })
+        for (let socket in this.state.userNames) {
+          document.getElementById(socket).style.color = this.state.userNames[socket]['color'];
+        }
     });
   }
 
