@@ -17,7 +17,7 @@ class UserInfo extends Component {
 		this.updateUserNames = this.updateUserNames.bind(this);
 		this.updateName = this.updateName.bind(this);
     this.setUserProperties = this.setUserProperties.bind(this);
-    this.setUserStyle = this.setUserStyle.bind(this); 
+    this.setUserStyle = this.setUserStyle.bind(this);
   }
 
   componentDidMount () {

@@ -30,7 +30,7 @@ class UserList extends Component {
     }
 		return (
 			<div>
-				<ul>
+				<ul id="userList">
           {userList}
 				</ul>
 			</div>

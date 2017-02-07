@@ -7,7 +7,7 @@ class ItemList extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { data: [{text: "I am the first item"}, {text: "I am the second item"}]};
+		this.state = { data: [{text: "I am the first item", userId: "string1"}, {text: "I am the second item", userId: "string3"}], user: 'string'};
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
 		this.axiosGet = this.axiosGet.bind(this);
@@ -15,14 +15,14 @@ class ItemList extends Component {
 	}
 
 	componentDidMount () {
-		var _this = this;
 		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
-				this.updateList(data.text);
+				this.updateList(data.text, data.userId);
 			}
+			console.log(data.userId)
 		});
-		this.axiosGet();
+		// this.axiosGet();
 	}
 
 	axiosGet(){
@@ -35,32 +35,35 @@ class ItemList extends Component {
 	}
 	notifyServer(event) {
 		event.preventDefault();
+		this.state.user = document.getElementById("userList").children[ document.getElementById("userList").children.length-1].id
 		let comment = this.refs.comment.value;
-		let item = {text: comment, listId: this.props.id}
+		let item = {text: comment, listId: this.props.id, userId: this.state.user}
 		axios.post('/items', item)
 		if (comment.trim() === '') return;
-		this.socket.emit('comment event', {itemList: this.props.id, text: comment});
+		this.socket.emit('comment event', {itemList: this.props.id, text: comment, userId: this.state.user});
 		this.refs.comment.value = "";
-		this.updateList(comment);
+		this.updateList(comment, this.state.user);
 	}
 
-	updateList(newItem){
+	updateList(textT, userIdD ){
+
 		this.setState({
-			data: this.state.data.concat({text: newItem})
+			data: this.state.data.concat({text: textT, userId: userIdD })
 		});
+		console.log(this.state.data)
 	}
 
 	render() {
 		let items = this.state.data.map((item, index) => {
 			if (this.props.title === "I am blocked") {
 				return (
-					<Item id={this.props.id + String(index)} text={ item.text } key={ index } search="yes">
+					<Item className={item.userId} id={this.props.id + String(index)} text={ item.text } key={ index } search="yes">
 						{ item.text }
 					</Item>
 				)
 			} else {
 				return (
-					<Item id={this.props.id + String(index)} text={ item.text } key={ index } search="no">
+					<Item userId={item.userId} id={this.props.id + String(index)} text={ item.text } key={ index } search="no">
 						{ item.text }
 					</Item>
 				)
