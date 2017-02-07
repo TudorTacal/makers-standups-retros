@@ -8,6 +8,9 @@ var ItemSchema = new Schema({
   listId: String,
   itemId: String,
   clicks: Number,
+  color: String,
+  font: String,
+  userId: String
 })
 
 export default mongoose.model('MongoItem', ItemSchema);

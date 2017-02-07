@@ -79,6 +79,11 @@ app.post('/items', (req, res) => {
   mongoItem.listId = req.body.listId
   mongoItem.itemId = req.body.itemId
   mongoItem.clicks = req.body.clicks
+  mongoItem.color = req.body.userColor
+  mongoItem.font = req.body.userFont
+  mongoItem.userId = req.body.userId
+  console.log(req.body)
+  console.log(mongoItem)
   mongoItem.save(function(err) {
   if (err) {
     console.log("Error:", err);
@@ -117,7 +122,7 @@ io.on('connection', function(socket){
     socket.broadcast.emit('update counter', data);
   });
   socket.on('room', function(data) {
-  
+
     socket.nickname = data.boardId
     socket.join(data.boardId);
     let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
