@@ -7,7 +7,7 @@ class ItemList extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { data: [{text: "I am the first item", userId: "string1"}, {text: "I am the second item", userId: "string3"}], user: 'string'};
+		this.state = { data: [{text: "I am the first item", userId: "string1", font: "Arial", color: "red"}, {text: "I am the second item", userId: "string3", font: "Arial", color: "blue"}], user: 'string'};
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
 		this.axiosGet = this.axiosGet.bind(this);
