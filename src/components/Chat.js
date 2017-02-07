@@ -13,9 +13,9 @@ class Chat extends Component {
 
 	componentDidMount () {
 		this.socket = io('/');
-
     this.socket.on('update chat', data => {
-      console.log(data);
+    console.log(data);
+
     })
   }
 

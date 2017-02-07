@@ -37636,7 +37636,6 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.socket = (0, _socket2.default)('/');
-
 				this.socket.on('update chat', function (data) {
 					console.log(data);
 				});
