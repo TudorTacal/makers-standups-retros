@@ -77,14 +77,11 @@ div.whiteBoard {
 	padding: 10px;
 	display: table-cell;
 	vertical-align: top;
+	width: 200px;
 }
 
 div.column-content {
 	padding: 0;
-}
-
-.column-content div {
-	width: 200px;
 }
 
 .list {
@@ -93,6 +90,23 @@ div.column-content {
 	list-style-type: none;
 	height: 525px;
 	overflow: scroll;
+}
+
+h1 {
+	font-size: 20pt;
+	margin-top: 26px;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+
+.itemImages {
+	display: flex;
+	flex-direction: row;
 }
 
 /*User Info*/
