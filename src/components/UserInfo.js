@@ -25,9 +25,7 @@ class UserInfo extends Component {
 
   componentDidMount () {
     let boardId = window.location.pathname.split('/')[2]
-    this.state.userStyle["color"] = selectRandomElement(this.state.randomColors);
     this.socket = io('/');
-    console.log(this.state.userStyle.color);
     this.socket.on('connect', () => {
 
     this.setUserProperties(this.socket.id,
