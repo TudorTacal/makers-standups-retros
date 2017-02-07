@@ -28579,6 +28579,12 @@
 					data: this.state.data.concat({ text: newItem })
 				});
 			}
+
+			// function updateScroll(){
+			//   var element = document.getElementById("yourDivID");
+			//   element.scrollTop = element.scrollHeight;
+			// }
+
 		}, {
 			key: 'render',
 			value: function render() {
