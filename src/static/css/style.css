@@ -29,21 +29,23 @@ div.homePageContent {
 
 a.homepageButton {
 	display: inline-block;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: 'Amatic SC', cursive;
 	padding: 10px;
-	font-size: 1000%;
-	color: white;
-	background-color: black;
-	border: 1px solid black;
-	width: 25%;
-	height: 70%;
+	font-size: 200pt;
+	color: black;
+	background-color: rgba(255,255,255, 0.7);
 	border-radius: 5px;
+	width: 400px;
+	height: auto;
 	text-decoration: none;
-	margin: 10px;
+	margin: 50px;
 }
 
 a.homepageButton:hover {
-	background: url('./redbrick.jpg');
+	background-color: rgba(255,255,255, 0);
+	background-image: url('/images/whiteboard.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }
 
 /*Boards*/
@@ -68,20 +70,29 @@ a.homepageButton:hover {
 	margin: 25px;
 }
 
-div.whiteBoard {
+.whiteBoard {
 	margin: auto;
 	text-align: center;
 	display: table;
 	height: 530px;
 }
 
-.column {
+.column-retro {
 	text-align: left;
 	margin: auto;
 	padding: 10px;
 	display: table-cell;
 	vertical-align: top;
 	width: 200px;
+}
+
+.column-standup {
+	text-align: left;
+	margin: auto;
+	padding: 20px;
+	display: table-cell;
+	vertical-align: top;
+	width: 220px;
 }
 
 div.column-content {
@@ -99,6 +110,7 @@ div.column-content {
 h1 {
 	font-size: 20pt;
 	margin-top: 26px;
+	text-align: center;
 }
 
 .item {
@@ -111,6 +123,7 @@ h1 {
 .itemImages {
 	display: flex;
 	flex-direction: row;
+	font-size: 14px;
 }
 
 /*User Info*/

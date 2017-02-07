@@ -57,7 +57,7 @@ class ItemList extends Component {
 
 	render() {
 		let items = this.state.data.map((item, index) => {
-			if (this.props.title === "I am blocked") {
+			if (this.props.title === "Blocks") {
 				return (
 					<Item id={this.props.id + String(index)} text={ item.text } key={ index } search="yes">
 						{ item.text }
