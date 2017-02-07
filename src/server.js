@@ -117,7 +117,7 @@ io.on('connection', function(socket){
     socket.broadcast.emit('update counter', data);
   });
   socket.on('room', function(data) {
-    console.log(data)
+  
     socket.nickname = data.boardId
     socket.join(data.boardId);
     let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
@@ -125,10 +125,11 @@ io.on('connection', function(socket){
     io.to(data.boardId).emit('entered', {users: numClients,
                                         name: data.name,
                                         socketId: data.socketId,
-                                        color: data.color});
+                                        color: data.color,
+                                        font: data.font});
   });
   socket.on('name', function(data) {
-    console.log(data)
+
     io.to(data.room).emit('update names', { socket: socket.id,
     name: data.name })
   });

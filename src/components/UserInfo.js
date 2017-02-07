@@ -17,6 +17,7 @@ class UserInfo extends Component {
 		this.updateUserNames = this.updateUserNames.bind(this);
 		this.updateName = this.updateName.bind(this);
     this.setUserProperties = this.setUserProperties.bind(this);
+    this.setUserStyle = this.setUserStyle.bind(this); 
   }
 
   componentDidMount () {
@@ -24,17 +25,15 @@ class UserInfo extends Component {
     this.socket = io('/');
 
     this.socket.on('connect', () => {
-    this.setUserProperties(this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)],
+    this.setUserProperties(this.socket.id,
+                           this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)],
                            this.state.randomColors[Math.floor(Math.random()*this.state.randomColors.length)],
                            this.state.randomFonts[Math.floor(Math.random()*this.state.randomFonts.length)]);
     document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id]['name'];
     this.setState({
       userNames: this.state.userNames
     })
-    for (let socket in this.state.userNames) {
-      document.getElementById(socket).style.color = this.state.userNames[socket]['color'];
-    }
-
+    this.setUserStyle(this.state.userNames)
     this.socket.emit('room', {boardId: boardId,
                               name: this.state.userNames[this.socket.id]['name'],
                               socketId: this.socket.id,
@@ -42,11 +41,9 @@ class UserInfo extends Component {
                               font: this.state.userNames[this.socket.id]['font']});
     });
     this.socket.on('entered', (data) => {
-      this.state.userNames[data.socketId] = {name: data.name,
-                                              color: data.color};
+      this.setUserProperties(data.socketId, data.name, data.color, data.font)
       this.updateUserNames();
       this.updateUserCount(data.users);
-
     });
 
     this.socket.on('leave', (data) => {
@@ -65,9 +62,7 @@ class UserInfo extends Component {
         this.setState({
           userNames: data.userNames
         })
-        for (let socket in this.state.userNames) {
-          document.getElementById(socket).style.color = this.state.userNames[socket]['color'];
-        }
+        this.setUserStyle(this.state.userNames)
     });
   }
 
@@ -92,8 +87,15 @@ class UserInfo extends Component {
     this.socket.emit("name", {room: boardId, name: this.refs.name.value})
   }
 
-  setUserProperties(name, color, font) {
-    this.state.userNames[this.socket.id] = {name: name, color: color, font: font };
+  setUserProperties(socketId, name, color, font) {
+    this.state.userNames[socketId] = {name: name, color: color, font: font };
+  }
+
+  setUserStyle(userNames) {
+    for (let socket in userNames) {
+      document.getElementById(socket).style.color = userNames[socket]['color'];
+      document.getElementById(socket).style.fontFamily = userNames[socket]['font'];
+    }
   }
 
   render() {
