@@ -11,9 +11,7 @@ class RetroPage extends Component {
     return (
       <div className="boardContainer">
         <div className="retroPageContent">
-          <div className="logo">
             <Layout />
-          </div>
           <div className="retroBoard">
             <Board titles={ titles } />
           </div>

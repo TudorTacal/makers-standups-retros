@@ -4,7 +4,7 @@ class Layout extends Component {
   render() {
       return (
     	    <nav>
-    	    	<a href="/"><img className="homePageLogo" src="/images/logo.png" /></a>
+    	    	<a href="/"><img className="logo" src="/images/logo.png" /></a>
     	    </nav>
         )
 	}

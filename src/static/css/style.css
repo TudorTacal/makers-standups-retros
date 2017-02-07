@@ -1,27 +1,26 @@
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	background-color: #FFFFFF;
-}
-
-div.logo {
-	margin: auto;
-	display: block;
+	background-image: url('/images/bricks.jpg');
+	margin: 0;
+	padding: 0;
 }
 
 /*HomePage CSS*/
 
 nav {
-	background-color: solid black;
 	width: 100%;
 	list-style: none;
+	background-color: rgba(255,255,255, 0.7);
 }
 
 div.homePageContent {
 	text-align: center;
 }
 
-img {
-	max-width: 100%;
+.logo {
+	margin: auto;
+	width: 400px;
+	padding: 20px 0px 14px 20px;
 }
 
 a.homepageButton {
@@ -48,39 +47,44 @@ a.homepageButton:hover {
 .boardContainer {
 	width: 70%;
 	margin: auto;
-	background-color: yellow;
 	overflow: auto;
 }
 
 /*Page Content*/
 
-div.standupPageContent {
+.standupBoard {
+	background-image: url('/images/whiteboard.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 700px;
 	text-align: center;
 	float: left;
-	background-color: blue;
 	width: 80%;
+}
+
+.retroBoard {
+	background-image: url('/images/whiteboard.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 700px;
 }
 
 div.retroPageContent {
 	text-align: center;
 	float: left;
-	background-color: blue;
 	width: 85%;
-}
-
-div.whiteBoard div {
-	display: inline-block;
-	text-align: left;
-	margin: auto;
 }
 
 div.whiteBoard {
 	margin: auto;
 	text-align: center;
 	display: table;
+	height: 530px;
 }
 
 .column {
+	text-align: left;
+	margin: auto;
 	padding: 19px;
 	display: table-cell;
   vertical-align: top;

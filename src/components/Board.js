@@ -14,7 +14,7 @@ class Board extends Component {
       id: boardId
     });
   }
-  
+
   render(){
     let columns = this.props.titles.map((text, index) => {
     	return (

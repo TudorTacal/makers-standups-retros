@@ -9,18 +9,16 @@ class StandupPage extends Component {
     let titles = ["I learned", "I want to learn", "I am blocked"]
 
     return (
+      <div className="overallContainer">
+      <Layout />
       <div className="boardContainer">
-        <div className="standupPageContent">
-          <div className="logo">
-            <Layout />
-          </div>
-          <div className="standupBoard">
-            <Board titles={ titles } />
-          </div>
+        <div className="standupBoard">
+          <Board titles={ titles } />
         </div>
         <div className="userInfo">
           <UserInfo />
         </div>
+      </div>
       </div>
     )
   }
