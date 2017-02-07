@@ -6,21 +6,19 @@ import UserInfo from './UserInfo';
 class StandupPage extends Component {
   render () {
 
-    let titles = ["I learned", "I want to learn", "I am blocked"]
+    let titles = ["Learnt", "To Learn", "Blocks"]
 
     return (
+      <div className="overallContainer">
+      <Layout />
       <div className="boardContainer">
-        <div className="standupPageContent">
-          <div className="logo">
-            <Layout />
-          </div>
-          <div className="standupBoard">
-            <Board titles={ titles } />
-          </div>
+        <div className="board">
+          <Board titles={ titles } type="standup" />
         </div>
         <div className="userInfo">
           <UserInfo />
         </div>
+      </div>
       </div>
     )
   }

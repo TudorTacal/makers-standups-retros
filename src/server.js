@@ -14,7 +14,8 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-var url = "mongodb://localhost/standups"
+// var url = process.env.MONGOLAB_URI
+var url = 'mongodb://localhost/standups'
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
@@ -144,6 +145,8 @@ io.on('connection', function(socket){
     io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });
+
+
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'production';
 server.listen(port, err => {

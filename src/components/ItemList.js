@@ -55,9 +55,14 @@ class ItemList extends Component {
 		});
 	}
 
+	// function updateScroll(){
+  //   var element = document.getElementById("yourDivID");
+  //   element.scrollTop = element.scrollHeight;
+	// }
+
 	render() {
 		let items = this.state.data.map((item, index) => {
-			if (this.props.title === "I am blocked") {
+			if (this.props.title === "Blocks") {
 				return (
 					<Item font={item.userFont} color={item.userColor} userId={item.userId} id={this.props.id + String(index)} text={ item.text } key={ index } search="yes">
 						{ item.text }
@@ -79,7 +84,7 @@ class ItemList extends Component {
 				<div>
 					<form onSubmit={this.notifyServer.bind(this)}>
 					<input type="text" maxLength="50" ref="comment" required={true}/>
-					<input type="submit" value="Add" />
+					<input className="submitButton" type="submit" value="+" />
 					</form>
 				</div>
 			</div>
