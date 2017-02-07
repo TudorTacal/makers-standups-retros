@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(324);
+	var _RetroPage = __webpack_require__(326);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -28296,6 +28296,10 @@
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
+	var _Chat = __webpack_require__(324);
+
+	var _Chat2 = _interopRequireDefault(_Chat);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28334,6 +28338,11 @@
 	            'div',
 	            { className: 'standupBoard' },
 	            _react2.default.createElement(_Board2.default, { titles: titles })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(_Chat2.default, null)
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -28563,12 +28572,20 @@
 			key: 'notifyServer',
 			value: function notifyServer(event) {
 				event.preventDefault();
-				this.state.user = document.getElementById("userList").children[document.getElementById("userList").children.length - 1].id;
-				var itemColor = document.getElementById("userList").children[document.getElementById("userList").children.length - 1].style.color;
-				var itemFont = document.getElementById("userList").children[document.getElementById("userList").children.length - 1].style.fontFamily;
+				this.state.user = document.getElementById("name-input").getAttribute("user");
+				var names = document.getElementById("userList").children;
+				console.log(names);
+				var itemColor = "";
+				var itemFont = "";
+				for (var i = 0; i < names.length; i += 1) {
+					if (names[i].id == this.state.user) {
+						itemColor = names[i].style.color;
+						itemFont = names[i].style.fontFamily;
+					}
+				}
+
 				var comment = this.refs.comment.value;
 				var item = { text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor };
-				console.log(item);
 				_axios2.default.post('/items', item);
 				this.updateList(comment, this.state.user, itemFont, itemColor);
 				if (comment.trim() === '') return;
@@ -28692,7 +28709,6 @@
 	      this.axiosGet();
 	      var items = document.getElementsByClassName(this.props.userId);
 	      for (var i = 0; i < items.length; i += 1) {
-	        console.log(items[i]);
 	        items[i].style.color = this.props.color;
 	        items[i].style.fontFamily = this.props.font;
 	      }
@@ -37366,6 +37382,8 @@
 
 	        _this2.setUserProperties(_this2.socket.id, _this2.state.randomNames[Math.floor(Math.random() * _this2.state.randomNames.length)], _this2.state.randomColors[Math.floor(Math.random() * _this2.state.randomColors.length)], _this2.state.randomFonts[Math.floor(Math.random() * _this2.state.randomFonts.length)]);
 	        document.getElementById("name-input").placeholder = _this2.state.userNames[_this2.socket.id]['name'];
+	        document.getElementById("name-input").setAttribute("user", _this2.socket.id);
+	        console.log(document.getElementById("name-input"));
 	        _this2.setState({
 	          userNames: _this2.state.userNames
 	        });
@@ -37571,6 +37589,160 @@
 
 /***/ },
 /* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _socket = __webpack_require__(268);
+
+	var _socket2 = _interopRequireDefault(_socket);
+
+	var _Message = __webpack_require__(325);
+
+	var _Message2 = _interopRequireDefault(_Message);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Chat = function (_Component) {
+		_inherits(Chat, _Component);
+
+		function Chat(props) {
+			_classCallCheck(this, Chat);
+
+			var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
+
+			_this.state = { messages: [{ text: "I am the first item", userName: "Test name" }], user: "string" };
+			_this.notifyServer = _this.notifyServer.bind(_this);
+			return _this;
+		}
+
+		_createClass(Chat, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.socket = (0, _socket2.default)('/');
+
+				this.socket.on('update chat', function (data) {
+					console.log(data);
+				});
+			}
+		}, {
+			key: 'notifyServer',
+			value: function notifyServer(event) {
+				event.preventDefault();
+				this.state.user = document.getElementById("userList").children[document.getElementById("userList").children.length - 1].innerHTML;
+				this.setState({
+					messages: this.state.messages.concat({ text: this.refs.message.value, userName: this.state.user })
+				});
+				var boardId = window.location.pathname.split("/")[2];
+				this.socket.emit("new chat", { messsages: this.state.messages, boardId: boardId, text: this.refs.message.value, userName: this.state.user });
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var messages = this.state.messages.map(function (item, index) {
+					return _react2.default.createElement(_Message2.default, { key: index, text: item.text, userName: item.userName });
+				});
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'ul',
+						{ className: 'messageList' },
+						messages
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'form',
+							{ onSubmit: this.notifyServer },
+							_react2.default.createElement('input', { type: 'text', maxLength: '140', ref: 'message', required: true }),
+							_react2.default.createElement('input', { type: 'submit', value: 'Add' })
+						)
+					)
+				);
+			}
+		}]);
+
+		return Chat;
+	}(_react.Component);
+
+	exports.default = Chat;
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Message = function (_Component) {
+	  _inherits(Message, _Component);
+
+	  function Message(props) {
+	    _classCallCheck(this, Message);
+
+	    return _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).call(this, props));
+	  }
+
+	  _createClass(Message, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'li',
+	        null,
+	        this.props.userName,
+	        ': ',
+	        this.props.text
+	      );
+	    }
+	  }]);
+
+	  return Message;
+	}(_react.Component);
+
+	;
+
+	exports.default = Message;
+
+/***/ },
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -34,12 +34,20 @@ class ItemList extends Component {
 	}
 	notifyServer(event) {
 		event.preventDefault();
-		this.state.user = document.getElementById("userList").children[ document.getElementById("userList").children.length-1].id
-		let itemColor = document.getElementById("userList").children[ document.getElementById("userList").children.length-1].style.color;
-		let itemFont = document.getElementById("userList").children[ document.getElementById("userList").children.length-1].style.fontFamily;
+		this.state.user = document.getElementById("name-input").getAttribute("user");
+		let names = document.getElementById("userList").children
+		console.log(names);
+		let itemColor = "";
+		let itemFont = "";
+		for(let i = 0; i < names.length; i += 1){
+			if(names[i].id == this.state.user){
+				itemColor = names[i].style.color;
+				itemFont =  names[i].style.fontFamily;
+			}
+		}
+
 		let comment = this.refs.comment.value;
 		let item = {text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor}
-		console.log(item)
 		axios.post('/items', item)
 		this.updateList(comment, this.state.user, itemFont, itemColor);
 		if (comment.trim() === '') return;

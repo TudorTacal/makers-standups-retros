@@ -22,7 +22,6 @@ class Item extends Component {
     this.axiosGet();
     let items = document.getElementsByClassName(this.props.userId)
     for(let i = 0; i < items.length; i += 1){
-      console.log(items[i])
       items[i].style.color = this.props.color;
       items[i].style.fontFamily = this.props.font;
     }
