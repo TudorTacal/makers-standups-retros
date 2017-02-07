@@ -14,7 +14,7 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-var url = process.env.MONGOLAB_URI
+var url = "mongodb://localhost/standups"
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
@@ -105,7 +105,6 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log( socket.nickname + ' disconnected');
     if(socket.nickname !== "Unknown" && io.nsps['/'].adapter.rooms[socket.nickname]){
-      console.log(socket.nickname);
       let clientsRoom = io.nsps['/'].adapter.rooms[socket.nickname].sockets;
       let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
       io.to(socket.nickname).emit('leave', { socket: socket.id,
@@ -123,7 +122,9 @@ io.on('connection', function(socket){
     socket.join(data.boardId);
     let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
-    io.to(data.boardId).emit('enter', {users: numClients});
+    io.to(data.boardId).emit('entered', {users: numClients,
+                                        name: data.name,
+                                        socketId: data.socketId});
   });
   socket.on('name', function(data) {
     io.to(data.room).emit('update names', { socket: socket.id,
@@ -131,7 +132,6 @@ io.on('connection', function(socket){
   });
 
   socket.on('new user', function(data) {
-    console.log(data.userNames);
     io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });
