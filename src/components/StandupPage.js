@@ -12,7 +12,7 @@ class StandupPage extends Component {
       <div className="overallContainer">
       <Layout />
       <div className="boardContainer">
-        <div className="standupBoard">
+        <div className="board">
           <Board titles={ titles } />
         </div>
         <div className="userInfo">
