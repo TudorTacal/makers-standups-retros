@@ -26679,15 +26679,30 @@
 	  _createClass(Layout, [{
 	    key: "render",
 	    value: function render() {
-	      return _react2.default.createElement(
-	        "nav",
-	        null,
-	        _react2.default.createElement(
-	          "a",
-	          { href: "/" },
-	          _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" })
-	        )
-	      );
+	      var url = window.location.href;
+	      if (url !== "http://localhost:3000/") {
+	        return _react2.default.createElement(
+	          "nav",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "/" },
+	            _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" }),
+	            "hei"
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          "nav",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "/" },
+	            _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" }),
+	            "Hello"
+	          )
+	        );
+	      }
 	    }
 	  }]);
 
