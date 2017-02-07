@@ -79,6 +79,11 @@ app.post('/items', (req, res) => {
   mongoItem.listId = req.body.listId
   mongoItem.itemId = req.body.itemId
   mongoItem.clicks = req.body.clicks
+  mongoItem.color = req.body.userColor
+  mongoItem.font = req.body.userFont
+  mongoItem.userId = req.body.userId
+  console.log(req.body)
+  console.log(mongoItem)
   mongoItem.save(function(err) {
   if (err) {
     console.log("Error:", err);
@@ -98,7 +103,6 @@ app.get('/items', (req, res) => {
   });
 })
 
-let clients = [];
 io.on('connection', function(socket){
   socket.nickname = 'Unknown';
   console.log( socket.nickname + ' connected');
@@ -118,20 +122,25 @@ io.on('connection', function(socket){
     socket.broadcast.emit('update counter', data);
   });
   socket.on('room', function(data) {
+
     socket.nickname = data.boardId
     socket.join(data.boardId);
     let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
     let numClients = (typeof clientsRoom !== 'undefined') ? Object.keys(clientsRoom).length : 0;
     io.to(data.boardId).emit('entered', {users: numClients,
                                         name: data.name,
-                                        socketId: data.socketId});
+                                        socketId: data.socketId,
+                                        color: data.color,
+                                        font: data.font});
   });
   socket.on('name', function(data) {
+
     io.to(data.room).emit('update names', { socket: socket.id,
     name: data.name })
   });
 
   socket.on('new user', function(data) {
+    console.log(data);
     io.to(data.room).emit('update users', {userNames: data.userNames })
   });
 });

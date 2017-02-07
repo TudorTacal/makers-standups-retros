@@ -20,6 +20,13 @@ class Item extends Component {
       if (data.item === this.props.id) this.updatePlusClick(this.state.clicks);
     });
     this.axiosGet();
+    let items = document.getElementsByClassName(this.props.userId)
+    for(let i = 0; i < items.length; i += 1){
+      console.log(items[i])
+      items[i].style.color = this.props.color;
+      items[i].style.fontFamily = this.props.font;
+    }
+    // console.log(document.getElementsByClassName(this.props.userId)[0]);
   };
 
   axiosGet() {
@@ -50,9 +57,9 @@ class Item extends Component {
       let searchQuery = this.props.text.split(" ").join("+")
       let searchURL = "http://stackoverflow.com/search?q=" + searchQuery
       let searchLink = <a href={ searchURL } target="_blank"><img src="/images/so-icon.png" alt="SOSearch" height="20" width="20"/></a>
-      return <li className="item" >{this.props.text}{image}{this.state.clicks}{searchLink}</li>
+      return <li className={"item " + this.props.userId} >{this.props.text}{image}{this.state.clicks}{searchLink}</li>
     } else {
-      return <li className="item" >{this.props.text}{image}{this.state.clicks}</li>
+      return <li className={"item " + this.props.userId} >{this.props.text}{image}{this.state.clicks}</li>
     }
   }
 };
