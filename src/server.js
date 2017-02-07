@@ -98,7 +98,6 @@ app.get('/items', (req, res) => {
   });
 })
 
-let clients = [];
 io.on('connection', function(socket){
   socket.nickname = 'Unknown';
   console.log( socket.nickname + ' connected');
@@ -118,6 +117,7 @@ io.on('connection', function(socket){
     socket.broadcast.emit('update counter', data);
   });
   socket.on('room', function(data) {
+    console.log(data)
     socket.nickname = data.boardId
     socket.join(data.boardId);
     let clientsRoom = io.nsps['/'].adapter.rooms[data.boardId].sockets;
