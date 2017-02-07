@@ -67,9 +67,10 @@ class UserInfo extends Component {
 
     return (
       <div>
+        <p>Add your name below...</p>
+      <input type="text" ref="name" onChange={this.updateName}/>
         <p>{this.state.userCount} users connected.</p>
         <UserList userNames={this.state.userNames}/>
-        <input type="text" ref="name" onChange={this.updateName}/>
       </div>
     )
   }

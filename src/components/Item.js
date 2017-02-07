@@ -21,7 +21,7 @@ class Item extends Component {
     });
     this.axiosGet();
   };
-  
+
   axiosGet() {
     var _this = this
     axios.get('/items').then(res =>{
@@ -49,7 +49,7 @@ class Item extends Component {
     if (this.props.search === "yes") {
       let searchQuery = this.props.text.split(" ").join("+")
       let searchURL = "http://stackoverflow.com/search?q=" + searchQuery
-      let searchLink = <a href={ searchURL }><img src="/images/so-icon.png" alt="SOSearch" height="20" width="20"/></a>
+      let searchLink = <a href={ searchURL } target="_blank"><img src="/images/so-icon.png" alt="SOSearch" height="20" width="20"/></a>
       return <li className="item" >{this.props.text}{image}{this.state.clicks}{searchLink}</li>
     } else {
       return <li className="item" >{this.props.text}{image}{this.state.clicks}</li>
