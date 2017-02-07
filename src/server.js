@@ -14,12 +14,8 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-<<<<<<< HEAD
-var url = "mongodb://localhost/standups"
-=======
 // var url = process.env.MONGOLAB_URI
 var url = 'mongodb://localhost/standups'
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));

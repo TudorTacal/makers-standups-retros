@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(322);
+	var _RetroPage = __webpack_require__(324);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -26679,30 +26679,15 @@
 	  _createClass(Layout, [{
 	    key: "render",
 	    value: function render() {
-	      var url = window.location.href;
-	      if (url !== "http://localhost:3000/") {
-	        return _react2.default.createElement(
-	          "nav",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "/" },
-	            _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" }),
-	            "hei"
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          "nav",
-	          null,
-	          _react2.default.createElement(
-	            "a",
-	            { href: "/" },
-	            _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" }),
-	            "Hello"
-	          )
-	        );
-	      }
+	      return _react2.default.createElement(
+	        "nav",
+	        null,
+	        _react2.default.createElement(
+	          "a",
+	          { href: "/" },
+	          _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" })
+	        )
+	      );
 	    }
 	  }]);
 
@@ -28311,15 +28296,7 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var _UserInfo = __webpack_require__(321);
-=======
-	var _UserInfo = __webpack_require__(320);
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-	var _UserInfo = __webpack_require__(320);
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
@@ -28348,18 +28325,6 @@
 
 	      return _react2.default.createElement(
 	        'div',
-<<<<<<< HEAD
-	        { className: 'standupPageContent' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'logo' },
-	          _react2.default.createElement(_Layout2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'standupBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles }),
-=======
 	        { className: 'boardContainer' },
 	        _react2.default.createElement(
 	          'div',
@@ -28378,7 +28343,6 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'userInfo' },
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
@@ -28653,7 +28617,7 @@
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer.bind(this) },
-							_react2.default.createElement('input', { type: 'text', maxLength: '50', ref: 'comment' }),
+							_react2.default.createElement('input', { type: 'text', maxLength: '50', ref: 'comment', required: true }),
 							_react2.default.createElement('input', { type: 'submit', value: 'Add' })
 						)
 					)
@@ -28761,11 +28725,7 @@
 	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;
 	        var searchLink = _react2.default.createElement(
 	          'a',
-<<<<<<< HEAD
-	          { href: searchURL },
-=======
 	          { href: searchURL, target: '_blank' },
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	          _react2.default.createElement('img', { src: '/images/so-icon.png', alt: 'SOSearch', height: '20', width: '20' })
 	        );
 	        return _react2.default.createElement(
@@ -31791,31 +31751,13 @@
 
 	var eio = __webpack_require__(286);
 	var Socket = __webpack_require__(315);
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var Emitter = __webpack_require__(316);
-=======
-	var Emitter = __webpack_require__(304);
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 	var parser = __webpack_require__(274);
-	var on = __webpack_require__(317);
-	var bind = __webpack_require__(318);
+	var on = __webpack_require__(318);
+	var bind = __webpack_require__(319);
 	var debug = __webpack_require__(271)('socket.io-client:manager');
 	var indexOf = __webpack_require__(313);
-<<<<<<< HEAD
 	var Backoff = __webpack_require__(320);
-=======
-	var Emitter = __webpack_require__(304);
-	var parser = __webpack_require__(274);
-	var on = __webpack_require__(317);
-	var bind = __webpack_require__(318);
-	var debug = __webpack_require__(271)('socket.io-client:manager');
-	var indexOf = __webpack_require__(313);
-	var Backoff = __webpack_require__(319);
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-	var Backoff = __webpack_require__(319);
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -36592,23 +36534,10 @@
 	 */
 
 	var parser = __webpack_require__(274);
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var Emitter = __webpack_require__(316);
 	var toArray = __webpack_require__(317);
 	var on = __webpack_require__(318);
 	var bind = __webpack_require__(319);
-=======
-=======
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
-	var Emitter = __webpack_require__(304);
-	var toArray = __webpack_require__(316);
-	var on = __webpack_require__(317);
-	var bind = __webpack_require__(318);
-<<<<<<< HEAD
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 	var debug = __webpack_require__(271)('socket.io-client:socket');
 	var hasBin = __webpack_require__(297);
 
@@ -37022,8 +36951,6 @@
 
 /***/ },
 /* 316 */
-<<<<<<< HEAD
-<<<<<<< HEAD
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -37193,10 +37120,6 @@
 
 /***/ },
 /* 317 */
-=======
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -37215,15 +37138,7 @@
 
 
 /***/ },
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 318 */
-=======
-/* 317 */
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-/* 317 */
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	
@@ -37253,15 +37168,7 @@
 
 
 /***/ },
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 319 */
-=======
-/* 318 */
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-/* 318 */
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	/**
@@ -37290,15 +37197,7 @@
 
 
 /***/ },
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 320 */
-=======
-/* 319 */
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-/* 319 */
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	
@@ -37389,15 +37288,7 @@
 
 
 /***/ },
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 321 */
-=======
-/* 320 */
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-/* 320 */
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37416,25 +37307,14 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var _UserList = __webpack_require__(322);
-=======
-	var _UserList = __webpack_require__(321);
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	var _UserList2 = _interopRequireDefault(_UserList);
 
-=======
-	var _UserList = __webpack_require__(321);
-
-	var _UserList2 = _interopRequireDefault(_UserList);
-
-	var _selectRandomElement = __webpack_require__(322);
+	var _selectRandomElement = __webpack_require__(323);
 
 	var _selectRandomElement2 = _interopRequireDefault(_selectRandomElement);
 
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37453,12 +37333,6 @@
 
 	    _this.state = { userCount: 1,
 	      socketId: '',
-<<<<<<< HEAD
-	      userNames: {} };
-	    _this.updateUserCount = _this.updateUserCount.bind(_this);
-	    _this.updateUserNames = _this.updateUserNames.bind(_this);
-	    _this.updateName = _this.updateName.bind(_this);
-=======
 	      userNames: {},
 	      randomNames: ["Dines", "Amanda", "Kim", "Tudor"],
 	      randomColors: ["red", "blue", "orange", "green", "black"],
@@ -37467,7 +37341,6 @@
 	    _this.updateUserNames = _this.updateUserNames.bind(_this);
 	    _this.updateName = _this.updateName.bind(_this);
 	    _this.findUser = _this.findUser.bind(_this);
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	    return _this;
 	  }
 
@@ -37477,20 +37350,6 @@
 	      var _this2 = this;
 
 	      var boardId = window.location.pathname.split('/')[2];
-<<<<<<< HEAD
-	      this.socket = (0, _socket2.default)('/');
-	      this.socket.on('connect', function () {
-	        _this2.socket.emit('room', { boardId: boardId });
-	      });
-	      this.socket.on('enter', function (data) {
-	        _this2.updateUserCount(data.users);
-	        _this2.updateUserNames();
-	      });
-	      this.socket.on('leave', function (data) {
-	        _this2.updateUserCount(data.users);
-	        delete _this2.state.userNames[data.socket];
-	        _this2.updateUserNames();
-=======
 	      this.state.userStyle["color"] = (0, _selectRandomElement2.default)(this.state.randomColors);
 	      this.socket = (0, _socket2.default)('/');
 	      console.log(this.state.userStyle.color);
@@ -37513,7 +37372,6 @@
 	        _this2.updateUserCount(data.users);
 	        delete _this2.state.userNames[data.socket];
 	        _this2.socket.emit("new user", { room: boardId, userNames: _this2.state.userNames });
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	      });
 	      this.socket.on('update names', function (data) {
 	        _this2.state.userNames[data.socket] = data.name;
@@ -37539,11 +37397,7 @@
 	    key: 'updateUserNames',
 	    value: function updateUserNames() {
 	      var boardId = window.location.pathname.split('/')[2];
-<<<<<<< HEAD
-	      if (Object.keys(this.state.userNames).length !== 0) {
-=======
 	      if (Object.keys(this.state.userNames).length > 1) {
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	        this.socket.emit("new user", { room: boardId, userNames: this.state.userNames });
 	      }
 	    }
@@ -37557,14 +37411,11 @@
 	      this.socket.emit("name", { room: boardId, name: this.refs.name.value });
 	    }
 	  }, {
-<<<<<<< HEAD
-=======
 	    key: 'findUser',
 	    value: function findUser() {
 	      console.log(document.getElementById("users").getElementsByTagName("li"));
 	    }
 	  }, {
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	    key: 'render',
 	    value: function render() {
 
@@ -37574,13 +37425,6 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-<<<<<<< HEAD
-	          this.state.userCount,
-	          ' users connected.'
-	        ),
-	        _react2.default.createElement(_UserList2.default, { userNames: this.state.userNames }),
-	        _react2.default.createElement('input', { type: 'text', ref: 'name', onChange: this.updateName })
-=======
 	          'Add your name below...'
 	        ),
 	        _react2.default.createElement('input', { id: 'name-input', type: 'text', ref: 'name', onChange: this.updateName }),
@@ -37591,7 +37435,6 @@
 	          ' users connected.'
 	        ),
 	        _react2.default.createElement(_UserList2.default, { userNames: this.state.userNames })
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	      );
 	    }
 	  }]);
@@ -37604,15 +37447,7 @@
 	exports.default = UserInfo;
 
 /***/ },
-<<<<<<< HEAD
-<<<<<<< HEAD
 /* 322 */
-=======
-/* 321 */
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-/* 321 */
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37683,11 +37518,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'ul',
-<<<<<<< HEAD
-	          null,
-=======
 	          { id: 'users' },
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	          userList
 	        )
 	      );
@@ -37700,10 +37531,7 @@
 	exports.default = UserList;
 
 /***/ },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-/* 322 */
+/* 323 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -37718,11 +37546,7 @@
 	exports.default = selectRandomElement;
 
 /***/ },
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-/* 323 */
-=======
-/* 322 */
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37745,15 +37569,7 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var _UserInfo = __webpack_require__(321);
-=======
-	var _UserInfo = __webpack_require__(320);
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
-=======
-	var _UserInfo = __webpack_require__(320);
->>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
@@ -37782,18 +37598,6 @@
 
 	      return _react2.default.createElement(
 	        'div',
-<<<<<<< HEAD
-	        { className: 'retroPageContent' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'logo' },
-	          _react2.default.createElement(_Layout2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'retroBoard' },
-	          _react2.default.createElement(_Board2.default, { titles: titles }),
-=======
 	        { className: 'boardContainer' },
 	        _react2.default.createElement(
 	          'div',
@@ -37812,7 +37616,6 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'userInfo' },
->>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 	          _react2.default.createElement(_UserInfo2.default, null)
 	        )
 	      );
