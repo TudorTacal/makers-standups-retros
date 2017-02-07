@@ -10,32 +10,37 @@ div.logo {
 
 /*HomePage CSS*/
 
+nav {
+	background-color: solid black;
+	width: 100%;
+	list-style: none;
+}
+
 div.homePageContent {
 	text-align: center;
 }
-
 
 img {
 	max-width: 100%;
 }
 
 a.homepageButton {
+	display: inline-block;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	padding: 15px;
-	font-size: 18px;
+	padding: 10px;
+	font-size: 1000%;
 	color: white;
 	background-color: black;
 	border: 1px solid black;
+	width: 25%;
+	height: 70%;
 	border-radius: 5px;
-	width: 130px;
-	height: 40px;
 	text-decoration: none;
 	margin: 10px;
 }
 
 a.homepageButton:hover {
-	color: black;
-	background-color: white;
+	background: url('./redbrick.jpg');
 }
 
 /*Boards*/
@@ -110,3 +115,4 @@ div.column-content {
 .userInfo li {
 	padding-bottom: 10px;
 }
+/*Test Css*/

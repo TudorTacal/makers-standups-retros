@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(323);
+	var _RetroPage = __webpack_require__(322);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -26625,14 +26625,14 @@
 					{ className: 'homePageContent' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'homePageLogo' },
+						{ className: 'header' },
 						_react2.default.createElement(_Layout2.default, null)
 					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'homePageButtons' },
-						_react2.default.createElement(_Button2.default, { route: 'standups', name: 'New Stand Up' }),
-						_react2.default.createElement(_Button2.default, { route: 'retros', name: 'New Retro' })
+						_react2.default.createElement(_Button2.default, { route: 'standups', name: 'S' }),
+						_react2.default.createElement(_Button2.default, { route: 'retros', name: 'R' })
 					)
 				);
 			}
@@ -26679,11 +26679,30 @@
 	  _createClass(Layout, [{
 	    key: "render",
 	    value: function render() {
-	      return _react2.default.createElement(
-	        "a",
-	        { href: "/" },
-	        _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" })
-	      );
+	      var url = window.location.href;
+	      if (url !== "http://localhost:3000/") {
+	        return _react2.default.createElement(
+	          "nav",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "/" },
+	            _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" }),
+	            "hei"
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          "nav",
+	          null,
+	          _react2.default.createElement(
+	            "a",
+	            { href: "/" },
+	            _react2.default.createElement("img", { className: "homePageLogo", src: "/images/logo.png" }),
+	            "Hello"
+	          )
+	        );
+	      }
 	    }
 	  }]);
 
@@ -28293,10 +28312,14 @@
 	var _Board2 = _interopRequireDefault(_Board);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var _UserInfo = __webpack_require__(321);
 =======
 	var _UserInfo = __webpack_require__(320);
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+	var _UserInfo = __webpack_require__(320);
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
@@ -31769,12 +31792,17 @@
 	var eio = __webpack_require__(286);
 	var Socket = __webpack_require__(315);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var Emitter = __webpack_require__(316);
+=======
+	var Emitter = __webpack_require__(304);
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 	var parser = __webpack_require__(274);
-	var on = __webpack_require__(318);
-	var bind = __webpack_require__(319);
+	var on = __webpack_require__(317);
+	var bind = __webpack_require__(318);
 	var debug = __webpack_require__(271)('socket.io-client:manager');
 	var indexOf = __webpack_require__(313);
+<<<<<<< HEAD
 	var Backoff = __webpack_require__(320);
 =======
 	var Emitter = __webpack_require__(304);
@@ -31785,6 +31813,9 @@
 	var indexOf = __webpack_require__(313);
 	var Backoff = __webpack_require__(319);
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+	var Backoff = __webpack_require__(319);
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -36562,16 +36593,22 @@
 
 	var parser = __webpack_require__(274);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var Emitter = __webpack_require__(316);
 	var toArray = __webpack_require__(317);
 	var on = __webpack_require__(318);
 	var bind = __webpack_require__(319);
 =======
+=======
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 	var Emitter = __webpack_require__(304);
 	var toArray = __webpack_require__(316);
 	var on = __webpack_require__(317);
 	var bind = __webpack_require__(318);
+<<<<<<< HEAD
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 	var debug = __webpack_require__(271)('socket.io-client:socket');
 	var hasBin = __webpack_require__(297);
 
@@ -36986,6 +37023,7 @@
 /***/ },
 /* 316 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -37157,6 +37195,8 @@
 /* 317 */
 =======
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -37176,10 +37216,14 @@
 
 /***/ },
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 318 */
 =======
 /* 317 */
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+/* 317 */
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	
@@ -37210,10 +37254,14 @@
 
 /***/ },
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 319 */
 =======
 /* 318 */
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+/* 318 */
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	/**
@@ -37243,10 +37291,14 @@
 
 /***/ },
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 320 */
 =======
 /* 319 */
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+/* 319 */
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports) {
 
 	
@@ -37338,10 +37390,14 @@
 
 /***/ },
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 321 */
 =======
 /* 320 */
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+/* 320 */
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37361,7 +37417,11 @@
 	var _socket2 = _interopRequireDefault(_socket);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var _UserList = __webpack_require__(322);
+=======
+	var _UserList = __webpack_require__(321);
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	var _UserList2 = _interopRequireDefault(_UserList);
 
@@ -37545,10 +37605,14 @@
 
 /***/ },
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* 322 */
 =======
 /* 321 */
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+/* 321 */
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37637,6 +37701,7 @@
 
 /***/ },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /* 322 */
 /***/ function(module, exports) {
@@ -37655,6 +37720,9 @@
 /***/ },
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
 /* 323 */
+=======
+/* 322 */
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37678,10 +37746,14 @@
 	var _Board2 = _interopRequireDefault(_Board);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var _UserInfo = __webpack_require__(321);
 =======
 	var _UserInfo = __webpack_require__(320);
 >>>>>>> a4e10f0f19cdb7bdad347a5dd41110929184482a
+=======
+	var _UserInfo = __webpack_require__(320);
+>>>>>>> 1c750a45fe66629cf393d82879225dd240d71d5e
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
