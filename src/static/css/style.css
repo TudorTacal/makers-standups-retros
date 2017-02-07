@@ -17,10 +17,14 @@ div.homePageContent {
 	text-align: center;
 }
 
+.overallContainer {
+	text-align: center;
+}
+
 .logo {
 	margin: auto;
 	width: 400px;
-	padding: 20px 0px 14px 20px;
+	padding: 20px 0px;
 }
 
 a.homepageButton {
