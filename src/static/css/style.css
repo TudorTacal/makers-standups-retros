@@ -45,7 +45,9 @@ a.homepageButton:hover {
 /*Boards*/
 
 .boardContainer {
-	width: 70%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	margin: auto;
 	overflow: auto;
 }
@@ -58,23 +60,9 @@ a.homepageButton:hover {
 	background-repeat: no-repeat;
 	height: 700px;
 	text-align: center;
-	float: left;
 	width: 1000px;
 	margin: 25px;
 }
-
-/*.retroBoard {
-	background-image: url('/images/whiteboard.png');
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	height: 700px;
-}*/
-/*
-div.retroPageContent {
-	text-align: center;
-	float: left;
-	width: 85%;
-}*/
 
 div.whiteBoard {
 	margin: auto;
@@ -88,7 +76,7 @@ div.whiteBoard {
 	margin: auto;
 	padding: 10px;
 	display: table-cell;
-  vertical-align: top;
+	vertical-align: top;
 }
 
 div.column-content {
@@ -108,8 +96,10 @@ div.column-content {
 /*User Info*/
 
 .userInfo {
-	float: right;
-	/*margin-left: 30px;*/
+	background-color: rgba(255,255,255, 0.7);
+	margin: 40px;
+	padding: 15px;
+	height: 635px;
 }
 
 .userInfo ul {
