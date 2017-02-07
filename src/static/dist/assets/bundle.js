@@ -28717,7 +28717,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var image = _react2.default.createElement('img', { src: '/images/plus.png', onClick: this.notifyServer.bind(this), alt: 'Plus', height: '20', width: '20' });
+	      var image = _react2.default.createElement('img', { src: '/images/tick.png', onClick: this.notifyServer.bind(this), alt: 'Tick', height: '20', width: '20' });
 	      if (this.props.search === "yes") {
 	        var searchQuery = this.props.text.split(" ").join("+");
 	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;

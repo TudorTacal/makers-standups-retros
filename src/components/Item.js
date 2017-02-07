@@ -45,7 +45,7 @@ class Item extends Component {
   }
 
   render() {
-    let image = <img src="/images/plus.png" onClick={this.notifyServer.bind(this)} alt="Plus" height="20" width="20"/>
+    let image = <img src="/images/tick.png" onClick={this.notifyServer.bind(this)} alt="Tick" height="20" width="20"/>
     if (this.props.search === "yes") {
       let searchQuery = this.props.text.split(" ").join("+")
       let searchURL = "http://stackoverflow.com/search?q=" + searchQuery
