@@ -74,7 +74,7 @@ class ItemList extends Component {
 				<div>
 					<form onSubmit={this.notifyServer.bind(this)}>
 					<input type="text" maxLength="50" ref="comment" required={true}/>
-					<input type="submit" value="Add" />
+					<input className="submitButton" type="submit" value="+" />
 					</form>
 				</div>
 			</div>
