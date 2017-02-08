@@ -5,6 +5,7 @@ import { expect } from 'chai';
 import Board from '../src/components/Board.js'
 import Column from '../src/components/Column.js'
 
+
 describe('<Board/>', function() {
 	it('calls componentDidMount', () => {
 		sinon.spy(Board.prototype, 'componentDidMount');

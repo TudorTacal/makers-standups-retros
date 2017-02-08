@@ -63,11 +63,6 @@ class ItemList extends Component {
 		});
 	}
 
-	// function updateScroll(){
-  //   var element = document.getElementById("yourDivID");
-  //   element.scrollTop = element.scrollHeight;
-	// }
-
 	render() {
 		let items = this.state.data.map((item, index) => {
 			if (this.props.title === "Blocks") {
