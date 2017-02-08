@@ -10,10 +10,10 @@ class UserInfo extends Component {
                   socketId: '',
                   userNames: {},
 
-                  randomColors: ["blue", "green", "black", "red"],
-                  randomNames: ["Dines", "Amanda", "Kim", "Tudor"],
-                  randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Gochi Hand', cursive",
-                                "'Annie Use Your Telescope', cursive", "'Just Me Again Down Here', cursive"]};
+                  randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a"],
+                  randomNames: ["Dines", "Amanda", "Kim", "Tudor", "Roi"],
+                  randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive",
+                                "'Short Stack', cursive", "'Pangolin', cursive", "'Crafty Girls', cursive"]};
 
 		this.updateUserCount = this.updateUserCount.bind(this);
 		this.updateUserNames = this.updateUserNames.bind(this);
