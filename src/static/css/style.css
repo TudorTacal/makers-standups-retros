@@ -1,6 +1,6 @@
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	background-image: url('/images/bricks.jpg');
+	background-image: url('/images/bricks5.png');
 	margin: 0;
 	padding: 0;
 }
@@ -35,7 +35,7 @@ a.homepageButton {
 	color: black;
 	background-color: rgba(255,255,255, 0.7);
 	border-radius: 5px;
-	width: 400px;
+	width: 450px;
 	height: auto;
 	text-decoration: none;
 	margin: 50px;
