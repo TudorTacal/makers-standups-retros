@@ -29,10 +29,8 @@ class UserList extends Component {
       }
     }
 		return (
-			<div>
-
+			<div className="userListContainer">
 				<ul id="userList">
-
           {userList}
 				</ul>
 			</div>

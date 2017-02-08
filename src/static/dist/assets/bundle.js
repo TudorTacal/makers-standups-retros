@@ -37638,7 +37638,7 @@
 
 			var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
 
-			_this.state = { messages: [{ text: "I am the first item", userName: "Test name" }], user: "string", boardId: "string" };
+			_this.state = { messages: [], user: "string", boardId: "string" };
 			_this.notifyServer = _this.notifyServer.bind(_this);
 			_this.updateChat = _this.updateChat.bind(_this);
 			return _this;
@@ -37667,9 +37667,6 @@
 				var userSocket = this.state.user = document.getElementById("name-input").getAttribute("user");
 				console.log(userSocket);
 				this.state.user = document.getElementById(userSocket).innerHTML;
-				// this.setState({
-				//   messages: this.state.messages.concat({text: this.refs.message.value, userName: this.state.user})
-				// })
 				this.socket.emit("new chat", { text: this.refs.message.value, boardId: this.state.boardId, userName: this.state.user });
 			}
 		}, {
@@ -37695,7 +37692,7 @@
 					),
 					_react2.default.createElement(
 						'div',
-						null,
+						{ className: 'chatForm' },
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer },
