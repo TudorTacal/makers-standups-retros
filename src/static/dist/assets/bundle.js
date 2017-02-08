@@ -28341,14 +28341,18 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'userInfo' },
-	            _react2.default.createElement(_UserInfo2.default, null)
+	            { className: 'sideBar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'userInfo' },
+	              _react2.default.createElement(_UserInfo2.default, null)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'chat' },
+	              _react2.default.createElement(_Chat2.default, null)
+	            )
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(_Chat2.default, null)
 	        )
 	      );
 	    }
@@ -37207,9 +37211,9 @@
 	      socketId: '',
 	      userNames: {},
 
-	      randomColors: ["blue", "green", "black", "red"],
-	      randomNames: ["Dines", "Amanda", "Kim", "Tudor"],
-	      randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Gochi Hand', cursive", "'Annie Use Your Telescope', cursive", "'Just Me Again Down Here', cursive"] };
+	      randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a"],
+	      randomNames: ["Dines", "Amanda", "Kim", "Tudor", "Roi"],
+	      randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive", "'Short Stack', cursive", "'Pangolin', cursive", "'Crafty Girls', cursive"] };
 
 	    _this.updateUserCount = _this.updateUserCount.bind(_this);
 	    _this.updateUserNames = _this.updateUserNames.bind(_this);
@@ -37532,7 +37536,7 @@
 							'form',
 							{ onSubmit: this.notifyServer },
 							_react2.default.createElement('input', { type: 'text', maxLength: '140', ref: 'message', required: true }),
-							_react2.default.createElement('input', { type: 'submit', value: 'Add' })
+							_react2.default.createElement('input', { type: 'submit', className: 'submitButton', value: '+' })
 						)
 					)
 				);
@@ -37628,6 +37632,10 @@
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
+	var _Chat = __webpack_require__(323);
+
+	var _Chat2 = _interopRequireDefault(_Chat);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37665,8 +37673,17 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'userInfo' },
-	            _react2.default.createElement(_UserInfo2.default, null)
+	            { className: 'sideBar' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'userInfo' },
+	              _react2.default.createElement(_UserInfo2.default, null)
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'chat' },
+	              _react2.default.createElement(_Chat2.default, null)
+	            )
 	          )
 	        )
 	      );
