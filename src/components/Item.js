@@ -8,27 +8,27 @@ class Item extends Component {
     this.state = {
       clicks: 0
     };
-    this.updatePlusClick = this.updatePlusClick.bind(this);
+    this._updatePlusClick = this._updatePlusClick.bind(this);
     this.notifyServer = this.notifyServer.bind(this);
-    this.axiosGet = this.axiosGet.bind(this);
-    this.setItemStyles = this.setItemStyles.bind(this);
+    this._axiosGet = this._axiosGet.bind(this);
+    this._setItemStyles = this._setItemStyles.bind(this);
     this.updateCounterSocket = this.updateCounterSocket.bind(this)
   }
 
   componentDidMount(){
     this.updateCounterSocket()
-    this.axiosGet();
-    this.setItemStyles();
+    this._axiosGet();
+    this._setItemStyles();
   };
 
   updateCounterSocket() {
     this.socket = io('/');
     this.socket.on('update counter', data => {
-      if (data.item === this.props.id) this.updatePlusClick(this.state.clicks);
+      if (data.item === this.props.id) this._updatePlusClick(this.state.clicks);
     });
   }
 
-  setItemStyles(){
+  _setItemStyles(){
     let items = document.getElementsByClassName(this.props.userId)
     for(let i = 0; i < items.length; i += 1){
       items[i].style.color = this.props.color;
@@ -36,23 +36,23 @@ class Item extends Component {
     }
   }
 
-  axiosGet() {
+  _axiosGet() {
     var _this = this
     axios.get('/items').then(res =>{
       res.data.forEach(function(item){
-        if (item.itemId === _this.props.id) _this.updatePlusClick(item.clicks)
+        if (item.itemId === _this.props.id) _this._updatePlusClick(item.clicks)
       })
     });
   }
 
   notifyServer(){
     this.socket.emit('counter event', { item: this.props.id });
-    this.updatePlusClick(this.state.clicks);
+    this._updatePlusClick(this.state.clicks);
     let clicks = {itemId: this.props.id, clicks: this.state.clicks}
     axios.post('/items',clicks )
   };
 
-  updatePlusClick(event) {
+  _updatePlusClick(event) {
     this.setState({
       clicks: event + 1
     })

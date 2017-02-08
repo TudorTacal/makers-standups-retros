@@ -28,7 +28,7 @@ describe("Item />", () => {
 
   it("increases the clicks on 'updatePlusClick'", () => {
     const wrapper = mount(<Item />)
-    sinon.spy(Item.prototype, 'updatePlusClick')
+    sinon.spy(Item.prototype, '_updatePlusClick')
     wrapper.find('img').simulate('click', {preventDefault(){}})
     expect(wrapper.state('clicks')).to.equal(1);
   })
@@ -41,8 +41,8 @@ describe("Item />", () => {
   })
 
   it("calls componentDidMount", () => {
-    const axiosGet = sinon.spy(Item.prototype, 'axiosGet')
-    const setItemStyles = sinon.spy(Item.prototype, 'setItemStyles')
+    const axiosGet = sinon.spy(Item.prototype, '_axiosGet')
+    const setItemStyles = sinon.spy(Item.prototype, '_setItemStyles')
     const wrapper = mount(<Item />)
     expect(axiosGet).to.have.property('callCount', 1);
     expect(setItemStyles).to.have.property('callCount', 1);
