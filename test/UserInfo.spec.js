@@ -15,10 +15,6 @@ describe('<UserInfo/>', function() {
   it('should render a user list', () => {
 		const wrapper = mount(<UserInfo/>);
     expect(wrapper.find(UserList)).to.have.length(1);
-  });
-
-  it('should render a user list', () => {
-    const wrapper = mount(<UserInfo/>);
     expect(wrapper.find('div.userInfoContainer')).to.have.length(1);
   });
 
