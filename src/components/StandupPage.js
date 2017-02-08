@@ -17,12 +17,14 @@ class StandupPage extends Component {
           <div className="board">
             <Board titles={ titles } type="standup" />
           </div>
-          <div className="userInfo">
-            <UserInfo />
+          <div className="sideBar">
+            <div className="userInfo">
+              <UserInfo />
+            </div>
+            <div className="chat">
+              <Chat/>
+            </div>
           </div>
-        </div>
-        <div>
-          <Chat/>
         </div>
       </div>
     )
