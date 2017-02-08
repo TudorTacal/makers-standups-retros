@@ -10,20 +10,20 @@ class StandupPage extends Component {
     let titles = ["Learnt", "To Learn", "Blocks"]
 
     return (
-      <div>
-        <div className="standupPageContent">
-          <div className="logo">
-            <Layout />
+
+      <div className="overallContainer">
+        <Layout />
+        <div className="boardContainer">
+          <div className="board">
+            <Board titles={ titles } type="standup" />
           </div>
-          <div className="standupBoard">
-            <Board titles={ titles } />
-          </div>
-          <div>
-            <Chat/>
+
+          <div className="userInfo">
+            <UserInfo />
           </div>
         </div>
-        <div className="userInfo">
-          <UserInfo />
+        <div>
+          <Chat/>
         </div>
       </div>
     )
