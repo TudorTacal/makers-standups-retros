@@ -16,4 +16,19 @@ describe('<Chat/>', function() {
     expect(wrapper.find('ul.messageList')).to.have.length(1);
   });
 
+  it('should render a message list', () =>{
+    const wrapper = mount(<Chat/>);
+    expect(wrapper.find('ul.messageList')).to.have.length(1);
+  });
+
+  it('add a message', () =>{
+
+    const onSubmit = sinon.spy();
+    const wrapper = mount(<Chat />);
+    const spy = sinon.spy(Chat.prototype, "notifyServer");
+    expect(spy).to.not.have.been.called;
+    wrapper.find('[type="submit"]').get(0).click();
+    expect(spy).to.have.been.called();
+  });
+
 });
