@@ -17,7 +17,6 @@ class StandupPage extends Component {
           <div className="board">
             <Board titles={ titles } type="standup" />
           </div>
-
           <div className="userInfo">
             <UserInfo />
           </div>
