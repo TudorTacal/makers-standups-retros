@@ -11,17 +11,21 @@ class ItemList extends Component {
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
 		this.axiosGet = this.axiosGet.bind(this);
-
+		this._updateListSocket = this._updateListSocket.bind(this);
 	}
 
 	componentDidMount () {
+		this._updateListSocket();
+		this.axiosGet();
+	}
+
+	_updateListSocket(){
 		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
 				this.updateList(data.text, data.userId, data.userFont, data.userColor);
 			}
 		});
-		this.axiosGet();
 	}
 
 	axiosGet(){
@@ -32,6 +36,7 @@ class ItemList extends Component {
 			})
 		});
 	}
+
 	notifyServer(event) {
 		event.preventDefault();
 		this.state.user = document.getElementById("name-input").getAttribute("user");
@@ -45,7 +50,7 @@ class ItemList extends Component {
 				itemFont =  names[i].style.fontFamily;
 			}
 		}
-
+		this.setItemStyles();
 		let comment = this.refs.comment.value;
 		let item = {text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor}
 		axios.post('/items', item)
@@ -53,11 +58,9 @@ class ItemList extends Component {
 		if (comment.trim() === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment, userId: this.state.user, userFont: itemFont, userColor: itemColor});
 		this.refs.comment.value = "";
-
 	}
 
 	updateList(text, userId, userFont, userColor ){
-
 		this.setState({
 			data: this.state.data.concat({text: text, userId: userId, userFont: userFont, userColor: userColor })
 		});
@@ -86,7 +89,7 @@ class ItemList extends Component {
 				</ul>
 				<div>
 					<form onSubmit={this.notifyServer.bind(this)}>
-					<input type="text" maxLength="50" ref="comment" required={true}/>
+					<input type="text" maxLength="35" ref="comment" required={true}/>
 					<input className="submitButton" type="submit" value="+" />
 					</form>
 				</div>
