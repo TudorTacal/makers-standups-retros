@@ -28583,7 +28583,6 @@
 						itemFont = names[i].style.fontFamily;
 					}
 				}
-				this.setItemStyles();
 				var comment = this.refs.comment.value;
 				var item = { text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor };
 				_axios2.default.post('/items', item);
@@ -28634,7 +28633,7 @@
 							'form',
 							{ onSubmit: this.notifyServer.bind(this) },
 							_react2.default.createElement('input', { type: 'text', maxLength: '35', ref: 'comment', required: true }),
-							_react2.default.createElement('input', { className: 'submitButton', type: 'submit', value: '+' })
+							_react2.default.createElement('input', { id: 'item-list-submit', className: 'submitButton', type: 'submit', value: '+' })
 						)
 					)
 				);
@@ -37659,7 +37658,9 @@
 				var userSocket = this.state.user = document.getElementById("name-input").getAttribute("user");
 				console.log(userSocket);
 				this.state.user = document.getElementById(userSocket).innerHTML;
-				this.socket.emit("new chat", { text: this.refs.message.value, boardId: this.state.boardId, userName: this.state.user });
+				var chat = this.refs.message.value;
+				this.refs.message.value = "";
+				this.socket.emit("new chat", { text: chat, boardId: this.state.boardId, userName: this.state.user });
 			}
 		}, {
 			key: 'updateChat',
