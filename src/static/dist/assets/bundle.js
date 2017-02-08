@@ -26716,9 +26716,9 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _randomizeID = __webpack_require__(262);
+	var _randomIdAlgorithm = __webpack_require__(262);
 
-	var _randomizeID2 = _interopRequireDefault(_randomizeID);
+	var _randomIdAlgorithm2 = _interopRequireDefault(_randomIdAlgorithm);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26744,10 +26744,7 @@
 			key: 'handleClick',
 			value: function handleClick(event) {
 				var url = this.props.route;
-				_axios2.default.post(url).then(function (res) {
-					var id = String(res.data._id);
-					window.location.href = window.location.href + url + '/' + (0, _randomizeID2.default)(id).substring(-1, 7);
-				});
+				window.location.href = window.location.href + url + '/' + (0, _randomIdAlgorithm2.default)();
 				event.preventDefault();
 			}
 		}, {
@@ -28259,18 +28256,16 @@
 /* 262 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var randomizeId = function randomizeId(id) {
-	  return id.split('').sort(function () {
-	    return 0.5 - Math.random();
-	  }).join('');
+	var generateRandomId = function generateRandomId() {
+	  return Math.random().toString(16).substring(9);
 	};
 
-	exports.default = randomizeId;
+	exports.default = generateRandomId;
 
 /***/ },
 /* 263 */
