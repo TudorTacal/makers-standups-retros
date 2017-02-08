@@ -33,7 +33,10 @@ describe("Item />", () => {
     expect(wrapper.state('clicks')).to.equal(1);
   })
 
-
-
-
+  it("calls a 'notifyServer' function when the tick image is clicked upon", () => {
+    const notifyServer = sinon.spy(Item.prototype, 'notifyServer')
+    const wrapper = mount(<Item />)
+    wrapper.find('img').simulate('click', { preventDefault() {} });
+    expect(notifyServer).to.have.property('callCount', 1);
+  })
 });
