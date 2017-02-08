@@ -7,12 +7,8 @@ import HomePage from './components/HomePage';
 import RetroPage from './components/RetroPage';
 import StandupPage from './components/StandupPage';
 import socketIo from 'socket.io';
-import generateRandomId from './helpers/randomIdAlgorithm';
-import Standup from './models/standup.js'
-import Retro from './models/retro.js'
 import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
-
 
 // var url = process.env.MONGOLAB_URI
 var url = 'mongodb://localhost/standups'
@@ -43,26 +39,6 @@ app.get('/', (req, res) => {
   let markup = renderToString(<HomePage/>)
   res.render('template', {markup});
 });
-
-app.post('/standups', (req, res) => {
-  var mongoStandup = new Standup();
-  mongoStandup.board = 'I am the board';
-  mongoStandup.save(function(err) {
-    if (err)
-    res.send(err);
-  });
-  res.json(mongoStandup)
-})
-
-app.post('/retros', (req, res) => {
-  var mongoRetro = new Retro();
-  mongoRetro.board = 'I am the retro board';
-  mongoRetro.save(function(err) {
-    if (err)
-    res.send(err);
-  });
-  res.json(mongoRetro)
-})
 
 app.get('/standups/:id', (req, res) => {
   let markup = renderToString(<StandupPage/>)
