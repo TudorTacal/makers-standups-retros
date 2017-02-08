@@ -109,8 +109,7 @@ class UserInfo extends Component {
   render() {
 
     return (
-      <div>
-        <p>Your name:</p>
+      <div className="userInfoContainer">
         <input id="name-input" type="text" ref="name" onChange={this.updateName}/>
         <UserList userNames={this.state.userNames}/>
       </div>
