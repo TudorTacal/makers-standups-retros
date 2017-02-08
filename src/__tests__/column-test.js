@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils'
 import ReactDOM from 'react-dom';
-import Column from '../Column';
+import Column from '../components/Column';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

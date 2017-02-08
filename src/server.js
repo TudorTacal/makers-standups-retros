@@ -14,8 +14,7 @@ import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
 
-// var url = process.env.MONGOLAB_URI
-var url = 'mongodb://localhost/standups'
+var url = "mongodb://localhost:/standups"
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
@@ -160,6 +159,3 @@ server.listen(port, err => {
   }
   console.info(`Server running on http://localhost:${port} [${env}]`);
 })
-
-
-//Saving this command for later use to start the server "nodemon --exec babel-node --presets 'react,es2015' src/server.js"
