@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(326);
+	var _RetroPage = __webpack_require__(325);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -28291,11 +28291,11 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _UserInfo = __webpack_require__(321);
+	var _UserInfo = __webpack_require__(320);
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
-	var _Chat = __webpack_require__(324);
+	var _Chat = __webpack_require__(323);
 
 	var _Chat2 = _interopRequireDefault(_Chat);
 
@@ -28595,12 +28595,6 @@
 					data: this.state.data.concat({ text: text, userId: userId, userFont: userFont, userColor: userColor })
 				});
 			}
-
-			// function updateScroll(){
-			//   var element = document.getElementById("yourDivID");
-			//   element.scrollTop = element.scrollHeight;
-			// }
-
 		}, {
 			key: 'render',
 			value: function render() {
@@ -28694,6 +28688,7 @@
 	    _this2.updatePlusClick = _this2.updatePlusClick.bind(_this2);
 	    _this2.notifyServer = _this2.notifyServer.bind(_this2);
 	    _this2.axiosGet = _this2.axiosGet.bind(_this2);
+	    _this2.setItemColorAndFont = _this2.setItemColorAndFont.bind(_this2);
 	    return _this2;
 	  }
 
@@ -28708,12 +28703,16 @@
 	        if (data.item === _this3.props.id) _this3.updatePlusClick(_this3.state.clicks);
 	      });
 	      this.axiosGet();
+	      this.setItemColorAndFont();
+	    }
+	  }, {
+	    key: 'setItemColorAndFont',
+	    value: function setItemColorAndFont() {
 	      var items = document.getElementsByClassName(this.props.userId);
 	      for (var i = 0; i < items.length; i += 1) {
 	        items[i].style.color = this.props.color;
 	        items[i].style.fontFamily = this.props.font;
 	      }
-	      // console.log(document.getElementsByClassName(this.props.userId)[0]);
 	    }
 	  }, {
 	    key: 'axiosGet',
@@ -28743,7 +28742,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var image = _react2.default.createElement('img', { src: '/images/tick.png', onClick: this.notifyServer.bind(this), alt: 'Tick', height: '20', width: '20' });
+	      var image = _react2.default.createElement('img', { className: 'tickImage', src: '/images/tick.png', onClick: this.notifyServer.bind(this), alt: 'Tick', height: '20', width: '20' });
 	      if (this.props.search === "yes") {
 	        var searchQuery = this.props.text.split(" ").join("+");
 	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;
@@ -31791,13 +31790,13 @@
 
 	var eio = __webpack_require__(286);
 	var Socket = __webpack_require__(315);
-	var Emitter = __webpack_require__(316);
+	var Emitter = __webpack_require__(304);
 	var parser = __webpack_require__(274);
-	var on = __webpack_require__(318);
-	var bind = __webpack_require__(319);
+	var on = __webpack_require__(317);
+	var bind = __webpack_require__(318);
 	var debug = __webpack_require__(271)('socket.io-client:manager');
 	var indexOf = __webpack_require__(313);
-	var Backoff = __webpack_require__(320);
+	var Backoff = __webpack_require__(319);
 
 	/**
 	 * IE6+ hasOwnProperty
@@ -36574,10 +36573,10 @@
 	 */
 
 	var parser = __webpack_require__(274);
-	var Emitter = __webpack_require__(316);
-	var toArray = __webpack_require__(317);
-	var on = __webpack_require__(318);
-	var bind = __webpack_require__(319);
+	var Emitter = __webpack_require__(304);
+	var toArray = __webpack_require__(316);
+	var on = __webpack_require__(317);
+	var bind = __webpack_require__(318);
 	var debug = __webpack_require__(271)('socket.io-client:socket');
 	var hasBin = __webpack_require__(297);
 
@@ -36991,175 +36990,6 @@
 
 /***/ },
 /* 316 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/**
-	 * Expose `Emitter`.
-	 */
-
-	if (true) {
-	  module.exports = Emitter;
-	}
-
-	/**
-	 * Initialize a new `Emitter`.
-	 *
-	 * @api public
-	 */
-
-	function Emitter(obj) {
-	  if (obj) return mixin(obj);
-	};
-
-	/**
-	 * Mixin the emitter properties.
-	 *
-	 * @param {Object} obj
-	 * @return {Object}
-	 * @api private
-	 */
-
-	function mixin(obj) {
-	  for (var key in Emitter.prototype) {
-	    obj[key] = Emitter.prototype[key];
-	  }
-	  return obj;
-	}
-
-	/**
-	 * Listen on the given `event` with `fn`.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 * @return {Emitter}
-	 * @api public
-	 */
-
-	Emitter.prototype.on =
-	Emitter.prototype.addEventListener = function(event, fn){
-	  this._callbacks = this._callbacks || {};
-	  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-	    .push(fn);
-	  return this;
-	};
-
-	/**
-	 * Adds an `event` listener that will be invoked a single
-	 * time then automatically removed.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 * @return {Emitter}
-	 * @api public
-	 */
-
-	Emitter.prototype.once = function(event, fn){
-	  function on() {
-	    this.off(event, on);
-	    fn.apply(this, arguments);
-	  }
-
-	  on.fn = fn;
-	  this.on(event, on);
-	  return this;
-	};
-
-	/**
-	 * Remove the given callback for `event` or all
-	 * registered callbacks.
-	 *
-	 * @param {String} event
-	 * @param {Function} fn
-	 * @return {Emitter}
-	 * @api public
-	 */
-
-	Emitter.prototype.off =
-	Emitter.prototype.removeListener =
-	Emitter.prototype.removeAllListeners =
-	Emitter.prototype.removeEventListener = function(event, fn){
-	  this._callbacks = this._callbacks || {};
-
-	  // all
-	  if (0 == arguments.length) {
-	    this._callbacks = {};
-	    return this;
-	  }
-
-	  // specific event
-	  var callbacks = this._callbacks['$' + event];
-	  if (!callbacks) return this;
-
-	  // remove all handlers
-	  if (1 == arguments.length) {
-	    delete this._callbacks['$' + event];
-	    return this;
-	  }
-
-	  // remove specific handler
-	  var cb;
-	  for (var i = 0; i < callbacks.length; i++) {
-	    cb = callbacks[i];
-	    if (cb === fn || cb.fn === fn) {
-	      callbacks.splice(i, 1);
-	      break;
-	    }
-	  }
-	  return this;
-	};
-
-	/**
-	 * Emit `event` with the given args.
-	 *
-	 * @param {String} event
-	 * @param {Mixed} ...
-	 * @return {Emitter}
-	 */
-
-	Emitter.prototype.emit = function(event){
-	  this._callbacks = this._callbacks || {};
-	  var args = [].slice.call(arguments, 1)
-	    , callbacks = this._callbacks['$' + event];
-
-	  if (callbacks) {
-	    callbacks = callbacks.slice(0);
-	    for (var i = 0, len = callbacks.length; i < len; ++i) {
-	      callbacks[i].apply(this, args);
-	    }
-	  }
-
-	  return this;
-	};
-
-	/**
-	 * Return array of callbacks for `event`.
-	 *
-	 * @param {String} event
-	 * @return {Array}
-	 * @api public
-	 */
-
-	Emitter.prototype.listeners = function(event){
-	  this._callbacks = this._callbacks || {};
-	  return this._callbacks['$' + event] || [];
-	};
-
-	/**
-	 * Check if this emitter has `event` handlers.
-	 *
-	 * @param {String} event
-	 * @return {Boolean}
-	 * @api public
-	 */
-
-	Emitter.prototype.hasListeners = function(event){
-	  return !! this.listeners(event).length;
-	};
-
-
-/***/ },
-/* 317 */
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -37178,7 +37008,7 @@
 
 
 /***/ },
-/* 318 */
+/* 317 */
 /***/ function(module, exports) {
 
 	
@@ -37208,7 +37038,7 @@
 
 
 /***/ },
-/* 319 */
+/* 318 */
 /***/ function(module, exports) {
 
 	/**
@@ -37237,7 +37067,7 @@
 
 
 /***/ },
-/* 320 */
+/* 319 */
 /***/ function(module, exports) {
 
 	
@@ -37328,7 +37158,7 @@
 
 
 /***/ },
-/* 321 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37347,11 +37177,11 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-	var _UserList = __webpack_require__(322);
+	var _UserList = __webpack_require__(321);
 
 	var _UserList2 = _interopRequireDefault(_UserList);
 
-	var _selectRandomElement = __webpack_require__(323);
+	var _selectRandomElement = __webpack_require__(322);
 
 	var _selectRandomElement2 = _interopRequireDefault(_selectRandomElement);
 
@@ -37500,7 +37330,7 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 322 */
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37584,7 +37414,7 @@
 	exports.default = UserList;
 
 /***/ },
-/* 323 */
+/* 322 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -37599,7 +37429,7 @@
 	exports.default = selectRandomElement;
 
 /***/ },
-/* 324 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37618,7 +37448,7 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-	var _Message = __webpack_require__(325);
+	var _Message = __webpack_require__(324);
 
 	var _Message2 = _interopRequireDefault(_Message);
 
@@ -37638,7 +37468,7 @@
 
 			var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
 
-			_this.state = { messages: [{ text: "I am the first item", userName: "Test name" }], user: "string", boardId: "string" };
+			_this.state = { messages: [], user: "string", boardId: "string" };
 			_this.notifyServer = _this.notifyServer.bind(_this);
 			_this.updateChat = _this.updateChat.bind(_this);
 			return _this;
@@ -37667,9 +37497,6 @@
 				var userSocket = this.state.user = document.getElementById("name-input").getAttribute("user");
 				console.log(userSocket);
 				this.state.user = document.getElementById(userSocket).innerHTML;
-				// this.setState({
-				//   messages: this.state.messages.concat({text: this.refs.message.value, userName: this.state.user})
-				// })
 				this.socket.emit("new chat", { text: this.refs.message.value, boardId: this.state.boardId, userName: this.state.user });
 			}
 		}, {
@@ -37695,7 +37522,7 @@
 					),
 					_react2.default.createElement(
 						'div',
-						null,
+						{ className: 'chatForm' },
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer },
@@ -37713,7 +37540,7 @@
 	exports.default = Chat;
 
 /***/ },
-/* 325 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37769,7 +37596,7 @@
 	exports.default = Message;
 
 /***/ },
-/* 326 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37792,11 +37619,11 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _UserInfo = __webpack_require__(321);
+	var _UserInfo = __webpack_require__(320);
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
-	var _Chat = __webpack_require__(324);
+	var _Chat = __webpack_require__(323);
 
 	var _Chat2 = _interopRequireDefault(_Chat);
 

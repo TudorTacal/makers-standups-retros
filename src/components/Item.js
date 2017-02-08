@@ -11,6 +11,7 @@ class Item extends Component {
     this.updatePlusClick = this.updatePlusClick.bind(this);
     this.notifyServer = this.notifyServer.bind(this);
     this.axiosGet = this.axiosGet.bind(this);
+    this.setItemColorAndFont = this.setItemColorAndFont.bind(this);
   }
 
   componentDidMount(){
@@ -20,12 +21,16 @@ class Item extends Component {
       if (data.item === this.props.id) this.updatePlusClick(this.state.clicks);
     });
     this.axiosGet();
+    this.setItemColorAndFont();
+  };
+
+  setItemColorAndFont(){
     let items = document.getElementsByClassName(this.props.userId)
     for(let i = 0; i < items.length; i += 1){
       items[i].style.color = this.props.color;
       items[i].style.fontFamily = this.props.font;
     }
-  };
+  }
 
   axiosGet() {
     var _this = this
