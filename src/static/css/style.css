@@ -141,6 +141,23 @@ h1 {
 	width: 210px;
 }
 
+.userInfo {
+	height: 45%;
+}
+
+.chat {
+	height: 55%;
+}
+
+.messageList {
+	border-top: 1px dotted gray;
+	padding: 15px 0 0 0;
+	height: 274px;
+	overflow: scroll;
+	list-style-type: none;
+	text-align: left;
+}
+
 .userInfo ul {
 	list-style-type: none;
 	padding: 0;
@@ -148,6 +165,10 @@ h1 {
 
 .userInfo li {
 	padding-bottom: 10px;
+}
+
+#userList {
+	overflow: scroll;
 }
 
 /*Input*/
