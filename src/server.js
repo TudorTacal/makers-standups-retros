@@ -19,7 +19,6 @@ db.once('open', function() {
   console.log('We\'re connected!');
 });
 
-
 const app = new Express();
 const server = new Server(app);
 const io = socketIo(server);
