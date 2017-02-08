@@ -16,4 +16,11 @@ describe('<Button/>', function (){
     expect(wrapper.props().route).to.equal("standups");
     expect(wrapper.props().name).to.equal("S");
   })
+
+  it("calls a 'handleClick' method on click", () => {
+    const handleClick = sinon.spy(Button.prototype, 'handleClick')
+    const wrapper = shallow(<Button />)
+    wrapper.find('a').simulate('click', { preventDefault() {} });
+    expect(handleClick).to.have.property('callCount', 1);
+  })
 })

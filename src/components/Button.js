@@ -13,9 +13,9 @@ class Button extends Component {
 		window.location.href = window.location.href + url + '/' + generateRandomId();
 		event.preventDefault();
 	};
+
 	render() {
 		return 	<a onClick={this.handleClick} href={ this.props.route } className="homepageButton">{ this.props.name }</a>
-
 	}
 }
 
