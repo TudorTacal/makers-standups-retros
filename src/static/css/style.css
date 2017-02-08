@@ -132,13 +132,30 @@ h1 {
 
 /*User Info*/
 
-.userInfo {
+.sideBar {
 	background-color: rgba(255,255,255, 0.7);
 	margin: 40px;
 	padding: 15px;
 	height: 635px;
 	border-radius: 2px;
 	width: 210px;
+}
+
+.userInfo {
+	height: 45%;
+}
+
+.chat {
+	height: 55%;
+}
+
+.messageList {
+	border-top: 1px dotted gray;
+	padding: 15px 0 0 0;
+	height: 257px;
+	overflow: scroll;
+	list-style-type: none;
+	text-align: left;
 }
 
 .userInfo ul {
@@ -148,6 +165,10 @@ h1 {
 
 .userInfo li {
 	padding-bottom: 10px;
+}
+
+#userList {
+	overflow: scroll;
 }
 
 /*Input*/
