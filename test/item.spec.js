@@ -39,4 +39,12 @@ describe("Item />", () => {
     wrapper.find('img').simulate('click', { preventDefault() {} });
     expect(notifyServer).to.have.property('callCount', 1);
   })
+
+  it("calls componentDidMount", () => {
+    const axiosGet = sinon.spy(Item.prototype, 'axiosGet')
+    const setItemStyles = sinon.spy(Item.prototype, 'setItemStyles')
+    const wrapper = mount(<Item />)
+    expect(axiosGet).to.have.property('callCount', 1);
+    expect(setItemStyles).to.have.property('callCount', 1);
+  })
 });
