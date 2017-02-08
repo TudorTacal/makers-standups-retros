@@ -12,7 +12,6 @@ class ItemList extends Component {
 		this.updateList = this.updateList.bind(this);
 		this.axiosGet = this.axiosGet.bind(this);
 		this._updateListSocket = this._updateListSocket.bind(this);
-
 	}
 
 	componentDidMount () {
@@ -37,6 +36,7 @@ class ItemList extends Component {
 			})
 		});
 	}
+
 	notifyServer(event) {
 		event.preventDefault();
 		this.state.user = document.getElementById("name-input").getAttribute("user");
@@ -50,7 +50,7 @@ class ItemList extends Component {
 				itemFont =  names[i].style.fontFamily;
 			}
 		}
-
+		this.setItemStyles();
 		let comment = this.refs.comment.value;
 		let item = {text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor}
 		axios.post('/items', item)
@@ -58,11 +58,9 @@ class ItemList extends Component {
 		if (comment.trim() === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment, userId: this.state.user, userFont: itemFont, userColor: itemColor});
 		this.refs.comment.value = "";
-
 	}
 
 	updateList(text, userId, userFont, userColor ){
-
 		this.setState({
 			data: this.state.data.concat({text: text, userId: userId, userFont: userFont, userColor: userColor })
 		});

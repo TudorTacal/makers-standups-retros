@@ -28537,7 +28537,7 @@
 			_this2.updateList = _this2.updateList.bind(_this2);
 			_this2.axiosGet = _this2.axiosGet.bind(_this2);
 			_this2._updateListSocket = _this2._updateListSocket.bind(_this2);
-
+			_this2.setItemStyles = _this2.setItemStyles.bind(_this2);
 			return _this2;
 		}
 
@@ -28574,17 +28574,17 @@
 			value: function notifyServer(event) {
 				event.preventDefault();
 				this.state.user = document.getElementById("name-input").getAttribute("user");
-				var names = document.getElementById("userList").children;
-				console.log(names);
-				var itemColor = "";
-				var itemFont = "";
-				for (var i = 0; i < names.length; i += 1) {
-					if (names[i].id == this.state.user) {
-						itemColor = names[i].style.color;
-						itemFont = names[i].style.fontFamily;
-					}
-				}
-
+				// let names = document.getElementById("userList").children
+				// console.log(names);
+				// let itemColor = "";
+				// let itemFont = "";
+				// for(let i = 0; i < names.length; i += 1){
+				// 	if(names[i].id == this.state.user){
+				// 		itemColor = names[i].style.color;
+				// 		itemFont =  names[i].style.fontFamily;
+				// 	}
+				// }
+				this.setItemStyles();
 				var comment = this.refs.comment.value;
 				var item = { text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor };
 				_axios2.default.post('/items', item);
@@ -28594,9 +28594,21 @@
 				this.refs.comment.value = "";
 			}
 		}, {
+			key: 'setItemStyles',
+			value: function setItemStyles() {
+				var names = document.getElementById("userList").children;
+				var itemColor = "";
+				var itemFont = "";
+				for (var i = 0; i < names.length; i += 1) {
+					if (names[i].id == this.state.user) {
+						itemColor = names[i].style.color;
+						itemFont = names[i].style.fontFamily;
+					}
+				}
+			}
+		}, {
 			key: 'updateList',
 			value: function updateList(text, userId, userFont, userColor) {
-
 				this.setState({
 					data: this.state.data.concat({ text: text, userId: userId, userFont: userFont, userColor: userColor })
 				});
