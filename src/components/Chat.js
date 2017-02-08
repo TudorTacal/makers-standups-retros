@@ -7,26 +7,39 @@ class Chat extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { messages: [{text: "I am the first item", userName: "Test name"}], user: "string"};
+		this.state = { messages: [{text: "I am the first item", userName: "Test name"}], user: "string", boardId: "string"};
     this.notifyServer = this.notifyServer.bind(this);
+    this.updateChat = this.updateChat.bind(this);
 	}
 
 	componentDidMount () {
+		let boardId = window.location.pathname.split("/")[2];
+		this.state.boardId = boardId
 		this.socket = io('/');
     this.socket.on('update chat', data => {
-    console.log(data);
-
+			console.log(data.boardId);
+			console.log(this.state.boardId);
+			if (data.boardId === this.state.boardId) {
+				this.updateChat(data.text, data.userName);
+			}
     })
   }
 
 	notifyServer(event) {
 		event.preventDefault();
-    this.state.user = document.getElementById("userList").children[document.getElementById("userList").children.length-1].innerHTML;
-    this.setState({
-      messages: this.state.messages.concat({text: this.refs.message.value, userName: this.state.user})
-    })
-    let boardId = window.location.pathname.split("/")[2];
-    this.socket.emit("new chat", {messsages: this.state.messages, boardId: boardId, text: this.refs.message.value, userName: this.state.user});
+		let userSocket = this.state.user = document.getElementById("name-input").getAttribute("user");
+		console.log(userSocket);
+    this.state.user = document.getElementById(userSocket).innerHTML;
+    // this.setState({
+    //   messages: this.state.messages.concat({text: this.refs.message.value, userName: this.state.user})
+    // })
+		this.socket.emit("new chat", {text: this.refs.message.value, boardId: this.state.boardId, userName: this.state.user});
+	}
+
+	updateChat(text, userName){
+		this.setState({
+			messages: this.state.messages.concat({text: text, userName: userName})
+		});
 	}
 
 

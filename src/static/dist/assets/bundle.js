@@ -37627,29 +37627,46 @@
 
 			var _this = _possibleConstructorReturn(this, (Chat.__proto__ || Object.getPrototypeOf(Chat)).call(this, props));
 
-			_this.state = { messages: [{ text: "I am the first item", userName: "Test name" }], user: "string" };
+			_this.state = { messages: [{ text: "I am the first item", userName: "Test name" }], user: "string", boardId: "string" };
 			_this.notifyServer = _this.notifyServer.bind(_this);
+			_this.updateChat = _this.updateChat.bind(_this);
 			return _this;
 		}
 
 		_createClass(Chat, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
+				var _this2 = this;
+
+				var boardId = window.location.pathname.split("/")[2];
+				this.state.boardId = boardId;
 				this.socket = (0, _socket2.default)('/');
 				this.socket.on('update chat', function (data) {
-					console.log(data);
+					console.log(data.boardId);
+					console.log(_this2.state.boardId);
+					if (data.boardId === _this2.state.boardId) {
+						_this2.updateChat(data.text, data.userName);
+					}
 				});
 			}
 		}, {
 			key: 'notifyServer',
 			value: function notifyServer(event) {
 				event.preventDefault();
-				this.state.user = document.getElementById("userList").children[document.getElementById("userList").children.length - 1].innerHTML;
+				var userSocket = this.state.user = document.getElementById("name-input").getAttribute("user");
+				console.log(userSocket);
+				this.state.user = document.getElementById(userSocket).innerHTML;
+				// this.setState({
+				//   messages: this.state.messages.concat({text: this.refs.message.value, userName: this.state.user})
+				// })
+				this.socket.emit("new chat", { text: this.refs.message.value, boardId: this.state.boardId, userName: this.state.user });
+			}
+		}, {
+			key: 'updateChat',
+			value: function updateChat(text, userName) {
 				this.setState({
-					messages: this.state.messages.concat({ text: this.refs.message.value, userName: this.state.user })
+					messages: this.state.messages.concat({ text: text, userName: userName })
 				});
-				var boardId = window.location.pathname.split("/")[2];
-				this.socket.emit("new chat", { messsages: this.state.messages, boardId: boardId, text: this.refs.message.value, userName: this.state.user });
 			}
 		}, {
 			key: 'render',
