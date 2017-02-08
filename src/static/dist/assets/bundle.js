@@ -28688,26 +28688,31 @@
 	    _this2.updatePlusClick = _this2.updatePlusClick.bind(_this2);
 	    _this2.notifyServer = _this2.notifyServer.bind(_this2);
 	    _this2.axiosGet = _this2.axiosGet.bind(_this2);
-	    _this2.setItemColorAndFont = _this2.setItemColorAndFont.bind(_this2);
+	    _this2.setItemStyles = _this2.setItemStyles.bind(_this2);
+	    _this2.updateCounterSocket = _this2.updateCounterSocket.bind(_this2);
 	    return _this2;
 	  }
 
 	  _createClass(Item, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      this.updateCounterSocket();
+	      this.axiosGet();
+	      this.setItemStyles();
+	    }
+	  }, {
+	    key: 'updateCounterSocket',
+	    value: function updateCounterSocket() {
 	      var _this3 = this;
 
-	      var _this = this;
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('update counter', function (data) {
 	        if (data.item === _this3.props.id) _this3.updatePlusClick(_this3.state.clicks);
 	      });
-	      this.axiosGet();
-	      this.setItemColorAndFont();
 	    }
 	  }, {
-	    key: 'setItemColorAndFont',
-	    value: function setItemColorAndFont() {
+	    key: 'setItemStyles',
+	    value: function setItemStyles() {
 	      var items = document.getElementsByClassName(this.props.userId);
 	      for (var i = 0; i < items.length; i += 1) {
 	        items[i].style.color = this.props.color;
@@ -28743,47 +28748,44 @@
 	    key: 'render',
 	    value: function render() {
 	      var image = _react2.default.createElement('img', { className: 'tickImage', src: '/images/tick.png', onClick: this.notifyServer.bind(this), alt: 'Tick', height: '20', width: '20' });
-	      if (this.props.search === "yes") {
-	        var searchQuery = this.props.text.split(" ").join("+");
-	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;
-	        var searchLink = _react2.default.createElement(
-	          'a',
-	          { href: searchURL, target: '_blank' },
-	          _react2.default.createElement('img', { src: '/images/so-icon.png', alt: 'SOSearch', height: '20', width: '20' })
-	        );
-	        return _react2.default.createElement(
-	          'li',
-	          { className: "item " + this.props.userId },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'itemText' },
-	            this.props.text
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'itemImages' },
-	            image,
-	            this.state.clicks,
-	            searchLink
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'li',
-	          { className: "item " + this.props.userId },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'itemText' },
-	            this.props.text
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'itemImages' },
-	            image,
-	            this.state.clicks
-	          )
-	        );
-	      }
+
+	      // const searchQuery = this.props.text.split(" ").join("+")
+	      // const searchURL   = "http://stackoverflow.com/search?q=" + searchQuery
+	      // const searchLink  = <a href={ searchURL } target="_blank"><img src="/images/so-icon.png" alt="SOSearch" height="20" width="20"/></a>
+	      return _react2.default.createElement(
+	        'li',
+	        { className: "item " + this.props.userId },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'itemText' },
+	          this.props.text
+	        ),
+	        this.props.search === "yes" ? _react2.default.createElement(
+	          'div',
+	          { className: 'itemImages' },
+	          image,
+	          this.state.clicks,
+	          '9'
+	        ) : _react2.default.createElement(
+	          'div',
+	          { className: 'itemImages' },
+	          image,
+	          this.state.clicks
+	        )
+	      );
+	      // } else {
+	      //   return (
+	      //     <li className={"item " + this.props.userId}>
+	      //       <div className="itemText">
+	      //         {this.props.text}
+	      //         </div>
+	      //       <div className="itemImages">
+	      //         {image}{this.state.clicks}
+	      //       </div>
+	      //     </li>
+	      //
+	      //   )
+
 	    }
 	  }]);
 
