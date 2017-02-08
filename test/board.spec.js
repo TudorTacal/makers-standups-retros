@@ -26,4 +26,10 @@ describe('<Board/>', function() {
 		const wrapper = mount(<Board titles={["Title1", "Title2", "Title3"]}/>);
 		expect(wrapper.find('div.whiteBoard')).to.have.length(1);
 	});
+
+	it('allows the component to change the id state', () =>{
+		const wrapper = mount(<Board titles={["Title1", "Title2", "Title3"]}/>);
+		wrapper.setState({ id: 'bar' });
+		expect(wrapper.state().id).to.equal("bar");
+	});
 });
