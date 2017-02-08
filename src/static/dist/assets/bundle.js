@@ -37480,12 +37480,7 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Your name:'
-	        ),
+	        { className: 'userInfoContainer' },
 	        _react2.default.createElement('input', { id: 'name-input', type: 'text', ref: 'name', onChange: this.updateName }),
 	        _react2.default.createElement(_UserList2.default, { userNames: this.state.userNames })
 	      );
@@ -37568,7 +37563,7 @@
 	      }
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'userListContainer' },
 	        _react2.default.createElement(
 	          'ul',
 	          { id: 'userList' },
