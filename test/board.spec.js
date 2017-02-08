@@ -4,6 +4,7 @@ import { mount } from 'enzyme';
 import { expect } from 'chai';
 import Board from '../src/components/Board.js'
 
+
 describe('<Board/>', function() {
 	it('calls componentDidMount', () => {
 		sinon.spy(Board.prototype, 'componentDidMount');
