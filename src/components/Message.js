@@ -5,10 +5,6 @@ class Message extends Component {
     super(props);
   }
 
-  componentDidMount(){
-
-  };
-
   render() {
     return(
       <li>{this.props.userName}: {this.props.text}</li>
