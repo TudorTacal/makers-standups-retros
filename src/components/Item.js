@@ -51,14 +51,29 @@ class Item extends Component {
   }
 
   render() {
-    let image = <img src="/images/plus.png" onClick={this.notifyServer.bind(this)} alt="Plus" height="20" width="20"/>
+    let image = <img src="/images/tick.png" onClick={this.notifyServer.bind(this)} alt="Tick" height="20" width="20"/>
     if (this.props.search === "yes") {
       let searchQuery = this.props.text.split(" ").join("+")
       let searchURL = "http://stackoverflow.com/search?q=" + searchQuery
       let searchLink = <a href={ searchURL } target="_blank"><img src="/images/so-icon.png" alt="SOSearch" height="20" width="20"/></a>
-      return <li className={"item " + this.props.userId} >{this.props.text}{image}{this.state.clicks}{searchLink}</li>
+      return <li className={"item " + this.props.userId}>
+        <div className="itemText">
+          {this.props.text}
+          </div>
+        <div className="itemImages">
+          {image}{this.state.clicks}{searchLink}
+        </div>
+      </li>
     } else {
-      return <li className={"item " + this.props.userId} >{this.props.text}{image}{this.state.clicks}</li>
+      return <li className={"item " + this.props.userId}>
+        <div className="itemText">
+          {this.props.text}
+          </div>
+        <div className="itemImages">
+          {image}{this.state.clicks}
+        </div>
+      </li>
+
     }
   }
 };

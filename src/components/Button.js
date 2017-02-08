@@ -18,7 +18,8 @@ class Button extends Component {
 		event.preventDefault();
 	};
 	render() {
-		return <a onClick={this.handleClick} href={ this.props.route } className="homepageButton">{ this.props.name }</a>
+		return 	<a onClick={this.handleClick} href={ this.props.route } className="homepageButton">{ this.props.name }</a>
+
 	}
 }
 

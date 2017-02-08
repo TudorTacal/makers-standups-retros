@@ -7,10 +7,10 @@ import Chat from './Chat';
 class StandupPage extends Component {
   render () {
 
-    let titles = ["I learned", "I want to learn", "I am blocked"]
+    let titles = ["Learnt", "To Learn", "Blocks"]
 
     return (
-      <div className="boardContainer">
+      <div>
         <div className="standupPageContent">
           <div className="logo">
             <Layout />
