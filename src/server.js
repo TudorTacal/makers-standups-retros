@@ -159,6 +159,3 @@ server.listen(port, err => {
   }
   console.info(`Server running on http://localhost:${port} [${env}]`);
 })
-
-
-//Saving this command for later use to start the server "nodemon --exec babel-node --presets 'react,es2015' src/server.js"
