@@ -21,4 +21,11 @@ describe("ItemList />", () => {
     const wrapper = shallow(<ItemList />)
     expect(wrapper.state('data').length).to.equal(0);
   })
+
+  // it("can save data into state", () => {
+  //   const wrapper = shallow(<ItemList />)
+  //   sinon.spy(ItemList.prototype, 'updateList')
+  //   const form = wrapper.find("item-list-submit").simulate('click', {preventDefault(){}});
+  //   expect(wrapper.state('data').length).to.equal(1);
+  // })
 });
