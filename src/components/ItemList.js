@@ -11,17 +11,22 @@ class ItemList extends Component {
 		this.notifyServer = this.notifyServer.bind(this);
 		this.updateList = this.updateList.bind(this);
 		this.axiosGet = this.axiosGet.bind(this);
+		this._updateListSocket = this._updateListSocket.bind(this);
 
 	}
 
 	componentDidMount () {
+		this._updateListSocket();
+		this.axiosGet();
+	}
+
+	_updateListSocket(){
 		this.socket = io('/');
 		this.socket.on('update list', data => {
 			if (data.itemList === this.props.id) {
 				this.updateList(data.text, data.userId, data.userFont, data.userColor);
 			}
 		});
-		this.axiosGet();
 	}
 
 	axiosGet(){

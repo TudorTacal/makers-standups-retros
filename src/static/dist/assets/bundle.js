@@ -28536,6 +28536,7 @@
 			_this2.notifyServer = _this2.notifyServer.bind(_this2);
 			_this2.updateList = _this2.updateList.bind(_this2);
 			_this2.axiosGet = _this2.axiosGet.bind(_this2);
+			_this2._updateListSocket = _this2._updateListSocket.bind(_this2);
 
 			return _this2;
 		}
@@ -28543,6 +28544,12 @@
 		_createClass(ItemList, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
+				this._updateListSocket();
+				this.axiosGet();
+			}
+		}, {
+			key: '_updateListSocket',
+			value: function _updateListSocket() {
 				var _this3 = this;
 
 				this.socket = (0, _socket2.default)('/');
@@ -28551,7 +28558,6 @@
 						_this3.updateList(data.text, data.userId, data.userFont, data.userColor);
 					}
 				});
-				this.axiosGet();
 			}
 		}, {
 			key: 'axiosGet',
@@ -28629,7 +28635,7 @@
 						_react2.default.createElement(
 							'form',
 							{ onSubmit: this.notifyServer.bind(this) },
-							_react2.default.createElement('input', { type: 'text', maxLength: '50', ref: 'comment', required: true }),
+							_react2.default.createElement('input', { type: 'text', maxLength: '35', ref: 'comment', required: true }),
 							_react2.default.createElement('input', { className: 'submitButton', type: 'submit', value: '+' })
 						)
 					)
