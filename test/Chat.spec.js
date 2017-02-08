@@ -27,4 +27,11 @@ describe('<Chat/>', function() {
     expect(wrapper.state('messages')).to.eql([{text: 'hello', userName: 'Kim'}])
   });
 
+  it('notifies server when message is added', () => {
+    const wrapper = shallow(<Chat/>);
+    const form = wrapper.find('form');
+    const notify = wrapper.instance().notifyServer
+    expect(form.prop('onSubmit')).to.eql(notify)
+  })
+
 });
