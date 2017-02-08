@@ -28685,10 +28685,10 @@
 	    _this2.state = {
 	      clicks: 0
 	    };
-	    _this2.updatePlusClick = _this2.updatePlusClick.bind(_this2);
+	    _this2._updatePlusClick = _this2._updatePlusClick.bind(_this2);
 	    _this2.notifyServer = _this2.notifyServer.bind(_this2);
-	    _this2.axiosGet = _this2.axiosGet.bind(_this2);
-	    _this2.setItemStyles = _this2.setItemStyles.bind(_this2);
+	    _this2._axiosGet = _this2._axiosGet.bind(_this2);
+	    _this2._setItemStyles = _this2._setItemStyles.bind(_this2);
 	    _this2.updateCounterSocket = _this2.updateCounterSocket.bind(_this2);
 	    return _this2;
 	  }
@@ -28697,8 +28697,8 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.updateCounterSocket();
-	      this.axiosGet();
-	      this.setItemStyles();
+	      this._axiosGet();
+	      this._setItemStyles();
 	    }
 	  }, {
 	    key: 'updateCounterSocket',
@@ -28707,12 +28707,12 @@
 
 	      this.socket = (0, _socket2.default)('/');
 	      this.socket.on('update counter', function (data) {
-	        if (data.item === _this3.props.id) _this3.updatePlusClick(_this3.state.clicks);
+	        if (data.item === _this3.props.id) _this3._updatePlusClick(_this3.state.clicks);
 	      });
 	    }
 	  }, {
-	    key: 'setItemStyles',
-	    value: function setItemStyles() {
+	    key: '_setItemStyles',
+	    value: function _setItemStyles() {
 	      var items = document.getElementsByClassName(this.props.userId);
 	      for (var i = 0; i < items.length; i += 1) {
 	        items[i].style.color = this.props.color;
@@ -28720,12 +28720,12 @@
 	      }
 	    }
 	  }, {
-	    key: 'axiosGet',
-	    value: function axiosGet() {
+	    key: '_axiosGet',
+	    value: function _axiosGet() {
 	      var _this = this;
 	      _axios2.default.get('/items').then(function (res) {
 	        res.data.forEach(function (item) {
-	          if (item.itemId === _this.props.id) _this.updatePlusClick(item.clicks);
+	          if (item.itemId === _this.props.id) _this._updatePlusClick(item.clicks);
 	        });
 	      });
 	    }
@@ -28733,13 +28733,13 @@
 	    key: 'notifyServer',
 	    value: function notifyServer() {
 	      this.socket.emit('counter event', { item: this.props.id });
-	      this.updatePlusClick(this.state.clicks);
+	      this._updatePlusClick(this.state.clicks);
 	      var clicks = { itemId: this.props.id, clicks: this.state.clicks };
 	      _axios2.default.post('/items', clicks);
 	    }
 	  }, {
-	    key: 'updatePlusClick',
-	    value: function updatePlusClick(event) {
+	    key: '_updatePlusClick',
+	    value: function _updatePlusClick(event) {
 	      this.setState({
 	        clicks: event + 1
 	      });
@@ -28748,10 +28748,15 @@
 	    key: 'render',
 	    value: function render() {
 	      var image = _react2.default.createElement('img', { className: 'tickImage', src: '/images/tick.png', onClick: this.notifyServer.bind(this), alt: 'Tick', height: '20', width: '20' });
-
-	      // const searchQuery = this.props.text.split(" ").join("+")
-	      // const searchURL   = "http://stackoverflow.com/search?q=" + searchQuery
-	      // const searchLink  = <a href={ searchURL } target="_blank"><img src="/images/so-icon.png" alt="SOSearch" height="20" width="20"/></a>
+	      if (this.props.search === "yes") {
+	        var searchQuery = this.props.text.split(" ").join("+");
+	        var searchURL = "http://stackoverflow.com/search?q=" + searchQuery;
+	        var searchLink = _react2.default.createElement(
+	          'a',
+	          { href: searchURL, target: '_blank' },
+	          _react2.default.createElement('img', { src: '/images/so-icon.png', alt: 'SOSearch', height: '20', width: '20' })
+	        );
+	      }
 	      return _react2.default.createElement(
 	        'li',
 	        { className: "item " + this.props.userId },
@@ -28765,7 +28770,7 @@
 	          { className: 'itemImages' },
 	          image,
 	          this.state.clicks,
-	          '9'
+	          searchLink
 	        ) : _react2.default.createElement(
 	          'div',
 	          { className: 'itemImages' },
@@ -28773,19 +28778,6 @@
 	          this.state.clicks
 	        )
 	      );
-	      // } else {
-	      //   return (
-	      //     <li className={"item " + this.props.userId}>
-	      //       <div className="itemText">
-	      //         {this.props.text}
-	      //         </div>
-	      //       <div className="itemImages">
-	      //         {image}{this.state.clicks}
-	      //       </div>
-	      //     </li>
-	      //
-	      //   )
-
 	    }
 	  }]);
 
@@ -37570,9 +37562,6 @@
 	  }
 
 	  _createClass(Message, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
