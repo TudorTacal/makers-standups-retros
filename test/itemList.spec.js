@@ -10,4 +10,10 @@ describe("ItemList />", () => {
     const wrapper = shallow(<ItemList />);
     expect(wrapper.find('.list').exists()).to.equal(true);
   });
+
+  it("has 'id' and 'title'", () => {
+    const wrapper = mount(<ItemList id="123" title="Learnt" />);
+    expect(wrapper.props().id).to.equal("123");
+    expect(wrapper.props().title).to.equal("Learnt");
+  })
 });
