@@ -12,4 +12,10 @@ describe('<UserList/>', function() {
     expect(wrapper.find('#userList')).to.have.length(1);
   });
 
+  it('sets an array of users', () => {
+    const wrapper = shallow(<UserList />);
+    wrapper.setProps({userNames: {1: {name: "name", color: "blue", font: "arial"}} });
+    expect(wrapper.state("userNames")).to.eql([["1", "name"]])
+  });
+
 });
