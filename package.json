@@ -24,6 +24,7 @@
     "socket.io": "^1.7.2"
   },
   "dependencies": {
+    "json-loader": "^0.5.4",
     "axios": "^0.15.3",
     "mongoose": "^4.8.1",
     "babel": "^6.5.2",
