@@ -12,7 +12,7 @@ describe('<Button/>', function (){
     expect(wrapper.find('.homepageButton').exists()).to.equal(true);
   })
 
-  it("it takes 'route' and 'name' as props", function (){
+  it("it takes 'route' and 'name' as props", () => {
     const wrapper = mount(<Button route="standups" name="S" />);
     expect(wrapper.props().route).to.equal("standups");
     expect(wrapper.props().name).to.equal("S");
