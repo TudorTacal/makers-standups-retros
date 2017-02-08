@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Layout from './Layout';
 import Board from './Board';
 import UserInfo from './UserInfo';
+import Chat from './Chat';
 
 class StandupPage extends Component {
   render () {
@@ -9,16 +10,21 @@ class StandupPage extends Component {
     let titles = ["Learnt", "To Learn", "Blocks"]
 
     return (
-      <div className="overallContainer">
-      <Layout />
-      <div className="boardContainer">
-        <div className="board">
-          <Board titles={ titles } type="standup" />
+      <div>
+        <div className="standupPageContent">
+          <div className="logo">
+            <Layout />
+          </div>
+          <div className="standupBoard">
+            <Board titles={ titles } />
+          </div>
+          <div>
+            <Chat/>
+          </div>
         </div>
         <div className="userInfo">
           <UserInfo />
         </div>
-      </div>
       </div>
     )
   }
