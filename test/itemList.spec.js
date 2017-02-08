@@ -16,4 +16,9 @@ describe("ItemList />", () => {
     expect(wrapper.props().id).to.equal("123");
     expect(wrapper.props().title).to.equal("Learnt");
   })
+
+  it("starts with no data saved in state", () => {
+    const wrapper = shallow(<ItemList />)
+    expect(wrapper.state('data').length).to.equal(0);
+  })
 });
