@@ -30,7 +30,9 @@ class Chat extends Component {
 		let userSocket = this.state.user = document.getElementById("name-input").getAttribute("user");
 		console.log(userSocket);
     	this.state.user = document.getElementById(userSocket).innerHTML;
-		this.socket.emit("new chat", {text: this.refs.message.value, boardId: this.state.boardId, userName: this.state.user});
+			let chat = this.refs.message.value
+			this.refs.message.value = "";
+		this.socket.emit("new chat", {text: chat, boardId: this.state.boardId, userName: this.state.user});
 	}
 
 	updateChat(text, userName){

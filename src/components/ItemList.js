@@ -50,7 +50,6 @@ class ItemList extends Component {
 				itemFont =  names[i].style.fontFamily;
 			}
 		}
-		this.setItemStyles();
 		let comment = this.refs.comment.value;
 		let item = {text: comment, listId: this.props.id, userId: this.state.user, userFont: itemFont, userColor: itemColor}
 		axios.post('/items', item)
