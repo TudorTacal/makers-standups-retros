@@ -141,8 +141,13 @@ io.on('connection', function(socket){
   });
 
   socket.on('new user', function(data) {
-    console.log(data);
+
     io.to(data.room).emit('update users', {userNames: data.userNames })
+  });
+
+  socket.on('new chat', function(data) {
+    console.log(data);
+    io.emit('update chat', data)
   });
 });
 
