@@ -52,7 +52,7 @@ class Chat extends Component {
 				<ul className="messageList">
 					{ messages }
 				</ul>
-				<div>
+				<div className="chatForm">
 					<form onSubmit={this.notifyServer}>
 					<input type="text" maxLength="140" ref="message" required={true}/>
 					<input type="submit" className="submitButton" value="+" />
