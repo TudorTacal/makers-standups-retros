@@ -16,19 +16,15 @@ describe('<Chat/>', function() {
     expect(wrapper.find('ul.messageList')).to.have.length(1);
   });
 
-  it('should render a message list', () =>{
-    const wrapper = mount(<Chat/>);
-    expect(wrapper.find('ul.messageList')).to.have.length(1);
+  it('should start with empty messages', () => {
+    const wrapper = shallow(<Chat/>);
+    expect(wrapper.state('messages')).to.eql([]);
   });
 
-  it('add a message', () =>{
-
-    const onSubmit = sinon.spy();
-    const wrapper = mount(<Chat />);
-    const spy = sinon.spy(Chat.prototype, "notifyServer");
-    expect(spy).to.not.have.been.called;
-    wrapper.find('[type="submit"]').get(0).click();
-    expect(spy).to.have.been.called();
+  it('adds a message to messages', () => {
+    const wrapper = shallow(<Chat/>);
+    wrapper.instance().updateChat('hello', 'Kim');
+    expect(wrapper.state('messages')).to.eql([{text: 'hello', userName: 'Kim'}])
   });
 
 });
