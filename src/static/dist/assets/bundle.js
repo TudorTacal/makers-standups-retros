@@ -37463,6 +37463,7 @@
 			_this.state = { messages: [], user: "string", boardId: "string" };
 			_this.notifyServer = _this.notifyServer.bind(_this);
 			_this.updateChat = _this.updateChat.bind(_this);
+			// this.updateScroll = this.updateScroll.bind(this);
 			return _this;
 		}
 
@@ -37499,7 +37500,16 @@
 				this.setState({
 					messages: this.state.messages.concat({ text: text, userName: userName })
 				});
+				var objDiv = document.getElementById("messages");
+				objDiv.scrollTop = objDiv.scrollHeight;
 			}
+
+			// updateScroll() {
+			// 	var objDiv = document.getElementById("messages");
+			// 	objDiv.scrollTop = objDiv.scrollHeight;
+			// 	console.log('does this get called??');
+			// }
+
 		}, {
 			key: 'render',
 			value: function render() {
@@ -37511,7 +37521,7 @@
 					null,
 					_react2.default.createElement(
 						'ul',
-						{ className: 'messageList' },
+						{ id: 'messages', className: 'messageList' },
 						messages
 					),
 					_react2.default.createElement(

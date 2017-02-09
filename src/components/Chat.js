@@ -39,8 +39,9 @@ class Chat extends Component {
 		this.setState({
 			messages: this.state.messages.concat({text: text, userName: userName})
 		});
+		var objDiv = document.getElementById("messages");
+		objDiv.scrollTop = objDiv.scrollHeight;
 	}
-
 
 	render() {
       let messages = this.state.messages.map((item, index) => {
@@ -51,7 +52,7 @@ class Chat extends Component {
       })
 		return (
 			<div>
-				<ul className="messageList">
+				<ul id="messages" className="messageList">
 					{ messages }
 				</ul>
 				<div className="chatForm">
