@@ -28574,7 +28574,6 @@
 				event.preventDefault();
 				this.state.user = document.getElementById("name-input").getAttribute("user");
 				var names = document.getElementById("userList").children;
-				console.log(names);
 				var itemColor = "";
 				var itemFont = "";
 				for (var i = 0; i < names.length; i += 1) {
@@ -28590,6 +28589,8 @@
 				if (comment.trim() === '') return;
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment, userId: this.state.user, userFont: itemFont, userColor: itemColor });
 				this.refs.comment.value = "";
+				var objDiv = document.getElementsByClassName("column-" + this.props.title)[0];
+				objDiv.scrollTop = objDiv.scrollHeight;
 			}
 		}, {
 			key: 'updateList',
@@ -28623,7 +28624,7 @@
 					null,
 					_react2.default.createElement(
 						'ul',
-						{ className: 'list' },
+						{ className: "list " + "column-" + this.props.title },
 						items
 					),
 					_react2.default.createElement(
@@ -37373,6 +37374,8 @@
 	          userNames: names
 	        });
 	      }
+	      var objDiv = document.getElementsByClassName("userListContainer")[0];
+	      objDiv.scrollTop = objDiv.scrollHeight;
 	    }
 	  }, {
 	    key: 'render',
@@ -37463,7 +37466,6 @@
 			_this.state = { messages: [], user: "string", boardId: "string" };
 			_this.notifyServer = _this.notifyServer.bind(_this);
 			_this.updateChat = _this.updateChat.bind(_this);
-			// this.updateScroll = this.updateScroll.bind(this);
 			return _this;
 		}
 
@@ -37500,16 +37502,9 @@
 				this.setState({
 					messages: this.state.messages.concat({ text: text, userName: userName })
 				});
-				var objDiv = document.getElementById("messages");
+				var objDiv = document.getElementsByClassName("messageList")[0];
 				objDiv.scrollTop = objDiv.scrollHeight;
 			}
-
-			// updateScroll() {
-			// 	var objDiv = document.getElementById("messages");
-			// 	objDiv.scrollTop = objDiv.scrollHeight;
-			// 	console.log('does this get called??');
-			// }
-
 		}, {
 			key: 'render',
 			value: function render() {

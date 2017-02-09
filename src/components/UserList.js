@@ -18,6 +18,8 @@ class UserList extends Component {
         userNames: names
       })
     }
+		var objDiv = document.getElementsByClassName("userListContainer")[0];
+		objDiv.scrollTop = objDiv.scrollHeight;
   }
 
 	render() {

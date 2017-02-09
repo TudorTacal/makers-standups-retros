@@ -39,7 +39,7 @@ class Chat extends Component {
 		this.setState({
 			messages: this.state.messages.concat({text: text, userName: userName})
 		});
-		var objDiv = document.getElementById("messages");
+		var objDiv = document.getElementsByClassName("messageList")[0];
 		objDiv.scrollTop = objDiv.scrollHeight;
 	}
 
