@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import Message from './Message.js'
+import updateScroll from '../helpers/updateScroll';
 
 
 class Chat extends Component {
@@ -39,8 +40,8 @@ class Chat extends Component {
 		this.setState({
 			messages: this.state.messages.concat({text: text, userName: userName})
 		});
+		updateScroll("messageList");
 	}
-
 
 	render() {
       let messages = this.state.messages.map((item, index) => {
@@ -51,7 +52,7 @@ class Chat extends Component {
       })
 		return (
 			<div>
-				<ul className="messageList">
+				<ul id="messages" className="messageList">
 					{ messages }
 				</ul>
 				<div className="chatForm">

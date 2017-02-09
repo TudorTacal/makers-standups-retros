@@ -34,7 +34,6 @@ class UserInfo extends Component {
                            this.state.randomFonts[Math.floor(Math.random()*this.state.randomFonts.length)]);
     document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id]['name'];
     document.getElementById("name-input").setAttribute("user", this.socket.id);
-    console.log(document.getElementById("name-input"));
     this.setState({
       userNames: this.state.userNames
     })

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
-import axios from 'axios'
+import axios from 'axios';
+import updateScroll from '../helpers/updateScroll';
 
 class ItemList extends Component {
 
@@ -41,7 +42,6 @@ class ItemList extends Component {
 		event.preventDefault();
 		this.state.user = document.getElementById("name-input").getAttribute("user");
 		let names = document.getElementById("userList").children
-		console.log(names);
 		let itemColor = "";
 		let itemFont = "";
 		for(let i = 0; i < names.length; i += 1){
@@ -57,6 +57,7 @@ class ItemList extends Component {
 		if (comment.trim() === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment, userId: this.state.user, userFont: itemFont, userColor: itemColor});
 		this.refs.comment.value = "";
+		updateScroll("column-" + this.props.title)
 	}
 
 	updateList(text, userId, userFont, userColor ){
@@ -83,7 +84,7 @@ class ItemList extends Component {
 		})
 		return (
 			<div>
-				<ul className="list">
+				<ul className={"list " + "column-" + this.props.title}>
 					{ items }
 				</ul>
 				<div>
