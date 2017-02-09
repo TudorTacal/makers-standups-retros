@@ -212,15 +212,6 @@ input {
 
 /*Media Queries*/
 @media only screen and (max-width:600px){
-	.homepageButtons {
-		width: 300px;
-		margin: 0;
-	}
-
-	a.homePageButton {
-		width: 300px;
-		font-size: 100pt;
-	}
 
 	.boardContainer {
 		flex-direction: column;
