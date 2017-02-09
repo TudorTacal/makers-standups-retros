@@ -10,7 +10,7 @@ import socketIo from 'socket.io';
 import mongoose from 'mongoose'
 import MongoItem from './models/mongoItem'
 
-var url = "mongodb://localhost:/standups"
+var url = process.env.MONGOLAB_URI
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
