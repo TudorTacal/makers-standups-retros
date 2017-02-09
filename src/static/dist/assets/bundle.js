@@ -26631,8 +26631,8 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'homePageButtons' },
-						_react2.default.createElement(_Button2.default, { route: 'standups', name: 'S' }),
-						_react2.default.createElement(_Button2.default, { route: 'retros', name: 'R' })
+						_react2.default.createElement(_Button2.default, { title: 'standupButton', route: 'standups', name: 'S' }),
+						_react2.default.createElement(_Button2.default, { title: 'retroButton', route: 'retros', name: 'R' })
 					)
 				);
 			}
@@ -26752,7 +26752,7 @@
 			value: function render() {
 				return _react2.default.createElement(
 					'a',
-					{ onClick: this.handleClick, href: this.props.route, className: 'homepageButton' },
+					{ id: this.props.title, onClick: this.handleClick, href: this.props.route, className: 'homepageButton' },
 					this.props.name
 				);
 			}
