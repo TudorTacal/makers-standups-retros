@@ -28331,7 +28331,7 @@
 	          { className: 'boardContainer' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'board' },
+	            { className: 'board standup-board' },
 	            _react2.default.createElement(_Board2.default, { titles: titles, type: 'standup' })
 	          ),
 	          _react2.default.createElement(
@@ -37819,7 +37819,7 @@
 	          { className: 'boardContainer' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'board' },
+	            { className: 'board retro-board' },
 	            _react2.default.createElement(_Board2.default, { titles: titles, type: 'retro' })
 	          ),
 	          _react2.default.createElement(

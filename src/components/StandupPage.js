@@ -14,7 +14,7 @@ class StandupPage extends Component {
       <div className="overallContainer">
         <Layout />
         <div className="boardContainer">
-          <div className="board">
+          <div className="board standup-board">
             <Board titles={ titles } type="standup" />
           </div>
           <div className="sideBar">

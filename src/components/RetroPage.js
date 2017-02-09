@@ -13,7 +13,7 @@ class RetroPage extends Component {
       <div className="overallContainer">
         <Layout />
         <div className="boardContainer">
-          <div className="board">
+          <div className="board retro-board">
             <Board titles={ titles } type="retro" />
           </div>
           <div className="sideBar">
