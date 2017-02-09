@@ -15,7 +15,7 @@ class Button extends Component {
 	};
 
 	render() {
-		return 	<a onClick={this.handleClick} href={ this.props.route } className="homepageButton">{ this.props.name }</a>
+		return 	<a id={this.props.title} onClick={this.handleClick} href={ this.props.route } className="homepageButton">{ this.props.name }</a>
 	}
 }
 
