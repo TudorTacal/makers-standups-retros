@@ -26552,7 +26552,7 @@
 
 	var _StandupPage2 = _interopRequireDefault(_StandupPage);
 
-	var _RetroPage = __webpack_require__(325);
+	var _RetroPage = __webpack_require__(326);
 
 	var _RetroPage2 = _interopRequireDefault(_RetroPage);
 
@@ -28291,11 +28291,11 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _UserInfo = __webpack_require__(320);
+	var _UserInfo = __webpack_require__(321);
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
-	var _Chat = __webpack_require__(323);
+	var _Chat = __webpack_require__(324);
 
 	var _Chat2 = _interopRequireDefault(_Chat);
 
@@ -28516,6 +28516,10 @@
 
 	var _axios2 = _interopRequireDefault(_axios);
 
+	var _updateScroll = __webpack_require__(320);
+
+	var _updateScroll2 = _interopRequireDefault(_updateScroll);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28589,8 +28593,7 @@
 				if (comment.trim() === '') return;
 				this.socket.emit('comment event', { itemList: this.props.id, text: comment, userId: this.state.user, userFont: itemFont, userColor: itemColor });
 				this.refs.comment.value = "";
-				var objDiv = document.getElementsByClassName("column-" + this.props.title)[0];
-				objDiv.scrollTop = objDiv.scrollHeight;
+				(0, _updateScroll2.default)("column-" + this.props.title);
 			}
 		}, {
 			key: 'updateList',
@@ -37157,6 +37160,24 @@
 
 /***/ },
 /* 320 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var updateScroll = function updateScroll(elementClass) {
+	  console.log(elementClass);
+	  var objDiv = document.getElementsByClassName(elementClass)[0];
+	  objDiv.scrollTop = objDiv.scrollHeight;
+	  console.log('this gets called');
+	};
+
+	exports.default = updateScroll;
+
+/***/ },
+/* 321 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37175,11 +37196,11 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-	var _UserList = __webpack_require__(321);
+	var _UserList = __webpack_require__(322);
 
 	var _UserList2 = _interopRequireDefault(_UserList);
 
-	var _selectRandomElement = __webpack_require__(322);
+	var _selectRandomElement = __webpack_require__(323);
 
 	var _selectRandomElement2 = _interopRequireDefault(_selectRandomElement);
 
@@ -37228,7 +37249,6 @@
 	        _this2.setUserProperties(_this2.socket.id, _this2.state.randomNames[Math.floor(Math.random() * _this2.state.randomNames.length)], _this2.state.randomColors[Math.floor(Math.random() * _this2.state.randomColors.length)], _this2.state.randomFonts[Math.floor(Math.random() * _this2.state.randomFonts.length)]);
 	        document.getElementById("name-input").placeholder = _this2.state.userNames[_this2.socket.id]['name'];
 	        document.getElementById("name-input").setAttribute("user", _this2.socket.id);
-	        console.log(document.getElementById("name-input"));
 	        _this2.setState({
 	          userNames: _this2.state.userNames
 	        });
@@ -37323,7 +37343,7 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37341,6 +37361,10 @@
 	var _socket = __webpack_require__(268);
 
 	var _socket2 = _interopRequireDefault(_socket);
+
+	var _updateScroll = __webpack_require__(320);
+
+	var _updateScroll2 = _interopRequireDefault(_updateScroll);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37374,8 +37398,7 @@
 	          userNames: names
 	        });
 	      }
-	      var objDiv = document.getElementsByClassName("userListContainer")[0];
-	      objDiv.scrollTop = objDiv.scrollHeight;
+	      (0, _updateScroll2.default)("userListContainer");
 	    }
 	  }, {
 	    key: 'render',
@@ -37409,7 +37432,7 @@
 	exports.default = UserList;
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -37424,7 +37447,7 @@
 	exports.default = selectRandomElement;
 
 /***/ },
-/* 323 */
+/* 324 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37443,9 +37466,13 @@
 
 	var _socket2 = _interopRequireDefault(_socket);
 
-	var _Message = __webpack_require__(324);
+	var _Message = __webpack_require__(325);
 
 	var _Message2 = _interopRequireDefault(_Message);
+
+	var _updateScroll = __webpack_require__(320);
+
+	var _updateScroll2 = _interopRequireDefault(_updateScroll);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37502,8 +37529,7 @@
 				this.setState({
 					messages: this.state.messages.concat({ text: text, userName: userName })
 				});
-				var objDiv = document.getElementsByClassName("messageList")[0];
-				objDiv.scrollTop = objDiv.scrollHeight;
+				(0, _updateScroll2.default)("messageList");
 			}
 		}, {
 			key: 'render',
@@ -37539,7 +37565,7 @@
 	exports.default = Chat;
 
 /***/ },
-/* 324 */
+/* 325 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37592,7 +37618,7 @@
 	exports.default = Message;
 
 /***/ },
-/* 325 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37615,11 +37641,11 @@
 
 	var _Board2 = _interopRequireDefault(_Board);
 
-	var _UserInfo = __webpack_require__(320);
+	var _UserInfo = __webpack_require__(321);
 
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 
-	var _Chat = __webpack_require__(323);
+	var _Chat = __webpack_require__(324);
 
 	var _Chat2 = _interopRequireDefault(_Chat);
 

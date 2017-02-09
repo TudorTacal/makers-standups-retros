@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import Message from './Message.js'
+import updateScroll from '../helpers/updateScroll';
 
 
 class Chat extends Component {
@@ -39,8 +40,7 @@ class Chat extends Component {
 		this.setState({
 			messages: this.state.messages.concat({text: text, userName: userName})
 		});
-		var objDiv = document.getElementsByClassName("messageList")[0];
-		objDiv.scrollTop = objDiv.scrollHeight;
+		updateScroll("messageList");
 	}
 
 	render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import io  from 'socket.io-client';
+import updateScroll from '../helpers/updateScroll';
 
 class UserList extends Component {
 	constructor(props) {
@@ -18,8 +18,7 @@ class UserList extends Component {
         userNames: names
       })
     }
-		var objDiv = document.getElementsByClassName("userListContainer")[0];
-		objDiv.scrollTop = objDiv.scrollHeight;
+		updateScroll("userListContainer");
   }
 
 	render() {

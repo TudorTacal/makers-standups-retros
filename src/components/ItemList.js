@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Item from './Item';
 import io  from 'socket.io-client';
-import axios from 'axios'
+import axios from 'axios';
+import updateScroll from '../helpers/updateScroll';
 
 class ItemList extends Component {
 
@@ -56,8 +57,7 @@ class ItemList extends Component {
 		if (comment.trim() === '') return;
 		this.socket.emit('comment event', {itemList: this.props.id, text: comment, userId: this.state.user, userFont: itemFont, userColor: itemColor});
 		this.refs.comment.value = "";
-		var objDiv = document.getElementsByClassName("column-" + this.props.title)[0];
-		objDiv.scrollTop = objDiv.scrollHeight;
+		updateScroll("column-" + this.props.title)
 	}
 
 	updateList(text, userId, userFont, userColor ){
