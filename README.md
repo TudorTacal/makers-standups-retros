@@ -23,7 +23,7 @@ Clone this repository to your local machine. Go to the project folder and run np
 
 ## Usage
 
-Once all the dependencies has been installed, run webpack to bundle compile all the javascript included in the project. Now you are ready to start the application by running npm start. If you visit http://localhost:3000/ the app should be up and running and you can start a standup or retro session.
+Once all the dependencies has been installed, run webpack to compile all the javascript included in the project. Now you are ready to start the application by running npm start. If you visit http://localhost:3000/ the app should be up and running and you can start a standup or retro session.
 
 ## Technologies involved
 
