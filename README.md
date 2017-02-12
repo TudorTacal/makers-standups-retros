@@ -27,12 +27,12 @@ Once all the dependencies has been installed, run webpack to bundle compile all 
 
 ## Technologies involved
 
-*MongoDB
-*Express
-*React
-*Node.js
-*Wesockets
-*CSS
-*HTML
-*Babel
-*Webpack
+* MongoDB
+* Express
+* React
+* Node.js
+* Wesockets
+* CSS
+* HTML
+* Babel
+* Webpack
