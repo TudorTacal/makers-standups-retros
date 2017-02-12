@@ -14,7 +14,7 @@ The user experience was an important issue for the team so we built the webpage 
 
 We had a lot of fun working on this project and the team was challenged technically since none of the technologies had been taught at Makers Academy. We have used the latest ES6 javascript syntax which created some hurdles for the team. Applying Agile work processes the team was able to overcome these challenges. The project is a testament to the skills we have picked up at Makers Academy and shows how quick we have been able to pick of new technologies.
 
-The project can be found at http://www.standupsandretros.herokuapp.com.
+The project can be found at https://standupsandretros.herokuapp.com/.
 
 ## Installation
 
