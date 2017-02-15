@@ -12,7 +12,7 @@ import MongoItem from './models/mongoItem'
 
 
 
-var url = "mongodb://localhost:/standups"
+var url = process.env.MONGOLAB_URI
 
 mongoose.connect(url);
 var db = mongoose.connection;
