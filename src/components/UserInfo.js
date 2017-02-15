@@ -11,8 +11,10 @@ class UserInfo extends Component {
                   userNames: {},
 
                   randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a"],
-                  randomNames: ["Dines", "Amanda", "Kim", "Tudor", "Roi"],
-                  randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive",
+                  randomNames:  ["White bellied go away bird", "Mountain Chicken", "Tasseled Wobbegong", "Aploparaksis turdi",
+                                "Agra cadabra", "Ytu brutus", "Sarcastic fringehead", "Fried egg jellyfish", "Spiny Lumpsucker",
+                                "Pleasing fungus beetle", "Pink fairy armadillo", "Blobfish", "Screaming Hairy Armadillo", "Sparklemuffin"],
+                  randomFonts:  ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive",
                                 "'Short Stack', cursive", "'Pangolin', cursive", "'Crafty Girls', cursive"]};
 
 		this.updateUserCount = this.updateUserCount.bind(this);
