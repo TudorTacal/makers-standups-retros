@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import io  from 'socket.io-client';
+import updateScroll from '../helpers/updateScroll';
 
 class UserList extends Component {
 	constructor(props) {
@@ -12,12 +12,13 @@ class UserList extends Component {
     if(nextProps.userNames !== undefined){
       let names = new Array();
       for (let key in nextProps.userNames) {
-        names.push(nextProps.userNames[key]);
+        names.push([key, nextProps.userNames[key]['name']]);
       }
       this.setState({
         userNames: names
       })
     }
+		updateScroll("userListContainer");
   }
 
 	render() {
@@ -25,12 +26,12 @@ class UserList extends Component {
     let i = 0;
     if(this.state.userNames.length !== 0){
       for(i = 0; i < this.state.userNames.length; i += 1){
-        userList.push(<li key={i}>{this.state.userNames[i]}</li>);
+        userList.push(<li id={this.state.userNames[i][0]} key={i}>{this.state.userNames[i][1]}</li>);
       }
     }
 		return (
-			<div>
-				<ul>
+			<div className="userListContainer">
+				<ul id="userList">
           {userList}
 				</ul>
 			</div>

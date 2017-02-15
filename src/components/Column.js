@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import ItemList from './ItemList';
 
 class Column extends Component {
+	constructor(props) {
+    	super(props)
+	}
 
 	render() {
 		return (
-			<div className="column">
+			<div className={"column-" + this.props.type}>
 				<h1>{ this.props.title }</h1>
-				<div className="column-content">
-					<ItemList id={this.props.id} title={this.props.title}/>
-				</div>
+				<ItemList id={this.props.id} title={this.props.title}/>
 			</div>
 		);
 	}

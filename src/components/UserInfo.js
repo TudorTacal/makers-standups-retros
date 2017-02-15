@@ -1,35 +1,63 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import UserList from './UserList';
+import selectRandomElement from '../helpers/selectRandomElement';
 
 class UserInfo extends Component {
   constructor(props) {
     super(props)
     this.state = { userCount: 1,
                   socketId: '',
-                  userNames: {}};
+                  userNames: {},
+
+                  randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a"],
+                  randomNames: ["Dines", "Amanda", "Kim", "Tudor", "Roi"],
+                  randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive",
+                                "'Short Stack', cursive", "'Pangolin', cursive", "'Crafty Girls', cursive"]};
+
 		this.updateUserCount = this.updateUserCount.bind(this);
 		this.updateUserNames = this.updateUserNames.bind(this);
 		this.updateName = this.updateName.bind(this);
+    this.setUserProperties = this.setUserProperties.bind(this);
+    this.setUserStyle = this.setUserStyle.bind(this);
+
   }
 
   componentDidMount () {
     let boardId = window.location.pathname.split('/')[2]
     this.socket = io('/');
     this.socket.on('connect', () => {
-    this.socket.emit('room', {boardId: boardId});
+
+    this.setUserProperties(this.socket.id,
+                           this.state.randomNames[Math.floor(Math.random()*this.state.randomNames.length)],
+                           this.state.randomColors[Math.floor(Math.random()*this.state.randomColors.length)],
+                           this.state.randomFonts[Math.floor(Math.random()*this.state.randomFonts.length)]);
+    document.getElementById("name-input").placeholder = this.state.userNames[this.socket.id]['name'];
+    document.getElementById("name-input").setAttribute("user", this.socket.id);
+    this.setState({
+      userNames: this.state.userNames
+    })
+    this.setUserStyle(this.state.userNames)
+
+    this.socket.emit('room', {boardId: boardId,
+                              name: this.state.userNames[this.socket.id]['name'],
+                              socketId: this.socket.id,
+                              color: this.state.userNames[this.socket.id]['color'],
+                              font: this.state.userNames[this.socket.id]['font']});
     });
-    this.socket.on('enter', (data) => {
-      this.updateUserCount(data.users);
+    this.socket.on('entered', (data) => {
+      this.setUserProperties(data.socketId, data.name, data.color, data.font)
       this.updateUserNames();
+      this.updateUserCount(data.users);
     });
+
     this.socket.on('leave', (data) => {
       this.updateUserCount(data.users);
       delete this.state.userNames[data.socket];
-      this.updateUserNames();
+      this.socket.emit("new user", {room: boardId, userNames: this.state.userNames});
     });
     this.socket.on('update names', (data) => {
-      this.state.userNames[data.socket] = data.name;
+      this.state.userNames[data.socket]['name'] = data.name;
       this.setState({
         userNames: this.state.userNames
       });
@@ -39,6 +67,7 @@ class UserInfo extends Component {
         this.setState({
           userNames: data.userNames
         })
+        this.setUserStyle(this.state.userNames)
     });
   }
 
@@ -50,7 +79,7 @@ class UserInfo extends Component {
 
   updateUserNames(){
     let boardId = window.location.pathname.split('/')[2];
-    if(Object.keys(this.state.userNames).length !== 0) {
+    if(Object.keys(this.state.userNames).length > 1) {
       this.socket.emit("new user", {room: boardId, userNames: this.state.userNames})
     }
   }
@@ -63,13 +92,25 @@ class UserInfo extends Component {
     this.socket.emit("name", {room: boardId, name: this.refs.name.value})
   }
 
+
+  setUserProperties(socketId, name, color, font) {
+    this.state.userNames[socketId] = {name: name, color: color, font: font };
+  }
+
+  setUserStyle(userNames) {
+    for (let socket in userNames) {
+      document.getElementById(socket).style.color = userNames[socket]['color'];
+      document.getElementById(socket).style.fontFamily = userNames[socket]['font'];
+    }
+
+  }
+
   render() {
 
     return (
-      <div>
-        <p>{this.state.userCount} users connected.</p>
+      <div className="userInfoContainer">
+        <input id="name-input" type="text" ref="name" onChange={this.updateName}/>
         <UserList userNames={this.state.userNames}/>
-        <input type="text" ref="name" onChange={this.updateName}/>
       </div>
     )
   }

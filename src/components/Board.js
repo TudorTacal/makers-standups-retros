@@ -14,11 +14,11 @@ class Board extends Component {
       id: boardId
     });
   }
-  
+
   render(){
     let columns = this.props.titles.map((text, index) => {
     	return (
-    		<Column title={text} key={index} id={this.state.id + String(index)} />
+    		<Column title={text} key={index} id={this.state.id + String(index)} type={this.props.type} />
     	)
     })
 
