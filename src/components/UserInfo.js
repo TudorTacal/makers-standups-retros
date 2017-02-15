@@ -10,10 +10,10 @@ class UserInfo extends Component {
                   socketId: '',
                   userNames: {},
 
-                  randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a"],
-                  randomNames:  ["White bellied go away bird", "Mountain Chicken", "Tasseled Wobbegong", "Aploparaksis turdi",
-                                "Agra cadabra", "Ytu brutus", "Sarcastic fringehead", "Fried egg jellyfish", "Spiny Lumpsucker",
-                                "Pleasing fungus beetle", "Pink fairy armadillo", "Blobfish", "Screaming Hairy Armadillo", "Sparklemuffin"],
+                  randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a", "#05078c", "#ff003f", "#581f42", "#347e81", "#322551"],
+                  randomNames:  ["White Bellied Go Away Bird", "Mountain Chicken", "Tasseled Wobbegong", "Aploparaksis Turdi",
+                                "Agra Cadabra", "Ytu Brutus", "Sarcastic Fringehead", "Fried Rgg Jellyfish", "Spiny Lumpsucker",
+                                "Pleasing Fungus Beetle", "Pink Fairy Armadillo", "Blobfish", "Screaming Hairy Armadillo", "Sparklemuffin"],
                   randomFonts:  ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive",
                                 "'Short Stack', cursive", "'Pangolin', cursive", "'Crafty Girls', cursive"]};
 
