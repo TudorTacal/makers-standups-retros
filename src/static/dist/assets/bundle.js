@@ -37162,16 +37162,14 @@
 /* 320 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	var updateScroll = function updateScroll(elementClass) {
-	  console.log(elementClass);
 	  var objDiv = document.getElementsByClassName(elementClass)[0];
 	  objDiv.scrollTop = objDiv.scrollHeight;
-	  console.log('this gets called');
 	};
 
 	exports.default = updateScroll;
@@ -37224,8 +37222,8 @@
 	      socketId: '',
 	      userNames: {},
 
-	      randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a"],
-	      randomNames: ["Dines", "Amanda", "Kim", "Tudor", "Roi"],
+	      randomColors: ["#b300b3", "#6600ff", "#00cc99", "#ff9900", "#ff0000", "#00001a", "#05078c", "#ff003f", "#581f42", "#347e81", "#322551"],
+	      randomNames: ["White Bellied Go Away Bird", "Mountain Chicken", "Tasseled Wobbegong", "Aploparaksis Turdi", "Agra Cadabra", "Ytu Brutus", "Sarcastic Fringehead", "Fried Rgg Jellyfish", "Spiny Lumpsucker", "Pleasing Fungus Beetle", "Pink Fairy Armadillo", "Blobfish", "Screaming Hairy Armadillo", "Sparklemuffin"],
 	      randomFonts: ["'Gloria Hallelujah', cursive", "'Coming Soon', cursive", "'Delius', cursive", "'Short Stack', cursive", "'Pangolin', cursive", "'Crafty Girls', cursive"] };
 
 	    _this.updateUserCount = _this.updateUserCount.bind(_this);
