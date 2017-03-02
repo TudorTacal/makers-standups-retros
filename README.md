@@ -37,8 +37,8 @@ The project is a testament to the skills we have picked up at Makers Academy and
 
 ## Screenshots
 
-![Home Page]("./SR_assets/standups_home_page.png")
-![Live Standup]("./SR_assets/standup.png)
+![Home Page](https://s2.postimg.org/yo4gnec49/standups_home_page.png)
+![Live Standup](https://s11.postimg.org/4mn86jhnn/standup.png)
 
 ## Installation and use
 
